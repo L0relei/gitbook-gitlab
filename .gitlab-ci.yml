@@ -1,3 +1,6 @@
+stages:
+  - build
+
 # requiring the environment of NodeJS 10
 image: goffinet/gitbook:gitlab
 
@@ -8,8 +11,7 @@ before_script:
 pdf:
   stage: build
   script:
-    - export ${CI_PROJECT_NAME}
-    - gitbook build . pdf ${CI_PROJECT_NAME}.pdf # pdf build
+    - gitbook pdf . ${CI_PROJECT_NAME}.pdf # pdf build
   artifacts:
     paths:
       - ${CI_PROJECT_NAME}.pdf
@@ -20,8 +22,7 @@ pdf:
 epub:
   stage: build
   script:
-    - export ${CI_PROJECT_NAME}
-    - gitbook build . epub ${CI_PROJECT_NAME}.epub # epub build
+    - gitbook epub . ${CI_PROJECT_NAME}.epub # epub build
   artifacts:
     paths:
       - ${CI_PROJECT_NAME}.epub
