@@ -1,16 +1,6 @@
 # requiring the environment of NodeJS 10
 image: goffinet/gitbook:gitlab
 
-# add 'node_modules' to cache for speeding up builds
-cache:
-  paths:
-    - node_modules/ # Node modules and dependencies
-
-before_script:
-  - npm install gitbook-cli -g # install gitbook
-  - gitbook fetch 3.2.3 # fetch final stable version
-  - gitbook install # add any requested plugins in book.json
-  
 # the 'pdf' job will build your document in pdf format
 pdf:
   stage: build
