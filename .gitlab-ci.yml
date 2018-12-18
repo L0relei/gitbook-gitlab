@@ -1,0 +1,35 @@
+# requiring the environment of NodeJS 10
+image: goffinet/gitbook:gitlab
+
+# add 'node_modules' to cache for speeding up builds
+cache:
+  paths:
+    - node_modules/ # Node modules and dependencies
+
+before_script:
+  - npm install gitbook-cli -g # install gitbook
+  - gitbook fetch 3.2.3 # fetch final stable version
+  - gitbook install # add any requested plugins in book.json
+  
+# the 'pdf' job will build your document in pdf format
+pdf:
+  stage: build
+  script:
+    - gitbook build . pdf . $CI_ENVIRONMENT_SLUG.pdf # pdf build
+  artifacts:
+    paths:
+      - $CI_ENVIRONMENT_SLUG.pdf
+    expire_in: 1 day
+  only:
+    - master # this job will affect only the 'master' branch the 'pdf' job will build your document in pdf format
+# the 'epub' job will build your document in epub format
+epub:
+  stage: build
+  script:
+    - gitbook build . epub . $CI_ENVIRONMENT_SLUG.epub # epub build
+  artifacts:
+    paths:
+      - $CI_ENVIRONMENT_SLUG.epub
+    expire_in: 1 day
+  only:
+    - master # this job will affect only the 'master' branch
