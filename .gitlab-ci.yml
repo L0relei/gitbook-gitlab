@@ -8,6 +8,7 @@ before_script:
 pdf:
   stage: build
   script:
+    - export ${CI_PROJECT_NAME}
     - gitbook build . pdf ${CI_PROJECT_NAME}.pdf # pdf build
   artifacts:
     paths:
@@ -19,6 +20,7 @@ pdf:
 epub:
   stage: build
   script:
+    - export ${CI_PROJECT_NAME}
     - gitbook build . epub ${CI_PROJECT_NAME}.epub # epub build
   artifacts:
     paths:
