@@ -1,6 +1,8 @@
 # requiring the environment of NodeJS 10
 image: goffinet/gitbook:gitlab
 
+variables:
+  CI_PROJECT_NAME: $CI_PROJECT_NAME
 before_script:
   - gitbook install # add any requested plugins in book.json
 
