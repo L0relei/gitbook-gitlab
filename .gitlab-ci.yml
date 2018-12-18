@@ -8,10 +8,10 @@ before_script:
 pdf:
   stage: build
   script:
-    - gitbook build . pdf . $CI_ENVIRONMENT_SLUG.pdf # pdf build
+    - gitbook build . pdf . $CI_PROJECT_NAME.pdf # pdf build
   artifacts:
     paths:
-      - $CI_ENVIRONMENT_SLUG.pdf
+      - $CI_PROJECT_NAME.pdf
     expire_in: 1 day
   only:
     - master # this job will affect only the 'master' branch the 'pdf' job will build your document in pdf format
@@ -19,10 +19,10 @@ pdf:
 epub:
   stage: build
   script:
-    - gitbook build . epub . $CI_ENVIRONMENT_SLUG.epub # epub build
+    - gitbook build . epub . $CI_PROJECT_NAME.epub # epub build
   artifacts:
     paths:
-      - $CI_ENVIRONMENT_SLUG.epub
+      - $CI_PROJECT_NAME.epub
     expire_in: 1 day
   only:
     - master # this job will affect only the 'master' branch
