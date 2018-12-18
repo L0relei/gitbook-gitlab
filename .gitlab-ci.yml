@@ -6,7 +6,7 @@ stages:
 image: goffinet/gitbook:gitlab
 
 before_script:
-  - echo "node version: $(node -v)"
+  - 'echo "node version: $(node -v)"'
 
 install:
   stage: prepare
