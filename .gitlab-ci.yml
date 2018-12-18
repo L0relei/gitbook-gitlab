@@ -1,6 +1,9 @@
 # requiring the environment of NodeJS 10
 image: goffinet/gitbook:gitlab
 
+before_script:
+  - gitbook install # add any requested plugins in book.json
+
 # the 'pdf' job will build your document in pdf format
 pdf:
   stage: build
