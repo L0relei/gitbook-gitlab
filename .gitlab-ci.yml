@@ -6,7 +6,7 @@ stages:
 
 variables:
   AWS_DEFAULT_REGION: eu-west-3 # The region of our S3 bucket
-  BUCKET_NAME: goffinet.pub         # Your bucket name
+  BUCKET_NAME: gitbook-gitab  # Your bucket name
 
 # the 'html' job will build your document in html format
 html:
