@@ -88,6 +88,6 @@ deploys3:
   before_script:
     - pip install awscli # Install the SDK
   script:
-    - aws s3 rb s3://${BUCKET_NAME} --force
+    - aws s3 rm s3://${BUCKET_NAME} --recursive
     - aws s3 cp _book s3://${BUCKET_NAME} --recursive
     - aws s3 cp ebooks s3://${BUCKET_NAME}/ebooks --recursive # Replace example-bucket with your bucket
