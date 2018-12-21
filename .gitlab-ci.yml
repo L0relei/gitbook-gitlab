@@ -18,7 +18,7 @@ html:
     - gitbook install # add any requested plugins in book.json
     - mkdir _book
   script:
-    - gitbook build . ./_book # html build
+    - gitbook build . _book # html build
   artifacts:
     paths:
       - _book
@@ -33,9 +33,9 @@ pdf:
     - 'echo "node version: $(node -v)"'
     - gitbook -V
     - gitbook install # add any requested plugins in book.json
-    - mkdir ebooks
+    - mkdir _book
   script:
-    - gitbook pdf . ./ebooks/${CI_PROJECT_NAME}.pdf # pdf build
+    - gitbook pdf . _book/${CI_PROJECT_NAME}.pdf # pdf build
   artifacts:
     paths:
       - ebooks/${CI_PROJECT_NAME}.pdf
@@ -50,9 +50,9 @@ epub:
     - 'echo "node version: $(node -v)"'
     - gitbook -V
     - gitbook install # add any requested plugins in book.json
-    - mkdir ebooks
+    - mkdir _book
   script:
-    - gitbook epub . ./ebooks/${CI_PROJECT_NAME}.epub # epub build
+    - gitbook epub . _book/${CI_PROJECT_NAME}.epub # epub build
   artifacts:
     paths:
       - ebooks/${CI_PROJECT_NAME}.epub
@@ -67,9 +67,9 @@ mobi:
     - 'echo "node version: $(node -v)"'
     - gitbook -V
     - gitbook install # add any requested plugins in book.json
-    - mkdir ebooks
+    - mkdir _book
   script:
-    - gitbook mobi . ./ebooks/${CI_PROJECT_NAME}.mobi # mobi build
+    - gitbook mobi . _book/${CI_PROJECT_NAME}.mobi # mobi build
   artifacts:
     paths:
       - ebooks/${CI_PROJECT_NAME}.mobi
@@ -90,4 +90,3 @@ deploys3:
   script:
     - aws s3 rm s3://${BUCKET_NAME} --recursive
     - aws s3 cp _book s3://${BUCKET_NAME} --recursive --exclude "gitbook/"
-    - aws s3 cp ebooks s3://${BUCKET_NAME}/ebooks --recursive # Replace example-bucket with your bucket

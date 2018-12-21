@@ -4,6 +4,6 @@
 
 ### Ebooks
 
-* [PDF](ebooks/gitbook-gitlab.pdf)
-* [EPUB](ebooks/gitbook-gitlab.epub)
-* [MOBI](ebooks/gitbook-gitlab.mobi)
+* [PDF](gitbook-gitlab.pdf)
+* [EPUB](gitbook-gitlab.epub)
+* [MOBI](gitbook-gitlab.mobi)
