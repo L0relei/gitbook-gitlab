@@ -81,6 +81,7 @@ deploys3:
   image: "python:latest"  # We use python because there is a well-working AWS Sdk
   stage: deploy
   dependencies:
+    - html
     - pdf
     - mobi
     - epub # We want to specify dependencies in an explicit way, to avoid confusion if there are different build jobs
