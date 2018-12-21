@@ -5,7 +5,7 @@ stages:
 # requiring the environment of NodeJS 10
 
 variables:
-  AWS_DEFAULT_REGION: us-east-1 # The region of our S3 bucket
+  AWS_DEFAULT_REGION: eu-west-3 # The region of our S3 bucket
   BUCKET_NAME: goffinet.pub         # Your bucket name
 
 # the 'html' job will build your document in html format
