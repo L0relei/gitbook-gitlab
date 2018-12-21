@@ -21,7 +21,7 @@ html:
     - gitbook build # html build
   artifacts:
     paths:
-      - _book/
+      - _book
     expire_in: 1 day
   only:
     - master # this job will affect only the 'master' branch the 'html' job will build your document in pdf format
