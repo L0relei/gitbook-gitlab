@@ -18,10 +18,10 @@ html:
     - gitbook install # add any requested plugins in book.json
     - mkdir book
   script:
-    - gitbook build . ./book # html build
+    - gitbook build # html build
   artifacts:
     paths:
-      - book/
+      - _book/
     expire_in: 1 day
   only:
     - master # this job will affect only the 'master' branch the 'html' job will build your document in pdf format
@@ -88,5 +88,5 @@ deploys3:
   before_script:
     - pip install awscli # Install the SDK
   script:
-    - aws s3 cp book s3://${BUCKET_NAME} --recursive
+    - aws s3 cp _book s3://${BUCKET_NAME} --recursive
     - aws s3 cp ebooks s3://${BUCKET_NAME}/ebooks --recursive # Replace example-bucket with your bucket
