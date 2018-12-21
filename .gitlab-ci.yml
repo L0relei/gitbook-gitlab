@@ -18,7 +18,7 @@ html:
     - gitbook install # add any requested plugins in book.json
     - mkdir book
   script:
-    - gitbook build ./book # html build
+    - gitbook build . ./book # html build
   artifacts:
     paths:
       - book/
