@@ -16,7 +16,7 @@ html:
     - 'echo "node version: $(node -v)"'
     - gitbook -V
     - gitbook install # add any requested plugins in book.json
-    - mkdir book
+    - mkdir _book
   script:
     - gitbook build # html build
   artifacts:
