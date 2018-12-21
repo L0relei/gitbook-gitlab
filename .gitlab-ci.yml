@@ -61,7 +61,9 @@ deploys3:
   image: "python:latest"  # We use python because there is a well-working AWS Sdk
   stage: deploy
   dependencies:
-    - buildJekyll      # We want to specify dependencies in an explicit way, to avoid confusion if there are different build jobs
+    - pdf
+    - mobi
+    - epub # We want to specify dependencies in an explicit way, to avoid confusion if there are different build jobs
   before_script:
     - pip install awscli # Install the SDK
   script:
