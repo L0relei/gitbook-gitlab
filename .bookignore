@@ -1,2 +1,3 @@
 Jenkinsfile
 docker
+.gitlab-ci.yml
