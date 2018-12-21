@@ -71,4 +71,3 @@ deploys3:
   environment:
     name: ${CI_COMMIT_REF_SLUG}
     url: http://${BUCKET_NAME}.s3-website.${AWS_DEFAULT_REGION}.amazonaws.com/${CI_COMMIT_REF_SLUG}  # This is the url of the bucket we saved before
-    on_stop: clean_s3 # When the branch is merged, we clean up after ourself
