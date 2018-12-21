@@ -2,7 +2,6 @@ stages:
   - build
 
 # requiring the environment of NodeJS 10
-image: goffinet/gitbook:gitlab
 
 before_script:
   - 'echo "node version: $(node -v)"'
@@ -12,6 +11,11 @@ before_script:
 # the 'pdf' job will build your document in pdf format
 pdf:
   stage: build
+  image: registry.gitlab.com/goffinet/gitbook-gitlab:latest
+  before_script:
+    - 'echo "node version: $(node -v)"'
+    - gitbook -V
+    - gitbook install # add any requested plugins in book.json
   script:
     - gitbook pdf . ${CI_PROJECT_NAME}.pdf # pdf build
   artifacts:
@@ -23,11 +27,32 @@ pdf:
 # the 'epub' job will build your document in epub format
 epub:
   stage: build
+  image: registry.gitlab.com/goffinet/gitbook-gitlab:latest
+  before_script:
+    - 'echo "node version: $(node -v)"'
+    - gitbook -V
+    - gitbook install # add any requested plugins in book.json
   script:
     - gitbook epub . ${CI_PROJECT_NAME}.epub # epub build
   artifacts:
     paths:
       - ${CI_PROJECT_NAME}.epub
+    expire_in: 1 day
+  only:
+    - master # this job will affect only the 'master' branch
+# the 'mobi' job will build your document in mobi format
+mobi:
+  stage: build
+  image: registry.gitlab.com/goffinet/gitbook-gitlab:latest
+  before_script:
+    - 'echo "node version: $(node -v)"'
+    - gitbook -V
+    - gitbook install # add any requested plugins in book.json
+  script:
+    - gitbook mobi . ${CI_PROJECT_NAME}.mobi # mobi build
+  artifacts:
+    paths:
+      - ${CI_PROJECT_NAME}.mobi
     expire_in: 1 day
   only:
     - master # this job will affect only the 'master' branch
