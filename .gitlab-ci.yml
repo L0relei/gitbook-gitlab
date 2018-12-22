@@ -1,14 +1,25 @@
 stages:
+  - test
   - build
   - deploy
 
+# Variables for S3
 variables:
   AWS_DEFAULT_REGION: eu-west-3 # The region of our S3 bucket
   BUCKET_NAME: gitbook-gitab  # Your bucket name
 
+# the 'lint' job will test the markdown syntax
+lint:
+  stage: test
+  image: registrymarkdownlint --config /book/markdownlint.json /book/*.md.gitlab.com/goffinet/gitbook-gitlab:latest
+  script:
+    - markdownlint --config ./markdownlint.json ./*.md
+
 # the 'html' job will build your document in html format
 html:
   stage: build
+  dependencies:
+    - test
   image: registry.gitlab.com/goffinet/gitbook-gitlab:latest
   before_script:
     - 'echo "node version: $(node -v)"'
@@ -25,6 +36,8 @@ html:
 # the 'pdf' job will build your document in pdf format
 pdf:
   stage: build
+  dependencies:
+    - test
   image: registry.gitlab.com/goffinet/gitbook-gitlab:latest
   before_script:
     - 'echo "node version: $(node -v)"'
@@ -42,6 +55,8 @@ pdf:
 # the 'epub' job will build your document in epub format
 epub:
   stage: build
+  dependencies:
+    - test
   image: registry.gitlab.com/goffinet/gitbook-gitlab:latest
   before_script:
     - 'echo "node version: $(node -v)"'
@@ -59,6 +74,8 @@ epub:
 # the 'mobi' job will build your document in mobi format
 mobi:
   stage: build
+  dependencies:
+    - test
   image: registry.gitlab.com/goffinet/gitbook-gitlab:latest
   before_script:
     - 'echo "node version: $(node -v)"'

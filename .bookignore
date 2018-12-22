@@ -4,3 +4,4 @@ docker
 book
 node_modules
 _book
+markdownlint.json
