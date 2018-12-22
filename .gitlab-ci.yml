@@ -16,12 +16,12 @@ html:
     - 'echo "node version: $(node -v)"'
     - gitbook -V
     - gitbook install # add any requested plugins in book.json
-    - mkdir _book
+    - mkdir ebook
   script:
-    - gitbook build . _book # html build
+    - gitbook build . ebook # html build
   artifacts:
     paths:
-      - _book
+      - ebook
     expire_in: 1 day
   only:
     - master # this job will affect only the 'master' branch the 'html' job will build your document in pdf format
@@ -33,9 +33,9 @@ pdf:
     - 'echo "node version: $(node -v)"'
     - gitbook -V
     - gitbook install # add any requested plugins in book.json
-    - mkdir _book
+    - mkdir ebook
   script:
-    - gitbook pdf . _book/${CI_PROJECT_NAME}.pdf # pdf build
+    - gitbook pdf . ebook/${CI_PROJECT_NAME}.pdf # pdf build
   artifacts:
     paths:
       - ebooks/${CI_PROJECT_NAME}.pdf
@@ -50,9 +50,9 @@ epub:
     - 'echo "node version: $(node -v)"'
     - gitbook -V
     - gitbook install # add any requested plugins in book.json
-    - mkdir _book
+    - mkdir ebook
   script:
-    - gitbook epub . _book/${CI_PROJECT_NAME}.epub # epub build
+    - gitbook epub . ebook/${CI_PROJECT_NAME}.epub # epub build
   artifacts:
     paths:
       - ebooks/${CI_PROJECT_NAME}.epub
@@ -67,9 +67,9 @@ mobi:
     - 'echo "node version: $(node -v)"'
     - gitbook -V
     - gitbook install # add any requested plugins in book.json
-    - mkdir _book
+    - mkdir ebook
   script:
-    - gitbook mobi . _book/${CI_PROJECT_NAME}.mobi # mobi build
+    - gitbook mobi . ebook/${CI_PROJECT_NAME}.mobi # mobi build
   artifacts:
     paths:
       - ebooks/${CI_PROJECT_NAME}.mobi
@@ -89,4 +89,4 @@ deploys3:
     - pip install awscli # Install the SDK
   script:
     - aws s3 rm s3://${BUCKET_NAME} --recursive
-    - aws s3 cp _book s3://${BUCKET_NAME} --recursive --exclude "gitbook/"
+    - aws s3 cp ebook s3://${BUCKET_NAME} --recursive --exclude "gitbook/"
