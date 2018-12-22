@@ -1,5 +1,5 @@
 {
-  "name": "gitbook-publication",
+  "name": "gitbook-gitlab",
   "version": "1.0.0",
   "description": "AWS 11-2018",
   "main": "index.js",
@@ -20,16 +20,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/goffinet/gitbook-publication.git"
+    "url": "git+https://gitlab.com/goffinet/gitbook-gitlab.git"
   },
   "keywords": [
-    "ansible",
-    "network-automation"
+    "gitbook",
+    "gitlab"
   ],
   "author": "Francois-Emmanuel GOFFINET",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/goffinet/gitbook-publication/issues"
+    "url": "https://gitlab.com/goffinet/gitbook-gitlab/issues"
   },
-  "homepage": "https://github.com/goffinet/gitbook-publication#readme"
+  "homepage": "https://gitlab.com/goffinet/gitbook-gitlab#readme"
 }

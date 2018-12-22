@@ -15,6 +15,11 @@ RUN npm install --global gitbook-cli \
              cabextract \
              calibre \
              fonts-liberation \
-        && mkdir -p /root/.ssh \
+  && mkdir -p /root/.ssh \
+  && wget https://www.freedesktop.org/software/fontconfig/webfonts/webfonts.tar.gz \
+	&& tar -xzf webfonts.tar.gz \
+	&& cd msfonts/ \
+	&& cabextract *.exe \
+	&& cp *.ttf *.TTF ~/.local/share/fonts/ \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& rm -rf /tmp/*
