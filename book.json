@@ -7,7 +7,6 @@
         "atoc",
         "-lunr", "-search", "search-plus",
         "hints",
-        "livereload",
         "katex",
         "google-drive-video",
         "image-captions"
