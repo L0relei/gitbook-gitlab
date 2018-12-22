@@ -16,12 +16,12 @@ html:
     - 'echo "node version: $(node -v)"'
     - gitbook -V
     - gitbook install # add any requested plugins in book.json
-    - mkdir ebook
+    - mkdir book
   script:
-    - gitbook build . ebook # html build
+    - gitbook build . book # html build
   artifacts:
     paths:
-      - ebook
+      - book
     expire_in: 1 day
   only:
     - master # this job will affect only the 'master' branch the 'html' job will build your document in pdf format
