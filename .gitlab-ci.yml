@@ -11,18 +11,28 @@ variables:
   BUCKET_NAME: gitbook-gitab  # Your bucket name
 
 # the 'lint' job will test the markdown syntax
-lint:
+gitbook:
   stage: test
   image: registry.gitlab.com/goffinet/gitbook-gitlab:latest
   script:
     - 'echo "node version: $(node -v)"'
     - gitbook -V
+  allow_failure: true
+
+# the 'lint' job will test the markdown syntax
+lint:
+  stage: test
+  image: registry.gitlab.com/goffinet/gitbook-gitlab:latest
+  script:
+    - 'echo "node version: $(node -v)"'
     - markdownlint --config ./markdownlint.json ./*.md
+  allow_failure: false
 
 # the 'html' job will build your document in html format
 html:
   stage: build
   dependencies:
+    - gitbook
     - lint
   image: registry.gitlab.com/goffinet/gitbook-gitlab:latest
   script:
@@ -38,6 +48,7 @@ html:
 pdf:
   stage: build
   dependencies:
+    - gitbook
     - lint
   image: registry.gitlab.com/goffinet/gitbook-gitlab:latest
   before_script:
@@ -55,6 +66,7 @@ pdf:
 epub:
   stage: build
   dependencies:
+    - gitbook
     - lint
   image: registry.gitlab.com/goffinet/gitbook-gitlab:latest
   before_script:
@@ -72,6 +84,7 @@ epub:
 mobi:
   stage: build
   dependencies:
+    - gitbook
     - lint
   image: registry.gitlab.com/goffinet/gitbook-gitlab:latest
   before_script:
@@ -101,3 +114,5 @@ deploys3:
     - aws s3 rm s3://${BUCKET_NAME} --recursive
     - aws s3 cp book s3://${BUCKET_NAME} --recursive
     - aws s3 cp ebooks s3://${BUCKET_NAME}/ebooks --recursive
+  environment:
+    name: production
