@@ -13,7 +13,7 @@ Date de fabrication : {{ gitbook.time }}
 * Scénario : Hébergement d'un site Web statique sur AWS
 * Application : Gitbook-cli Toolchain
 * Pipeline : Gitlab-ci
-    * avec un gitlab-runner
+  * avec un gitlab-runner
 
 ### Scénario :  Hébergement d'un site Web statique sur AWS
 
