@@ -4,5 +4,3 @@ docker
 book
 node_modules
 _book
-*.json
-.gitignore
