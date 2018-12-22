@@ -20,7 +20,7 @@
         },
         "pageNumbers": true,
         "fontSize": 11,
-        "fontFamily": "Mono",
+        "fontFamily": "Sans",
         "paperSize": "a4",
         "headerTemplate": "_TITLE_ - _SECTION_",
         "footerTemplate": "_AUTHOR_ - _PAGENUM_"
