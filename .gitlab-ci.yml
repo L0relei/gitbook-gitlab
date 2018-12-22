@@ -4,6 +4,8 @@ stages:
   - deploy
 
 # Open variables for S3
+# AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY are protected variables
+# added in the gitlab interface : Project | Settings | CI / CD | Variables
 variables:
   AWS_DEFAULT_REGION: eu-west-3 # The region of our S3 bucket
   BUCKET_NAME: gitbook-gitab  # Your bucket name
@@ -13,6 +15,8 @@ lint:
   stage: test
   image: registry.gitlab.com/goffinet/gitbook-gitlab:latest
   script:
+    - 'echo "node version: $(node -v)"'
+    - gitbook -V
     - markdownlint --config ./markdownlint.json ./*.md
 
 # the 'html' job will build your document in html format
@@ -21,9 +25,6 @@ html:
   dependencies:
     - lint
   image: registry.gitlab.com/goffinet/gitbook-gitlab:latest
-  before_script:
-    - 'echo "node version: $(node -v)"'
-    - gitbook -V
   script:
     - gitbook install # add any requested plugins in book.json
     - gitbook build . book # html build
@@ -40,8 +41,6 @@ pdf:
     - lint
   image: registry.gitlab.com/goffinet/gitbook-gitlab:latest
   before_script:
-    - 'echo "node version: $(node -v)"'
-    - gitbook -V
     - mkdir ebooks
   script:
     - gitbook install # add any requested plugins in book.json
@@ -59,8 +58,6 @@ epub:
     - lint
   image: registry.gitlab.com/goffinet/gitbook-gitlab:latest
   before_script:
-    - 'echo "node version: $(node -v)"'
-    - gitbook -V
     - mkdir ebooks
   script:
     - gitbook install # add any requested plugins in book.json
@@ -78,8 +75,6 @@ mobi:
     - lint
   image: registry.gitlab.com/goffinet/gitbook-gitlab:latest
   before_script:
-    - 'echo "node version: $(node -v)"'
-    - gitbook -V
     - mkdir ebooks
   script:
     - gitbook install # add any requested plugins in book.json
