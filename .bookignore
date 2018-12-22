@@ -1,3 +1,6 @@
-#Jenkinsfile
-#docker
-#.gitlab-ci.yml
+Jenkinsfile
+docker
+.gitlab-ci.yml
+book
+node_modules
+_book
