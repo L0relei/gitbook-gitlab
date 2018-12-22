@@ -8,7 +8,7 @@ stages:
 # added in the gitlab interface : Project | Settings | CI / CD | Variables
 variables:
   AWS_DEFAULT_REGION: eu-west-3 # The region of our S3 bucket
-  BUCKET_NAME: gitbook-gitlab  # Your bucket name
+  BUCKET_NAME: gitbook-gitlab.aws-fr.com  # Your bucket name
 
 # the 'lint' job will test the markdown syntax
 gitbook:
