@@ -16,12 +16,12 @@ html:
     - 'echo "node version: $(node -v)"'
     - gitbook -V
     - gitbook install # add any requested plugins in book.json
-    - mkdir ebook
+    - mkdir book
   script:
-    - gitbook build . ebook # html build
+    - gitbook build . book # html build
   artifacts:
     paths:
-      - ebook
+      - book
     expire_in: 1 day
   only:
     - master # this job will affect only the 'master' branch the 'html' job will build your document in pdf format
@@ -33,12 +33,12 @@ pdf:
     - 'echo "node version: $(node -v)"'
     - gitbook -V
     - gitbook install # add any requested plugins in book.json
-    - mkdir ebook
+    - mkdir book
   script:
-    - gitbook pdf . ebook/${CI_PROJECT_NAME}.pdf # pdf build
+    - gitbook pdf . book/${CI_PROJECT_NAME}.pdf # pdf build
   artifacts:
     paths:
-      - ebooks/${CI_PROJECT_NAME}.pdf
+      - book/${CI_PROJECT_NAME}.pdf
     expire_in: 1 day
   only:
     - master # this job will affect only the 'master' branch the 'pdf' job will build your document in pdf format
@@ -50,12 +50,12 @@ epub:
     - 'echo "node version: $(node -v)"'
     - gitbook -V
     - gitbook install # add any requested plugins in book.json
-    - mkdir ebook
+    - mkdir book
   script:
-    - gitbook epub . ebook/${CI_PROJECT_NAME}.epub # epub build
+    - gitbook epub . book/${CI_PROJECT_NAME}.epub # epub build
   artifacts:
     paths:
-      - ebooks/${CI_PROJECT_NAME}.epub
+      - book/${CI_PROJECT_NAME}.epub
     expire_in: 1 day
   only:
     - master # this job will affect only the 'master' branch
@@ -67,12 +67,12 @@ mobi:
     - 'echo "node version: $(node -v)"'
     - gitbook -V
     - gitbook install # add any requested plugins in book.json
-    - mkdir ebook
+    - mkdir book
   script:
-    - gitbook mobi . ebook/${CI_PROJECT_NAME}.mobi # mobi build
+    - gitbook mobi . book/${CI_PROJECT_NAME}.mobi # mobi build
   artifacts:
     paths:
-      - ebooks/${CI_PROJECT_NAME}.mobi
+      - book/${CI_PROJECT_NAME}.mobi
     expire_in: 1 day
   only:
     - master # this job will affect only the 'master' branch
@@ -89,4 +89,4 @@ deploys3:
     - pip install awscli # Install the SDK
   script:
     - aws s3 rm s3://${BUCKET_NAME} --recursive
-    - aws s3 cp ebook s3://${BUCKET_NAME} --recursive --exclude "gitbook/"
+    - aws s3 cp book s3://${BUCKET_NAME} --recursive --exclude "gitbook"
