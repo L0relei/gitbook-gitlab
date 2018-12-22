@@ -4,6 +4,6 @@ Auteur : {{ book.author }}
 
 Date de fabrication : {{ gitbook.time }}
 
-* [PDF](gitbook-gitlab.pdf)
-* [EPUB](gitbook-gitlab.epub)
-* [MOBI](gitbook-gitlab.mobi)
+* [PDF](ebooks/gitbook-gitlab.pdf)
+* [EPUB](ebooks/gitbook-gitlab.epub)
+* [MOBI](ebooks/gitbook-gitlab.mobi)
