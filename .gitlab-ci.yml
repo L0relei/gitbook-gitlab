@@ -11,7 +11,7 @@ variables:
 # the 'lint' job will test the markdown syntax
 lint:
   stage: test
-  image: registrymarkdownlint --config /book/markdownlint.json /book/*.md.gitlab.com/goffinet/gitbook-gitlab:latest
+  image: registry.gitlab.com/goffinet/gitbook-gitlab:latest
   script:
     - markdownlint --config ./markdownlint.json ./*.md
 
