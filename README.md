@@ -1,6 +1,6 @@
 # Introduction
 
-Auteur : {{ book.author }}
+Auteur : {{ gitbook.author }}
 
 Date de fabrication : {{ gitbook.time }}
 
