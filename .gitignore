@@ -1,3 +1,5 @@
 _book
 ebook
 node_modules
+.npm
+.config
