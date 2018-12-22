@@ -3,7 +3,7 @@ stages:
   - build
   - deploy
 
-# Variables for S3
+# Open variables for S3
 variables:
   AWS_DEFAULT_REGION: eu-west-3 # The region of our S3 bucket
   BUCKET_NAME: gitbook-gitab  # Your bucket name
@@ -19,7 +19,7 @@ lint:
 html:
   stage: build
   dependencies:
-    - test
+    - lint
   image: registry.gitlab.com/goffinet/gitbook-gitlab:latest
   before_script:
     - 'echo "node version: $(node -v)"'
@@ -37,7 +37,7 @@ html:
 pdf:
   stage: build
   dependencies:
-    - test
+    - lint
   image: registry.gitlab.com/goffinet/gitbook-gitlab:latest
   before_script:
     - 'echo "node version: $(node -v)"'
@@ -56,7 +56,7 @@ pdf:
 epub:
   stage: build
   dependencies:
-    - test
+    - lint
   image: registry.gitlab.com/goffinet/gitbook-gitlab:latest
   before_script:
     - 'echo "node version: $(node -v)"'
@@ -75,7 +75,7 @@ epub:
 mobi:
   stage: build
   dependencies:
-    - test
+    - lint
   image: registry.gitlab.com/goffinet/gitbook-gitlab:latest
   before_script:
     - 'echo "node version: $(node -v)"'
@@ -91,6 +91,7 @@ mobi:
   only:
     - master # this job will affect only the 'master' branch
 
+# the 'deploys3' job will deploy your site to your S3 bucket
 deploys3:
   image: "python:latest"  # We use python because there is a well-working AWS Sdk
   stage: deploy
