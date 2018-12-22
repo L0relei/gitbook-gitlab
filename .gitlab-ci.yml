@@ -87,5 +87,4 @@ deploys3:
   script:
     - aws s3 rm s3://${BUCKET_NAME} --recursive
     - aws s3 cp book s3://${BUCKET_NAME} --recursive
-    - aws s3 rm s3://${BUCKET_NAME}/gitbook --recursive
     - aws s3 cp ebooks s3://${BUCKET_NAME}/ebooks --recursive
