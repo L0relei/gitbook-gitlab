@@ -7,6 +7,7 @@ ENV GITBOOK_VERSION="3.2.3"
 # Install gitbook
 RUN npm install --global gitbook-cli \
 	&& gitbook fetch ${GITBOOK_VERSION} \
+  && npm install -g markdownlint-cli \
 	&& npm cache clear --force \
         && apt-get update \
 	&& apt-get install --no-install-recommends --no-install-suggests -y \
@@ -14,12 +15,7 @@ RUN npm install --global gitbook-cli \
              openssh-client \
              cabextract \
              calibre \
-             fonts-liberation \
+             ttf-freefont \
   && mkdir -p /root/.ssh \
-  && wget https://www.freedesktop.org/software/fontconfig/webfonts/webfonts.tar.gz \
-	&& tar -xzf webfonts.tar.gz \
-	&& cd msfonts/ \
-	&& cabextract *.exe \
-	&& cp *.ttf *.TTF ~/.local/share/fonts/ \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& rm -rf /tmp/*
