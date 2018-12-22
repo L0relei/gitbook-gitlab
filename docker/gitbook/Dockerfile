@@ -7,13 +7,16 @@ ENV GITBOOK_VERSION="3.2.3"
 # Install gitbook
 RUN npm install --global gitbook-cli \
 	&& gitbook fetch ${GITBOOK_VERSION} \
-	&& npm install --global phantomjs-prebuilt \
+	&& npm install phantomjs-prebuilt \
+	&& npm install \
 	&& npm install --global svgexport \
   && npm install --global markdownlint-cli \
 	&& npm cache clear --force \
         && apt-get update \
 	&& apt-get install --no-install-recommends --no-install-suggests -y \
              #wget \
+						 #curl \
+						 #vim \
              #openssh-client \
              calibre \
              ttf-freefont \
