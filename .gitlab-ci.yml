@@ -9,6 +9,7 @@ stages:
 variables:
   AWS_DEFAULT_REGION: eu-west-3 # The region of our S3 bucket
   BUCKET_NAME: gitbook-gitlab.aws-fr.com  # gitbook-gitlab.aws-fr.com Your bucket name
+  CDN_DISTRIBUTION_ID: E1956KV4Y1NHX7
 
 # the 'gitbook' job will test the gitbook tools
 gitbook:
@@ -115,5 +116,6 @@ deploys3:
     - aws s3 rm s3://${BUCKET_NAME} --recursive
     - aws s3 cp book s3://${BUCKET_NAME} --recursive
     - aws s3 cp ebooks s3://${BUCKET_NAME}/ebooks --recursive
+    - aws cloudfront create-invalidation --distribution-id ${CDN_DISTRIBUTION_ID} --paths "/*"
   environment:
     name: production
