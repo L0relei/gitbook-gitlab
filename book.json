@@ -31,4 +31,7 @@
 
         }
     }
+    "variables": {
+       "author": "François-Emmanuel Goffinet"
+    }
 }
