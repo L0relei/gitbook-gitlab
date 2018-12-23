@@ -25,7 +25,7 @@ Basé sur le White Paper ["Hosting Static Websites on AWS"](https://aws.amazon.c
 * DNS : AWS Route 53
 * CDN / Logging : AWS Cloudfront
 * HTTPS : AWS Certificate Manager
-* Credits Management : AWS IAM 
+* Credits Management : AWS IAM
 * Gitlab-Runner : AWS EC2
 * CI / CD : Gitlab
 * Repo mgmt : Gitlab
