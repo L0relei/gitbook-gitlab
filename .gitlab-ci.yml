@@ -47,6 +47,8 @@ html:
     expire_in: 1 day
   only:
     - master # this job will affect only the 'master' branch the 'html' job will build your document in pdf format
+  allow_failure: false
+
 # the 'pdf' job will build your document in pdf format
 pdf:
   stage: build
