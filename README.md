@@ -32,10 +32,10 @@ Basé sur le White Paper ["Hosting Static Websites on AWS"](https://aws.amazon.c
 
 ### Application : Gitbook-cli Toolchain
 
-https://toolchain.gitbook.com/
+[Gitbook Toolchain](https://toolchain.gitbook.com/)
 
 ### Pipeline : Gitlab-ci
 
-![](images/pipeline-gitbook-gitlab.png)
+![Pipeline Gitlab-ci, Test, Build and Deploy](images/pipeline-gitbook-gitlab.png)
 
 ### Apprivionnement du Gitlab-runner
