@@ -113,8 +113,8 @@ deploys3:
   before_script:
     - pip install awscli # Install the SDK
   script:
-    - aws s3 sync --acl public-read --delete book ${BUCKET_NAME}
-    - aws s3 sync --acl public-read --delete ebooks ${BUCKET_NAME}/ebooks
+    - aws s3 sync book s3://${BUCKET_NAME} --acl public-read --delete
+    - aws s3 sync ebooks s3://${BUCKET_NAME}/ebooks --acl public-read --delete 
     - aws cloudfront create-invalidation --distribution-id ${CDN_DISTRIBUTION_ID} --paths "/*"
   environment:
     name: production
