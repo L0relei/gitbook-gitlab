@@ -14,33 +14,6 @@ Date de fabrication : {{ gitbook.time }}
 * Application : Gitbook-cli Toolchain
 * Pipeline : Gitlab-ci
   * avec un gitlab-runner
+* Hébergement et domaine : AWS S3/IAM, Route53, Cloudfront, Certificate Manager
 
-## Scénario :  Hébergement d'un site Web statique sur AWS
-
-Basé sur le White Paper ["Hosting Static Websites on AWS"](https://aws.amazon.com/fr/getting-started/projects/host-static-website/)
-
-![Hébergement d'un site Web statique sur AWS](https://d1.awsstatic.com/Projects/v1/AWS_StaticWebsiteHosting_Architecture_4b.da7f28eb4f76da574c98a8b2898af8f5d3150e48.png)
-
-* Stockage / hébergement : AWS S3
-* DNS : AWS Route 53
-* CDN / Logging : AWS Cloudfront
-* HTTPS : AWS Certificate Manager
-* Credits Management : AWS IAM
-* Gitlab-Runner : AWS EC2
-* CI / CD : Gitlab
-* Repo mgmt : Gitlab
-* Advertisements : Slack
-* Docker registry : Gitlab
-* Cloudformation
-
-## Application : Gitbook-cli Toolchain
-
-[Gitbook Toolchain](https://toolchain.gitbook.com/)
-
-## Pipeline : Gitlab-ci
-
-![Pipeline Gitlab-ci, Test, Build and Deploy](/images/pipeline-gitbook-gitlab.png)
-
-### Approvisionnement du Gitlab-runner
-
-* AWS EC2
+![Projet CI/CD de publication](https://www.lucidchart.com/publicSegments/view/3babd77b-00ef-42ac-a9b9-570b5feee80e/image.png)
