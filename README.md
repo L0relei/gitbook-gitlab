@@ -24,6 +24,8 @@ Basé sur le White Paper ["Hosting Static Websites on AWS"](https://aws.amazon.c
 * Stockage / hébergement : AWS S3
 * DNS : AWS Route 53
 * CDN / Logging : AWS Cloudfront
+* HTTPS : AWS Certificate Manager
+* Credits Management : AWS IAM 
 * Gitlab-Runner : AWS EC2
 * CI / CD : Gitlab
 * Repo mgmt : Gitlab
@@ -39,3 +41,5 @@ Basé sur le White Paper ["Hosting Static Websites on AWS"](https://aws.amazon.c
 ![Pipeline Gitlab-ci, Test, Build and Deploy](images/pipeline-gitbook-gitlab.png)
 
 ### Apprivionnement du Gitlab-runner
+
+* AWS EC2
