@@ -10,13 +10,14 @@ variables:
   AWS_DEFAULT_REGION: eu-west-3 # The region of our S3 bucket
   BUCKET_NAME: gitbook-gitlab.aws-fr.com  # gitbook-gitlab.aws-fr.com Your bucket name
 
-# the 'lint' job will test the markdown syntax
+# the 'gitbook' job will test the gitbook tools
 gitbook:
   stage: test
   image: registry.gitlab.com/goffinet/gitbook-gitlab:latest
   script:
     - 'echo "node version: $(node -v)"'
     - gitbook -V
+    - echo "markdownlint version:" $(markdownlint -V)
   allow_failure: true
 
 # the 'lint' job will test the markdown syntax
