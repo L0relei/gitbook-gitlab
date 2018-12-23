@@ -17,6 +17,7 @@ RUN npm install --global gitbook-cli \
              #openssh-client \
              calibre \
              ttf-freefont \
+						 ttf-liberation fonts-liberation \
   && mkdir -p /root/.ssh \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& rm -rf /tmp/*
