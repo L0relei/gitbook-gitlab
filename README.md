@@ -31,6 +31,7 @@ Basé sur le White Paper ["Hosting Static Websites on AWS"](https://aws.amazon.c
 * Repo mgmt : Gitlab
 * Advertisements : Slack
 * Docker registry : Gitlab
+* Cloudformation
 
 ## Application : Gitbook-cli Toolchain
 
