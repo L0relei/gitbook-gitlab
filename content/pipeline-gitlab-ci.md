@@ -2,4 +2,4 @@
 
 <!-- toc -->
 
-![Pipeline Gitlab-ci, Test, Build and Deploy](images/pipeline-gitbook-gitlab.png)
+![Pipeline Gitlab-ci, Test, Build and Deploy](/images/pipeline-gitbook-gitlab.png)

@@ -38,7 +38,7 @@ Basé sur le White Paper ["Hosting Static Websites on AWS"](https://aws.amazon.c
 
 ## Pipeline : Gitlab-ci
 
-![Pipeline Gitlab-ci, Test, Build and Deploy](images/pipeline-gitbook-gitlab.png)
+![Pipeline Gitlab-ci, Test, Build and Deploy](/images/pipeline-gitbook-gitlab.png)
 
 ### Approvisionnement du Gitlab-runner
 
