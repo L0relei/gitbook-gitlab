@@ -28,7 +28,7 @@ lint:
   image: registry.gitlab.com/goffinet/gitbook-gitlab:latest
   script:
     - 'echo "node version: $(node -v)"'
-    - markdownlint --config ./markdownlint.json ./*.md
+    - markdownlint --config ./markdownlint.json ./content/*.md
   allow_failure: true
 
 # the 'html' job will build your document in html format
