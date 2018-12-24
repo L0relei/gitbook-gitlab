@@ -28,6 +28,7 @@ lint:
   image: registry.gitlab.com/goffinet/gitbook-gitlab:latest
   script:
     - 'echo "node version: $(node -v)"'
+    - markdownlint --config ./markdownlint.json README.md
     - markdownlint --config ./markdownlint.json ./content/*.md
   allow_failure: true
 
