@@ -38,7 +38,7 @@ Scénario : CI /CD, Hébergement d'un site Web statique sur AWS en CDN et en HTT
 
 Source : [The Three Ways: The Principles Underpinning DevOps](https://itrevolution.com/the-three-ways-principles-underpinning-devops/)
 
-### Dev
+## Dev
 
 Dev = Application
 
