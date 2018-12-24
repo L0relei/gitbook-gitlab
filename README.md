@@ -23,11 +23,20 @@ Scénario : CI /CD, Hébergement d'un site Web statique sur AWS en CDN et en HTT
 
 ![Projet CI/CD de publication](https://www.lucidchart.com/publicSegments/view/3babd77b-00ef-42ac-a9b9-570b5feee80e/image.png)
 
-## Modèle
+## Modèles
 
-[Netlify](https://www.netlify.com/features/) : Build, deploy, and manage modern web projects. An all-in-one workflow that combines global deployment, continuous integration, and automatic HTTPS. And that’s just the beginning.
+* [Gitbook.com Legacy](https://legacy.gitbook.com/)
+* [Netlify](https://www.netlify.com/features/) : Build, deploy, and manage modern web projects. An all-in-one workflow that combines global deployment, continuous integration, and automatic HTTPS. And that’s just the beginning.
 
-## Dev
+## The three ways
+
+![Trois principes fondamentaux](https://dick1stark.files.wordpress.com/2016/11/three-ways.png)
+
+1. Le premier concerne le flux de travail de gauche à droite, du développement aux opérations informatiques.
+2. Le second concerne le flux constant de retours rapides de droite à gauche à toutes les étapes du flux de valeur.
+3. La troisième méthode consiste à créer une culture qui favorise deux choses : l'expérimentation continue et la compréhension du fait que la répétition et la pratique sont les conditions préalables à la maîtrise.
+
+### Dev
 
 Dev = Application
 
