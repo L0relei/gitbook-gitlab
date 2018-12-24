@@ -21,7 +21,7 @@ Scénario : CI /CD, Hébergement d'un site Web statique sur AWS en CDN et en HTT
   * avec un gitlab-runner
 * Hébergement et domaine : AWS S3/IAM, Route53, Cloudfront, Certificate Manager
 
-![Projet CI/CD de publication](https://www.lucidchart.com/publicSegments/view/ae442afc-140f-428e-b3a2-2b09e66451bd/image.png)
+![Projet CI/CD de publication](https://www.lucidchart.com/publicSegments/view/1de78137-3887-4e08-9364-07ed2a7031f8/image.jpeg)
 
 ## Modèles
 
