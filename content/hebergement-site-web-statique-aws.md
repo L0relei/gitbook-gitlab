@@ -16,3 +16,9 @@ Basé sur le White Paper ["Hosting Static Websites on AWS"](https://aws.amazon.c
 * Repo mgmt : Gitlab
 * Advertisements : Slack
 * Docker registry : Gitlab
+
+## Coûts estimés
+
+Coûts estimés mensuels.
+
+![Coûts estimés mensuels](/images/aws-static-costs.png)
