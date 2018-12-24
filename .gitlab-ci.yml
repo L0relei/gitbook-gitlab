@@ -29,7 +29,7 @@ lint:
   script:
     - 'echo "node version: $(node -v)"'
     - markdownlint --config ./markdownlint.json ./*.md
-  allow_failure: false
+  allow_failure: true
 
 # the 'html' job will build your document in html format
 html:
