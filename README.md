@@ -39,7 +39,7 @@ CI / CD Tool | **Gitlab-ci**, **Gitlab-runner** | Jenkins, AWS CodePipeline, AWS
 Container Repository | **Gitlab Hub** | Docker Hub,
 Test | versions, markdown-lint, npm (gitbook), pip (aws-cli) | ...
 
-ToDo :
+### ToDo
 
 * Fabrication automatique des images container
 
@@ -55,7 +55,7 @@ TLS / HTTPS | AWS Certificate Manager | Let's Encrypt
 CDN | Cloudfront | Cloudflare, OVH
 Hosting / Storage | AWS S3 | ...
 
-**Méthodes**
+### Méthodes
 
 * Manuelle
 * Ansible
