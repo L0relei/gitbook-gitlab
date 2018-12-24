@@ -30,11 +30,13 @@ Scénario : CI /CD, Hébergement d'un site Web statique sur AWS en CDN et en HTT
 
 ## The three ways
 
-![Trois principes fondamentaux](https://dick1stark.files.wordpress.com/2016/11/three-ways.png)
+![Les trois manières: les principes sur lesquels se base DevOps](https://dick1stark.files.wordpress.com/2016/11/three-ways.png)
 
 1. Le premier concerne le flux de travail de gauche à droite, du développement aux opérations informatiques.
 2. Le second concerne le flux constant de retours rapides de droite à gauche à toutes les étapes du flux de valeur.
 3. La troisième méthode consiste à créer une culture qui favorise deux choses : l'expérimentation continue et la compréhension du fait que la répétition et la pratique sont les conditions préalables à la maîtrise.
+
+Source : [The Three Ways: The Principles Underpinning DevOps](https://itrevolution.com/the-three-ways-principles-underpinning-devops/)
 
 ### Dev
 
