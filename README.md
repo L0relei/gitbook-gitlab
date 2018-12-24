@@ -28,7 +28,7 @@ Scénario : CI /CD, Hébergement d'un site Web statique sur AWS en CDN et en HTT
 * [Gitbook.com Legacy](https://legacy.gitbook.com/)
 * [Netlify](https://www.netlify.com/features/) : Build, deploy, and manage modern web projects. An all-in-one workflow that combines global deployment, continuous integration, and automatic HTTPS. And that’s just the beginning.
 
-## The three ways
+## Les trois manières: les principes sur lesquels se base DevOps
 
 ![Les trois manières: les principes sur lesquels se base DevOps](https://dick1stark.files.wordpress.com/2016/11/three-ways.png)
 
@@ -53,6 +53,9 @@ Test | versions, markdown-lint, npm (gitbook), pip (aws-cli) | ...
 ### ToDo
 
 * Fabrication automatique des images container
+* Mieux intégrer npm
+* Mieux intégrer calibre
+* Convertir en livre de jeu Ansible
 
 ## Ops
 
@@ -65,6 +68,7 @@ DNS | AWS Route53 | Cloudflare, OVH
 TLS / HTTPS | AWS Certificate Manager | Let's Encrypt
 CDN | Cloudfront | Cloudflare, OVH
 Hosting / Storage | AWS S3 | ...
+Build Node | Gitlab-ci hosted | ...
 
 ### Méthodes
 
