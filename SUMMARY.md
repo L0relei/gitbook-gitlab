@@ -8,6 +8,9 @@
 
 ### Dev
 
-* [Gitbook-cli Toolchain](content/gitbook-cli-toolchain.md)
+
 * [Pipeline : Gitlab-ci](content/pipeline-gitlab-ci.md)
-  * [Approvisionnement du Gitlab-runner](content/approvisionnement-gitlab-runner.md)
+* [Gitbook-cli Toolchain](content/gitbook-cli-toolchain.md)
+* [Test](content/test.md)
+* [Build](content/deploy.md)
+* [Approvisionnement du Gitlab-runner](content/approvisionnement-gitlab-runner.md)

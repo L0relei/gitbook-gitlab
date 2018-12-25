@@ -43,7 +43,7 @@ Chargement d'un document d'index
 
 ### Test de votre site web
 
-## 3. Configuration d'un site web statique grâce à un domaine personnalisé en HTTPS
+## 3. Configuration d'un site web statique grâce à un domaine personnalisé
 
 [Inspiration](https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/dev/website-hosting-custom-domain-walkthrough.html)
 
