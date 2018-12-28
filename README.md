@@ -23,10 +23,25 @@ Scénario : CI /CD, Hébergement d'un site Web statique sur AWS en CDN et en HTT
 
 ![Projet CI/CD de publication](https://www.lucidchart.com/publicSegments/view/1de78137-3887-4e08-9364-07ed2a7031f8/image.jpeg)
 
+## Budget
+
+Budget AWS | Prix $ HTVA | Prix EUR TVAC
+Inscription AWS | 2 $ HTVA | 2,12 EUR TVAC
+Nom de domaine | 12$ HTVA | 12,75 EUR TVAC
+Divers  | 4 $ HTVA  |  4,24 EUR TVAC
+Total  | 18 $ HTVA  |  19,12 EUR TVAC
+
 ## Modèles
 
 * [Gitbook.com Legacy](https://legacy.gitbook.com/)
+* [Softcover](https://www.softcover.io/)
 * [Netlify](https://www.netlify.com/features/) : Build, deploy, and manage modern web projects. An all-in-one workflow that combines global deployment, continuous integration, and automatic HTTPS. And that’s just the beginning.
+
+### Autres références
+
+* [Pandoc](https://pandoc.org/)
+* [Book publishing toolchain based on AsciiDoc](https://github.com/jd/asciidoc-book-toolchain)
+* [Latex](https://www.latex-project.org/)
 
 ## Les trois manières: les principes sur lesquels se base DevOps
 
@@ -44,18 +59,20 @@ Dev = Application
 
 Outil | Fournisseur | Alternatives
 --- | --- | ---
-Application Toolchain | **Gitbook-cli** | ...
+Application Toolchain | **Gitbook-cli** (_basé NPM_), calibre | ...
 Source Control Management | **Git**, **Gitlab** | Github, Gitlab Hosted (AWS), AWS CodeCommit, ...
 CI / CD Tool | **Gitlab-ci**, **Gitlab-runner** | Jenkins, AWS CodePipeline, AWS CodeDeploy, Bitbucket
 Container Repository | **Gitlab Hub** | Docker Hub,
 Test | versions, markdown-lint, npm (gitbook), pip (aws-cli) | ...
+Deploy  | aws-cli s3  | Python API, aws-cli, openstack-cli, Ansible, ...
 
 ### ToDo
 
-* Fabrication automatique des images container
+* Fabrication automatique des images "container"
 * Mieux intégrer npm
 * Mieux intégrer calibre
 * Convertir en livre de jeu Ansible
+* Partir d'un contenu jekyll en sortie HTML et markdown sans frontmatter pour traitement ultérieur en PDF, MOBI, EPUB, Kindle
 
 ## Ops
 
