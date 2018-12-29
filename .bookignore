@@ -1,7 +1,8 @@
 Jenkinsfile
-docker
+docker/*
 .gitlab-ci.yml
 book
-node_modules
+node_modules/*
 _book/*
 markdownlint.json
+npm/*

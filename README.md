@@ -66,7 +66,7 @@ Total  | 18 $ HTVA  |  19,12 EUR TVAC
 * [Softcover](https://www.softcover.io/)
 * [Netlify](https://www.netlify.com/features/) : _Build, deploy, and manage modern web projects. An all-in-one workflow that combines global deployment, continuous integration, and automatic HTTPS. And that’s just the beginning._
 
-### Autres références
+### 5.1. Autres références
 
 * [Pandoc](https://pandoc.org/), un convertisseur open-source
 * [Book publishing toolchain based on AsciiDoc](https://github.com/jd/asciidoc-book-toolchain)
