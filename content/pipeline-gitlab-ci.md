@@ -16,6 +16,10 @@ Cette étape de la solution nécessite de s'intéresser aux outils d'intégratio
 
 Enfin, les étapes d'intégration continue et de le livraison continue sont annoncées sur le canal dédié d'un espace de travail Slack.
 
+### 1.1. Dev vers Ops et inversément
+
+![Dev vers Ops et inversément](https://www.lucidchart.com/publicSegments/view/04654c78-4c09-4beb-9265-4f8fbdaa7cfd/image.png)
+
 ## 2. Boîte à outil
 
 Ce tableau représente la proposition de départ.
