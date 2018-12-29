@@ -2,7 +2,7 @@
 
 <!-- toc -->
 
-## Projet CI/CD de publication
+## 1. Projet CI/CD de publication
 
 Auteur : {{ book.author }}
 
@@ -12,7 +12,7 @@ Date de fabrication : {{ gitbook.time }}
 * [EPUB](ebooks/gitbook-gitlab.epub)
 * [MOBI](ebooks/gitbook-gitlab.mobi)
 
-### Objectifs du document
+## 2. Objectifs du document
 
 Ce document a pour objectif premier de fournir un énoncé dans le cadre d'une étude de cas DevOps notamment avec la mise en oeuvre d'outils tels que git, gitlab, gitlab-ci, jenkins, docker, puppet, ansible, terraform, etc. sur une infrastructure AWS.
 
@@ -26,9 +26,9 @@ Le résultat attendu est de fournir une solution sous forme de code informatique
 
 Ce document d'énoncé n'a pas pour objectif de fournir une solution aboutie. Il pourrait toutefois évoluer dans cette direction.
 
-### Scénario
+## 3. Scénario
 
-Scénario : CI /CD, Hébergement d'un site Web statique sur AWS en CDN et en HTTPS.
+Scénario : CI /CD avec Git, Gitlab, sur AWS EC2, Hébergement d'un site Web statique sur AWS S3 en CDN et en HTTPS.
 
 ![Projet CI/CD de publication](https://www.lucidchart.com/publicSegments/view/d019e257-1ac5-45db-aff5-6c4f5c857750/image.png)
 
@@ -41,7 +41,7 @@ On trouvera dans ce document des points de départs et des outils à évaluer, �
 * Hébergement du code source : git
 * Application : Gitbook-cli Toolchain
 * Pipeline : Gitlab-ci
-  * avec un gitlab-runner (Docker)
+  * avec des noeuds d'exécution gitlab-runner (Docker)
 * Hébergement Web :
   * AWS IAM
   * AWS S3,
@@ -49,7 +49,7 @@ On trouvera dans ce document des points de départs et des outils à évaluer, �
   * AWS Cloudfront,
   * AWS Certificate Manager (ACM)
 
-## Budget
+## 4. Budget
 
 Budget AWS | Prix $ HTVA | Prix EUR TVAC
 --- | --- | ---
@@ -58,7 +58,7 @@ Nom de domaine | 12$ HTVA | 12,75 EUR TVAC
 Divers  | 4 $ HTVA  |  4,24 EUR TVAC
 Total  | 18 $ HTVA  |  19,12 EUR TVAC
 
-## Modèles et références
+## 5. Modèles et références
 
 * [Gitbook.com Legacy](https://legacy.gitbook.com/) et Calibre
 * [Softcover](https://www.softcover.io/)
@@ -72,7 +72,7 @@ Total  | 18 $ HTVA  |  19,12 EUR TVAC
 * Jekyll
 * MkDocs-Material
 
-## Principes DevOps
+## 6. Principes DevOps
 
 Rappel définition
 
@@ -84,7 +84,7 @@ Rappel définition
 
 Source : [The Three Ways: The Principles Underpinning DevOps](https://itrevolution.com/the-three-ways-principles-underpinning-devops/)
 
-### Dev : Toolchains
+## 7. Dev vers Ops en pipeline CI/CD
 
 Dev = Application, frameworks, stack, toolchain
 
@@ -97,9 +97,12 @@ Container Repository | **Gitlab Hub** | Docker Hub,
 Test | versions, **markdown-lint**, **npm** (gitbook), **pip** (aws-cli) | ...
 Deploy  | **aws-cli s3**  | Python API, aws-cli, openstack-cli, Ansible, ...
 
-### Ops : Infrastructure as code
+## 8. Ops vers Dev en IaC sur AWS
 
 Ops = Infrastructure
+
+* Hébergement
+* Noeuds d'exécution
 
 Service | Fournisseur | Alternatives
 --- | --- | ---
@@ -110,10 +113,15 @@ CDN | Cloudfront | Cloudflare, OVH
 Hosting / Storage | AWS S3 | ...
 Build Node | Gitlab-ci hosted | ...
 
-#### Méthodes de configuration de l'infrastructure
+## 9. Méthodes de configuration de l'infrastructure
 
 * Manuelle dans la console
 * Manuelle ou scriptée avec aws-cli
 * En python avec le module Boto
 * Ansible
 * Cloudformation
+* Terraform
+
+## 10. Méthodologie de travail
+
+...

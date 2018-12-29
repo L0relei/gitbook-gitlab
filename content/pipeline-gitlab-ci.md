@@ -51,17 +51,33 @@ Le Pipeline de base proposé est le suivant :
 
 ## 3. Le serveur d'intégration
 
-Git, Gitlab, Gitlab-CI, Gitlab Runner
+Gitlab fournit une solution d'intégration complète et facile à prendre en main.
+
+Outil | Fonction
+--- | ---
+Git | outils de gestion de code standard
+Gitlab | service SCM auto-hébergé ou hébergé
+Gitlab-CI | service CI/CD auto-hébergé ou hébergé
+Gitlab Runner| service d'exécution CI/CD auto-hébergé ou hébergé
+
+### 3.1. Mise en place d'un projet d'intégration continue sur Gitlab
+
+* Création du projet
+* Fichier de configuration
+* Clé SSH
+* Variables privées
+* Gitlab-ci
+* Construction automatique des images Docker et hébergement
 
 ## 4. Application : Toolchains
 
-### Le Stack
+### 4.1. Le Stack
 
 L'application choisie n'utilise pas un compilateur C ou un framework JEE ou encore un célèbre framework Web PHP, Python, Node ou Angular.
 
 L'apllication choisie est un générateur statique de sites Web [StaticGen : A List of Static Site Generators for JAMstack Sites](https://www.staticgen.com/).
 
-### Gitbook-cli Toolchain
+### 4.2. Gitbook-cli Toolchain
 
 [Gitbook Toolchain](https://toolchain.gitbook.com/)
 
@@ -71,9 +87,9 @@ En bref au préalable,
 
 * le toochain gitbook-cli est écrit en nodejs (utilitaire npm)
 * la commande `gitbook` transforme un dossier de contenu écrit en Markdown en différent formats via le logiciel
-* des plugins doivent être installés à titre de dépendances
+* des plugins doivent être installés à titre de dépendances ainsi que le logiciel calibre
 
-### Toolchains dans une image Docker
+### 4.3. Toolchains dans une image Docker
 
 L'avantage d'une exécution par Docker est de disposer d'un environnement identique pour un développement local et automatique.
 
@@ -105,7 +121,7 @@ RUN npm install --global gitbook-cli \
   && rm -rf /tmp/*
 ```
 
-### Autres générateurs et toolchains
+### 4.4. Autres générateurs et toolchains
 
 Le projet pourrait prendre de la plus-value à partir d'un contenu écrit en Markdown pour **Jekyll** ou plus simplement pour **MkDocs-Material** qui au passage d'une moulinette fabriquerait le modèle "gitbook" pour générer le différents artefacts.
 
@@ -121,7 +137,11 @@ stages:
   - deploy
 ```
 
-### Variables du pipeline
+### 5.1. Variables du pipeline
+
+Avec un serveur Gitlab, les variables publiques du pipeline peuvent être déclarées dans le fichier de configuration.
+
+Il est préférable de définir les variables d'authentification AWS `AWS_ACCESS_KEY_ID` et `AWS_SECRET_ACCESS_KEY` dans l'interface du serveur Gitlab dans le menu `Project | Settings | CI / CD | Variables`
 
 ```yaml
 # Open variables for S3
@@ -249,7 +269,7 @@ mobi:
 
 ## 8. Deploy
 
-La phase "Deploy" utilise une autre image
+La phase "Deploy" utilise une autre image `python:latest` qui installe le stack aws-cli utile au transfert des fichiers sur le Bucket AWS S3.
 
 ```yaml
 deploys3:

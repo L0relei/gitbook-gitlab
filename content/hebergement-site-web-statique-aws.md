@@ -69,7 +69,7 @@ Il y a lieu de réfléchir aux aspects dynamiques à donner au livrable.
   * créez deux compartiments
   * configurez des compartiments pour l'hébergement de site Web
   * configurez la redirection de site web
-  * configurez la journalisation pour le trafic du site web (facultatif)
+  * configurez la "journalisation" pour le trafic du site web (facultatif)
   * testez le point de terminaison et la redirection
 * ajoutez des enregistrements d'alias pour example.com et www.example.com
 * test
@@ -84,7 +84,7 @@ Il y a lieu de réfléchir aux aspects dynamiques à donner au livrable.
 
 ## 3. Expérimentation avec aws-cli
 
-## 4. Outils d'approvisionnement
+## 4. Outils d'approvisionnement, de gestion de configuration, d'orchestration, IaC
 
 ### 4.1. Cloudformation
 
