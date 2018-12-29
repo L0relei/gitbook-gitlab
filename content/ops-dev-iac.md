@@ -18,4 +18,8 @@
 
 ## Infrastructure as Code
 
-...
+Comparaison des outils IaC.
+
+Fonctionnalité | Cloudformation | Ansible | Terraform
+--- | --- | --- | ---
+xxx  | xxx | xxx | xxx
