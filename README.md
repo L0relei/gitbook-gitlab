@@ -22,7 +22,7 @@ Les illustrations proposées sont à :
 * adapter
 * améliorer
 
-Le résultat attendu est de fournir une solution sous forme de code informatique avec une documentation la plus complète. Il est livré sous forme de code dans un repo git chez un fournisseur tel que Github ou Gitlab.
+Le résultat attendu est de fournir une solution sous forme de code informatique avec une documentation la plus complète. Il est livré sous forme de code dans un repo git chez un fournisseur tel que Github ou Gitlab en ce compris le code source du document à générer.
 
 Ce document d'énoncé n'a pas pour objectif de fournir une solution aboutie. Il pourrait toutefois évoluer dans cette direction.
 
@@ -112,6 +112,8 @@ Build Node | Gitlab-ci hosted | ...
 
 #### Méthodes de configuration de l'infrastructure
 
-* Manuelle
+* Manuelle dans la console
+* Manuelle ou scriptée avec aws-cli
+* En python avec le module Boto
 * Ansible
 * Cloudformation

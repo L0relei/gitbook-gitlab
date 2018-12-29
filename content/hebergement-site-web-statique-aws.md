@@ -18,9 +18,15 @@ On trouvera ici une proposition à évaluer, à adapter et à améliorer sous fo
 
 ### 1.1. Livrable Web aux normes actuelles
 
-Le site
+* IPv6
+* HTTP 2.O
+* CDN
+* HTTPS
+* Robustesse du stockage
 
-### 1.1. Coûts estimés
+### 1.2. Avantages des sites Web statiques
+
+### 1.3. Coûts estimés
 
 Coûts estimés mensuels.
 
@@ -28,7 +34,7 @@ Coûts estimés mensuels.
 
 [AWS Tableau de bord Gestion de la facturation et des coûts](https://console.aws.amazon.com/billing/home?region=us-east-1#/)
 
-### 1.2. Aspects dynamiques
+### 1.4. Aspects dynamiques
 
 Il y a lieu de réfléchir aux aspects dynamiques à donner au livrable.
 
