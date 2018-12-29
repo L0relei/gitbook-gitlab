@@ -93,7 +93,7 @@ En bref au préalable,
 
 L'avantage d'une exécution par Docker est de disposer d'un environnement identique pour un développement local et automatique.
 
-Il est demandé d'exécuter les opérations à partir d'une image Docker comme par exemple "goffinet/gitbook".
+Il est demandé d'exécuter les opérations à partir d'une image Docker comme par exemple ["goffinet/gitbook"](https://cloud.docker.com/repository/docker/goffinet/gitbook).
 
 ```docker
 # Base image, default node image
@@ -141,7 +141,7 @@ stages:
 
 Avec un serveur Gitlab, les variables publiques du pipeline peuvent être déclarées dans le fichier de configuration.
 
-Il est préférable de définir les variables d'authentification AWS `AWS_ACCESS_KEY_ID` et `AWS_SECRET_ACCESS_KEY` dans l'interface du serveur Gitlab dans le menu `Project | Settings | CI / CD | Variables`
+Il est préférable de définir les variables d'authentification AWS `AWS_ACCESS_KEY_ID` et `AWS_SECRET_ACCESS_KEY` dans l'interface du serveur Gitlab dans le menu `Project | Settings | CI / CD | Variables` en tant que variables protégées.
 
 ```yaml
 # Open variables for S3
@@ -167,6 +167,7 @@ gitbook:
   script:
     - 'echo "node version: $(node -v)"'
     - gitbook -V
+    - calibre --version
   allow_failure: false
 ```
 
