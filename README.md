@@ -2,7 +2,9 @@
 
 <!-- toc -->
 
-## 1. Projet CI/CD de publication
+## 1. Projet de publication en CI/CD sur AWS
+
+![Projet de publication en CI/CD sur AWS](cover_small.jpg)
 
 Auteur : {{ book.author }}
 
