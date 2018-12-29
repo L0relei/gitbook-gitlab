@@ -2,10 +2,11 @@
 
 * [Introduction](README.md)
 
-### Ops
+### Ops IaC
 
 * [Hébergement d'un site Web statique sur AWS](content/hebergement-site-web-statique-aws.md)
+* [Instance Gitlab Runner](content/instance-gitlab-runner.md)
 
-### Dev
+### Dev Pipeline
 
 * [Pipeline : Gitlab-ci](content/pipeline-gitlab-ci.md)

@@ -30,7 +30,7 @@ Ce document d'énoncé n'a pas pour objectif de fournir une solution aboutie. Il
 
 Scénario : CI /CD, Hébergement d'un site Web statique sur AWS en CDN et en HTTPS.
 
-![Projet CI/CD de publication](https://www.lucidchart.com/publicSegments/view/1de78137-3887-4e08-9364-07ed2a7031f8/image.jpeg)
+![Projet CI/CD de publication](https://www.lucidchart.com/publicSegments/view/a662fa58-9876-44f0-b3a4-7fff33a4888d/image.png)
 
 L'énoncé pourrait être formulé de la manière suivante :
 
