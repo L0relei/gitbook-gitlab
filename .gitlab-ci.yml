@@ -19,6 +19,7 @@ gitbook:
   script:
     - 'echo "node version: $(node -v)"'
     - gitbook -V
+    - calibre --version
   allow_failure: false
 
 # the 'lint' job will test the markdown syntax
