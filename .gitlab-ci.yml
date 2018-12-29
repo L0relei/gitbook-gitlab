@@ -19,8 +19,7 @@ gitbook:
   script:
     - 'echo "node version: $(node -v)"'
     - gitbook -V
-    - echo "markdownlint version:" $(markdownlint -V)
-  allow_failure: true
+  allow_failure: false
 
 # the 'lint' job will test the markdown syntax
 lint:
@@ -28,6 +27,7 @@ lint:
   image: registry.gitlab.com/goffinet/gitbook-gitlab:latest
   script:
     - 'echo "node version: $(node -v)"'
+    - echo "markdownlint version:" $(markdownlint -V)
     - markdownlint --config ./markdownlint.json README.md
     - markdownlint --config ./markdownlint.json ./content/*.md
   allow_failure: true
@@ -68,6 +68,7 @@ pdf:
     expire_in: 1 day
   only:
     - master # this job will affect only the 'master' branch the 'pdf' job will build your document in pdf format
+
 # the 'epub' job will build your document in epub format
 epub:
   stage: build
@@ -86,6 +87,7 @@ epub:
     expire_in: 1 day
   only:
     - master # this job will affect only the 'master' branch
+
 # the 'mobi' job will build your document in mobi format
 mobi:
   stage: build
@@ -119,6 +121,6 @@ deploys3:
   script:
     - aws s3 sync book s3://${BUCKET_NAME} --acl public-read --delete
     - aws s3 sync ebooks s3://${BUCKET_NAME}/ebooks --acl public-read --delete
-    - aws cloudfront create-invalidation --distribution-id ${CDN_DISTRIBUTION_ID} --paths "/*"
+    - aws cloudfront create-invalidation --distribution-id ${CDN_DISTRIBUTION_ID} --paths "/*" # The next time a viewer requests the file, CloudFront returns to the origin to fetch the latest version of the file.
   environment:
     name: production
