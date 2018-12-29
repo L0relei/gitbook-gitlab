@@ -19,7 +19,7 @@ On trouvera ici une proposition à évaluer, à adapter et à améliorer sous fo
 ### 1.1. Livrable Web aux normes actuelles
 
 * IPv6
-* HTTP 2.O
+* HTTP 2.0
 * CDN
 * HTTPS
 * Robustesse du stockage
