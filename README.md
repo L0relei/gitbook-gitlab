@@ -118,7 +118,12 @@ Les trois voies (ou manières) décrivent les valeurs et les philosophies qui en
 
 Source : [The Three Ways: The Principles Underpinning DevOps](https://itrevolution.com/the-three-ways-principles-underpinning-devops/)
 
-### 6.4. Philosophie DevOps
+### 6.4. Culture DevOps
+
+* [Elements Of The First Way: And The DevOps Implications…](https://itrevolution.com/elements-of-the-first-way-and-the-devops-implications/)
+* [DevOps Culture (Part 1)](https://itrevolution.com/devops-culture-part-1/)
+* [DevOps Culture (Part 2)](https://itrevolution.com/devops-culture-part-2/)
+
 
 ## 7. Dev vers Ops en pipeline CI/CD
 
