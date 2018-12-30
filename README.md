@@ -16,7 +16,7 @@ Date de fabrication : {{ gitbook.time }}
 
 ## 2. Objectifs du document et résultat attendu
 
-Ce document a pour objectif premier de fournir un énoncé dans le cadre d'une étude de cas DevOps avec la mise en oeuvre d'outils d'intégration continue sur une infrastructure AWS.
+Ce document a pour objectif premier de fournir un énoncé dans le cadre d'une étude de cas DevOps qui met en oeuvre des outils d'intégration continue à partir d'une infrastructure Amazon Web Services AWS.
 
 Les illustrations proposées sont à :
 
