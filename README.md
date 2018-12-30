@@ -14,9 +14,9 @@ Date de fabrication : {{ gitbook.time }}
 * [EPUB](/ebooks/gitbook-gitlab.epub)
 * [MOBI](/ebooks/gitbook-gitlab.mobi)
 
-## 2. Objectifs du document
+## 2. Objectifs du document et résultat attendu
 
-Ce document a pour objectif premier de fournir un énoncé dans le cadre d'une étude de cas DevOps notamment avec la mise en oeuvre d'outils tels que git, gitlab, gitlab-ci, jenkins, docker, puppet, ansible, terraform, etc. sur une infrastructure AWS.
+Ce document a pour objectif premier de fournir un énoncé dans le cadre d'une étude de cas DevOps notamment avec la mise en oeuvre d'outils d'intégration continue avec une mise en oeuvre sur une infrastructure AWS.
 
 Les illustrations proposées sont à :
 
@@ -24,7 +24,9 @@ Les illustrations proposées sont à :
 * adapter
 * améliorer
 
-Le résultat attendu est de fournir une solution sous forme de code informatique avec une documentation la plus complète. Il est livré sous forme de code dans un repo git chez un fournisseur tel que Github ou Gitlab en ce compris le code source du document à générer.
+Le résultat attendu est le suivant : fournir une solution sous forme de code informatique avec une documentation la plus complète. Il est livré sous forme de code dans un repo git chez un fournisseur tel que Github ou Gitlab en ce compris le code source du document à générer.
+
+La méthode de travail est celle qui devrait le mieux correspondre aux principes DevOps.
 
 Ce document d'énoncé n'a pas pour objectif de fournir une solution aboutie. Il pourrait toutefois évoluer dans cette direction.
 
@@ -76,7 +78,7 @@ Total  | 18 $ HTVA  |  19,12 EUR TVAC
 
 ## 6. Principes DevOps
 
-Les troies voies (ou manières) décrivent les valeurs et les philosophies qui encadrent les processus, les procédures, les pratiques de DevOps, ainsi que les étapes normatives.
+Les trois voies (ou manières) décrivent les valeurs et les philosophies qui encadrent les processus, les procédures, les pratiques de DevOps, ainsi que les étapes normatives.
 
 ![Les trois manières: les principes sur lesquels se base DevOps](https://dick1stark.files.wordpress.com/2016/11/three-ways.png)
 
@@ -107,6 +109,8 @@ Les troies voies (ou manières) décrivent les valeurs et les philosophies qui e
 >Les résultats de la troisième voie comprennent le temps alloué pour l'amélioration du travail quotidien, la création de rituels qui récompensent l'équipe pour avoir pris des risques et l'introduction de failles dans le système pour accroître la résilience.
 
 Source : [The Three Ways: The Principles Underpinning DevOps](https://itrevolution.com/the-three-ways-principles-underpinning-devops/)
+
+### 6.4. Philosophie DevOps
 
 ## 7. Dev vers Ops en pipeline CI/CD
 
