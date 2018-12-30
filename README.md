@@ -64,17 +64,25 @@ Total  | 18 $ HTVA  |  19,12 EUR TVAC
 
 ## 5. Modèles et références
 
-* [Gitbook.com Legacy](https://legacy.gitbook.com/) et Calibre
+* [Gitbook.com Legacy](https://legacy.gitbook.com/) et [Calibre](https://calibre-ebook.com/)
 * [Softcover](https://www.softcover.io/)
 * [Netlify](https://www.netlify.com/features/) : _Build, deploy, and manage modern web projects. An all-in-one workflow that combines global deployment, continuous integration, and automatic HTTPS. And that’s just the beginning._
 
-### 5.1. Autres références
+### 5.1. Autres références dans ce cadre
 
 * [Pandoc](https://pandoc.org/), un convertisseur open-source
 * [Book publishing toolchain based on AsciiDoc](https://github.com/jd/asciidoc-book-toolchain)
 * [Latex](https://www.latex-project.org/)
-* Jekyll
-* MkDocs-Material
+* [Jekyll](https://jekyllrb.com/)
+* [MkDocs-Material](https://squidfunk.github.io/mkdocs-material/)
+* [Hugo](https://gohugo.io/)
+
+### 5.2. Autres Frameworks de publication
+
+* [Wordpress](https://wordpress.org/)
+* [Drupal](https://www.drupal.org/)
+* [Plone](https://plone.org/)
+* [Ghost](https://ghost.org/)
 
 ## 6. Principes DevOps
 
