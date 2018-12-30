@@ -124,7 +124,6 @@ Source : [The Three Ways: The Principles Underpinning DevOps](https://itrevoluti
 * [DevOps Culture (Part 1)](https://itrevolution.com/devops-culture-part-1/)
 * [DevOps Culture (Part 2)](https://itrevolution.com/devops-culture-part-2/)
 
-
 ## 7. Dev vers Ops en pipeline CI/CD
 
 Dev = Application, frameworks, stack, toolchain
