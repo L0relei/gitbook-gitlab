@@ -10,9 +10,9 @@ Auteur : {{ book.author }}
 
 Date de fabrication : {{ gitbook.time }}
 
-* [PDF](ebooks/gitbook-gitlab.pdf)
-* [EPUB](ebooks/gitbook-gitlab.epub)
-* [MOBI](ebooks/gitbook-gitlab.mobi)
+* [PDF](/ebooks/gitbook-gitlab.pdf)
+* [EPUB](/ebooks/gitbook-gitlab.epub)
+* [MOBI](/ebooks/gitbook-gitlab.mobi)
 
 ## 2. Objectifs du document
 
@@ -84,21 +84,21 @@ Les troies voies (ou manières) décrivent les valeurs et les philosophies qui e
 2. Le second concerne le flux constant de retours rapides de droite à gauche à toutes les étapes du flux de valeur.
 3. La troisième méthode consiste à créer une culture qui favorise deux choses : l'expérimentation continue et la compréhension du fait que la répétition et la pratique sont les conditions préalables à la maîtrise.
 
-### I. The first way
+### I. La Première Voie
 
 >La première méthode met l'accent sur le rendement de l'ensemble du système, par opposition au rendement d'un silo de travail ou d'un service particulier - qui peut être aussi important qu'une division (p. ex., Développement ou Opérations de TI) ou aussi petit qu'un contributeur individuel (p. ex., un développeur, un administrateur système).
 >
 >L'accent est mis sur tous les flux de valeur de l'entreprise qui sont rendus possibles par les IT. En d'autres termes, cela commence lorsque les besoins sont identifiés (par l'entreprise ou le service informatique, par exemple), sont intégrés dans le développement, puis transférés dans les opérations informatiques, où la valeur est ensuite fournie au client sous la forme d'un service.
 >
 >Les résultats de la mise en pratique de la Première Voie comprennent le fait de ne jamais transmettre un défaut connu aux centres de travail en aval, de ne jamais permettre à l'optimisation locale de créer une dégradation globale, de toujours chercher à augmenter le débit et de toujours chercher à obtenir une compréhension profonde du système (selon Deming).
->
+
+### II. La Seconde Voie
+
 >La deuxième méthode consiste à créer des boucles de rétroaction de droite à gauche. L'objectif de presque toutes les initiatives d'amélioration des processus est de raccourcir et d'amplifier les boucles de rétroaction afin que les corrections nécessaires puissent être apportées continuellement.
-
-### II. The second way
-
+>
 >Les résultats de la deuxième voie comprennent la compréhension et la réponse à tous les clients, internes et externes, la réduction et l'amplification de toutes les boucles de rétroaction et l'intégration des connaissances là où on en a besoin.
 
-### III. The third way
+### III. La Troisième Voie
 
 >La troisième voie consiste à créer une culture qui favorise deux choses : l'expérimentation continue, la prise de risques et l'apprentissage de l'échec d'une part, et la compréhension que la répétition et la pratique sont les conditions préalables à la maîtrise d'autre part.
 >
