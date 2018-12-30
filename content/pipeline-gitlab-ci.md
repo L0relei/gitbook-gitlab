@@ -121,13 +121,19 @@ RUN npm install --global gitbook-cli \
   && rm -rf /tmp/*
 ```
 
-### 4.4. Autres générateurs et toolchains
+### 4.4. Point de départ avec Netify
+
+[A Step-by-Step Guide: GitBook on Netlify](https://www.netlify.com/blog/2015/12/08/a-step-by-step-guide-gitbook-on-netlify/)
+
+[https://github.com/goffinet/gitbooktest](https://github.com/goffinet/gitbooktest)
+
+### 4.5. Autres générateurs et toolchains
 
 Le projet pourrait prendre de la plus-value à partir d'un contenu écrit en Markdown pour **Jekyll** ou plus simplement pour **MkDocs-Material** qui au passage d'une moulinette fabriquerait le modèle "gitbook" pour générer le différents artefacts.
 
 ## 5. Paramètres du pipeline
 
-Le pipeline comporte trois stages : Test, Build, Deploy.
+Le pipeline de départ comporte trois stages : "Test", "Build", "Deploy". Il manque une phase "staging" qui teste les artefacts avant la phase "Deploy". Elle est à developper.
 
 ```yaml
 # This pipeline run three stages Test, Build and Deploy
