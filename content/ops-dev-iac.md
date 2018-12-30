@@ -20,12 +20,12 @@
 
 ## Infrastructure as Code
 
-Comparaison des outils IaC.
+Comparaison des outils IaC : Cloudformation | Ansible | Terraform
 
 * [Comparing CloudFormation, Terraform and Ansible - Simple example](https://technodrone.blogspot.com/2018/06/comparing-cloudformation-terraform-and.html)
 * [Comparing CloudFormation, Terraform and Ansible - Part #2](https://technodrone.blogspot.com/2018/07/comparing-cloudformation-terraform-and.html)
 * [Pourquoi ansible n’est pas un bon choix pour créer son infra AWS ?](https://blog.xebia.fr/2017/03/14/pourquoi-ansible-nest-pas-un-bon-choix-pour-creer-son-infra-aws/)
 
-Fonctionnalité | Cloudformation | Ansible | Terraform
---- | --- | --- | ---
-xxx  | xxx | xxx | xxx
+### Ansible
+
+[Amazon Web Services Guide](https://docs.ansible.com/ansible/latest/scenario_guides/guide_aws.html)

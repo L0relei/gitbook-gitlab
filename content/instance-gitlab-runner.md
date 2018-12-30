@@ -2,11 +2,7 @@
 
 <!-- toc -->
 
-## Instance d'exécution EC2
-
-...
-
-## Installation de Gitlab Runner
+## Installation et configuration de Gitlab Runner
 
 ...
 
