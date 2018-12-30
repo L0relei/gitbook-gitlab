@@ -44,12 +44,14 @@ Il y a lieu de réfléchir aux aspects dynamiques à donner au livrable.
 
 ## 2. Expérimentation dans la console AWS
 
+[Mise en route sur Amazon Simple Storage Service](https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/gsg/GetStartedWithS3.html)
+
 ### 2.1. Création d'un bucket avec un utilisateur autorisé
 
-! Référence à ajouter
-
 * IAM
-* Création d'un Bucket
+* [Comment créer un compartiment S3 ?](https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/user-guide/create-bucket.html)
+* [Utilisation des commandes s3 de haut niveau avec l'AWS Command Line Interface](https://docs.aws.amazon.com/fr_fr/cli/latest/userguide/using-s3-commands.html)
+* [s3](https://docs.aws.amazon.com/cli/latest/reference/s3/)
 
 ### 2.2. Configuration d'un site web statique
 

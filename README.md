@@ -24,7 +24,7 @@ Les illustrations proposées sont à :
 * adapter
 * améliorer
 
-Le résultat attendu est le suivant : fournir une solution sous forme de code informatique avec une documentation la plus complète. Il est livré sous forme de code dans un repo git chez un fournisseur tel que Github ou Gitlab en ce compris le code source du document à générer.
+Le résultat attendu est le suivant : fournir une solution sous forme de code informatique (repo git) avec une documentation la plus complète.
 
 La méthode de travail est celle qui devrait le mieux correspondre aux principes DevOps.
 
@@ -38,7 +38,7 @@ Scénario : CI /CD avec Git, Gitlab, sur AWS EC2, Hébergement d'un site Web sta
 
 L'énoncé pourrait être formulé de la manière suivante :
 
-> Générer un livre numérique (ebook) en différents formats (HTML, PDF, MOBI, EPUB) en _intégration continue_ et _en livraison continue_ à partir d'un contenu écrit en Markdown sur une infrastructure dans le nuage. Le résultat attendu est la livraison continue du document sur un site Web aux normes actuelles (HTTPS et CDN) offrant les différents formats de lecture. La solution est fournie sous forme de code. Le résultat est évaluer sur base d'une vision défendue de la philosophie DevOps.
+> Générer un livre numérique (ebook) en différents formats (HTML, PDF, MOBI, EPUB) en _intégration continue_ et _en livraison continue_ à partir d'un contenu écrit en Markdown sur une infrastructure dans le nuage. Le résultat attendu est la livraison continue du document sur un site Web aux normes actuelles (IPv6, HTTPS et CDN) offrant les différents formats de lecture. La solution est fournie sous forme de code. Le résultat est évaluer sur base d'une vision défendue de la culture DevOps.
 
 On trouvera dans ce document des points de départs et des outils à évaluer, à adapter et à améliorer.
 
