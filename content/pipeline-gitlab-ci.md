@@ -67,7 +67,7 @@ Gitlab Runner| service d'exécution CI/CD auto-hébergé ou hébergé
 * Clé SSH
 * Variables privées
 * Gitlab-ci
-* Construction automatique des images Docker et hébergement
+* Construction automatique des images Docker et hébergement de l'image sur un registre Docker
 
 ## 4. Application : Toolchains
 
@@ -304,7 +304,7 @@ On remarquera qu'une implémentation DevOps en intégration continue demande des
 
 Si ces instances d'exécution sont situées dans le nuage elle sont soit partagées (offertes dans les limites d'une offre payante ou gratuite), soit dédiée mais surtout à la charge du client.
 
-Gitlab-ci offre des noeuds d'exécution partagé gratuit et offre la possibilité d'intégrer facilement des noeuds externes à un serveur Gitlab.
+Gitlab-ci offre des noeuds d'exécution partagés gratuits et offre la possibilité d'intégrer facilement des noeuds externes à un serveur Gitlab.
 
 La mise à disposition des noeuds d'exécution Docker doit être intégrée à la partie Ops sous forme IaC (Infrastructure as Code) Cloudformation, Ansible ou Terraform.
 

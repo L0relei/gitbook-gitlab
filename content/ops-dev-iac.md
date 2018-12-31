@@ -214,6 +214,8 @@ On utilisera AWS CodePipeline pour créer, tester et déployer le code chaque fo
 * AWS ACM
 * AWS Cloudfront
 * AWS CloudFormation
+* [Amazon Elastic Container Registry (ECR)](https://aws.amazon.com/fr/ecr/) : Registre de conteneurs
+* [Amazon Elastic Container Service (ECS)](https://aws.amazon.com/fr/ecs/) : Service de conteneurs
 
 Illustration de la fonction Lambda sur Neltify :
 
