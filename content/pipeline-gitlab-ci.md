@@ -125,7 +125,9 @@ RUN npm install --global gitbook-cli \
 
 [A Step-by-Step Guide: GitBook on Netlify](https://www.netlify.com/blog/2015/12/08/a-step-by-step-guide-gitbook-on-netlify/)
 
-[https://github.com/goffinet/gitbooktest](https://github.com/goffinet/gitbooktest)
+Un livre de base est proposé ici : [https://github.com/goffinet/gitbooktest](https://github.com/goffinet/gitbooktest)
+
+Netlify publie l'image qu'il utilise pour déployer ses services : [Netlify automated build image](https://github.com/netlify/build-image).
 
 ### 4.5. Autres générateurs et toolchains
 
