@@ -16,9 +16,9 @@ Cette étape de la solution nécessite de s'intéresser aux outils d'intégratio
 
 Enfin, les étapes d'intégration continue et de le livraison continue sont annoncées sur le canal dédié d'un espace de travail Slack.
 
-### 1.1. Dev vers Ops et inversément
+### 1.1. Dev vers Ops
 
-![Dev vers Ops et inversément](https://www.lucidchart.com/publicSegments/view/04654c78-4c09-4beb-9265-4f8fbdaa7cfd/image.png)
+![Dev vers Ops](https://www.lucidchart.com/publicSegments/view/04654c78-4c09-4beb-9265-4f8fbdaa7cfd/image.png)
 
 ## 2. Boîte à outil
 
@@ -47,7 +47,7 @@ Le Pipeline de base proposé est le suivant :
 
 * Phase de test des outils et du code (test) : test des images docker et du code
 * Phase de construction : usage des outils
-* Phase de déploiement : déploiement auprès d'une infrastucture codée (ici sur AWS S3 en HTTPS/CDN)
+* Phase de déploiement : déploiement auprès d'une infrastructure codée (ici sur AWS S3 en HTTPS/CDN)
 
 ## 3. Le serveur d'intégration
 
@@ -68,6 +68,10 @@ Gitlab Runner| service d'exécution CI/CD auto-hébergé ou hébergé
 * Variables privées
 * Gitlab-ci
 * Construction automatique des images Docker et hébergement de l'image sur un registre Docker
+
+### 3.2. Exécution des jobs dans des conteneurs
+
+Avec Gitlab-ci, il est habituel d'exécuter les jobs dans des conteneurs (voir plus bas).
 
 ## 4. Application : Toolchains
 
