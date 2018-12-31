@@ -6,6 +6,8 @@
 
 ![Projet de publication en CI/CD sur AWS](cover_small.jpg)
 
+test
+
 Auteur : {{ book.author }}
 
 Date de fabrication : {{ gitbook.time }}
