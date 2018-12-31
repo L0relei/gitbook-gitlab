@@ -73,9 +73,11 @@ Gitlab Runner| service d'exécution CI/CD auto-hébergé ou hébergé
 
 Avec Gitlab-ci, il est habituel d'exécuter les jobs dans des conteneurs (voir plus bas).
 
-## 3.3. Dimensionnement
-
 [Migrating Netlify’s Continuous Deployment infra to Kubernetes (and everything we learned along the way)](https://medium.com/netlify/migrating-netlifys-continuous-deployment-infra-to-kubernetes-and-everything-we-learned-along-the-1e5989254269).
+
+>Si vous connaissez Docker, vous savez probablement que la construction d'images spécialisées dans un but spécifique est généralement une bonne pratique. Par exemple, vous avez une image pour Nginx et son seul but est d'exécuter Nginx. Vous avez aussi une image pour Go, et son seul but est d'exécuter des commandes Go, et ainsi de suite. Dans les services traditionnels d'intégration continue, c'est très pratique - si vous voulez exécuter des tests pour votre application Rails, vous utilisez une image avec Ruby et Rails installés, et rien d'autre. Cela permet également de réduire la taille des images, ce qui est plus efficace lorsque vous devez les télécharger plusieurs fois à partir d'un registre de conteneurs.
+>
+>La nature des projets que nos clients construisent sur Netlify rend cela moins pratique. Habituellement, un projet web implique une compilation JavaScript, nous avons donc besoin de Node. Il peut également avoir besoin d'un autre langage de programmation si vous utilisez un générateur de site ou des bibliothèques pour traiter les fichiers image. Avoir une image Docker spécialisée serait en fait un inconvénient pour nous car nos clients devraient les modifier pour chacun de leurs cas d'utilisation.
 
 ## 4. Application : Toolchains
 
