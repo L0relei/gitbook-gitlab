@@ -17,7 +17,7 @@
 ### Instances d'exécution EC2
 
 * Automatisation d'instances EC2.
-* Instances de conteneur [ECS](https://aws.amazon.com/fr/ecs/)
+* Instances de conteneur [Amazon Elastic Container Service (ECS)](https://aws.amazon.com/fr/ecs/) / [Amazon Elastic Container Registry (ECR)](https://aws.amazon.com/fr/ecr/)
 
 ## Infrastructure as Code
 
