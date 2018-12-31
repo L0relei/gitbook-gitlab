@@ -73,6 +73,10 @@ Gitlab Runner| service d'exécution CI/CD auto-hébergé ou hébergé
 
 Avec Gitlab-ci, il est habituel d'exécuter les jobs dans des conteneurs (voir plus bas).
 
+## 3.3. Dimensionnement
+
+[Migrating Netlify’s Continuous Deployment infra to Kubernetes (and everything we learned along the way)](https://medium.com/netlify/migrating-netlifys-continuous-deployment-infra-to-kubernetes-and-everything-we-learned-along-the-1e5989254269).
+
 ## 4. Application : Toolchains
 
 ### 4.1. Le Stack
