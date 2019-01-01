@@ -38,6 +38,8 @@ L'image est gratuite et une instance t2.medium (2 vCPUs et 4G RAM) est recommand
 
 [Autoscaling GitLab Runner on AWS](https://docs.gitlab.com/runner/configuration/runner_autoscale_aws/)
 
+[Autoscale GitLab CI runners and save 90% on EC2 costs](https://about.gitlab.com/2017/11/23/autoscale-ci-runners/)
+
 ## Installation et configuration de Gitlab Runner
 
 ...

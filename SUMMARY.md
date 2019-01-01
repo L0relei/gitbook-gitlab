@@ -1,6 +1,6 @@
 # Summary
 
-* [Introduction](README.md)
+* [Projet de publication en CI/CD sur AWS](README.md)
 
 ### Ops vers Dev IaC sur AWS
 

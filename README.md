@@ -1,12 +1,6 @@
-# Introduction
-
-<!-- toc -->
-
-## 1. Projet de publication en CI/CD sur AWS
+# Projet de publication en CI/CD sur AWS
 
 ![Projet de publication en CI/CD sur AWS](cover_small.jpg)
-
-test
 
 Auteur : {{ book.author }}
 
@@ -16,7 +10,9 @@ Date de fabrication : {{ gitbook.time }}
 * [EPUB](/ebooks/gitbook-gitlab.epub)
 * [MOBI](/ebooks/gitbook-gitlab.mobi)
 
-## 2. Objectifs du document et résultat attendu
+<!-- toc -->
+
+## 1. Objectifs du document et résultat attendu
 
 Ce document a pour objectif premier de fournir un énoncé dans le cadre d'une étude de cas DevOps qui met en oeuvre des outils d'intégration continue à partir d'une infrastructure Amazon Web Services AWS.
 
@@ -32,7 +28,7 @@ La méthode de travail est celle qui devrait le mieux correspondre aux principes
 
 Ce document d'énoncé n'a pas pour objectif de fournir une solution aboutie. Il pourrait toutefois évoluer dans cette direction.
 
-## 3. Scénario
+## 2. Scénario et énoncé
 
 Scénario : CI /CD avec Git, Gitlab, sur AWS EC2, Hébergement d'un site Web statique sur AWS S3 en CDN et en HTTPS.
 
@@ -55,22 +51,13 @@ On trouvera dans ce document des points de départs et des outils à évaluer, �
   * AWS Cloudfront,
   * AWS Certificate Manager (ACM)
 
-## 4. Budget
-
-Budget AWS | Prix $ HTVA | Prix EUR TVAC
---- | --- | ---
-Inscription AWS | 2 $ HTVA | 2,12 EUR TVAC
-Nom de domaine | 12$ HTVA | 12,75 EUR TVAC
-Divers  | 4 $ HTVA  |  4,24 EUR TVAC
-Total  | 18 $ HTVA  |  19,12 EUR TVAC
-
-## 5. Modèles et références
+## 3. Modèles et références
 
 * [Gitbook.com Legacy](https://legacy.gitbook.com/) et [Calibre](https://calibre-ebook.com/)
 * [Softcover](https://www.softcover.io/)
 * [Netlify](https://www.netlify.com/features/) : _Build, deploy, and manage modern web projects. An all-in-one workflow that combines global deployment, continuous integration, and automatic HTTPS. And that’s just the beginning._
 
-### 5.1. Autres références dans ce cadre
+### 3.1. Autres références dans ce cadre
 
 * [Pandoc](https://pandoc.org/), un convertisseur open-source
 * [Book publishing toolchain based on AsciiDoc](https://github.com/jd/asciidoc-book-toolchain)
@@ -79,14 +66,14 @@ Total  | 18 $ HTVA  |  19,12 EUR TVAC
 * [MkDocs-Material](https://squidfunk.github.io/mkdocs-material/)
 * [Hugo](https://gohugo.io/)
 
-### 5.2. Autres Frameworks de publication
+### 3.2. Autres Frameworks de publication
 
 * [Wordpress](https://wordpress.org/)
 * [Drupal](https://www.drupal.org/)
 * [Plone](https://plone.org/)
 * [Ghost](https://ghost.org/)
 
-## 6. Principes DevOps
+## 4. Principes DevOps
 
 Les trois voies (ou manières) décrivent les valeurs et les philosophies qui encadrent les processus, les procédures, les pratiques de DevOps, ainsi que les étapes normatives.
 
@@ -96,7 +83,7 @@ Les trois voies (ou manières) décrivent les valeurs et les philosophies qui en
 2. Le second concerne le flux constant de retours rapides de droite à gauche à toutes les étapes du flux de valeur.
 3. La troisième méthode consiste à créer une culture qui favorise deux choses : l'expérimentation continue et la compréhension du fait que la répétition et la pratique sont les conditions préalables à la maîtrise.
 
-### 6.1. La Première Voie
+### 4.1. La Première Voie
 
 >La première méthode met l'accent sur le rendement de l'ensemble du système, par opposition au rendement d'un silo de travail ou d'un service particulier - qui peut être aussi important qu'une division (p. ex., Développement ou Opérations de TI) ou aussi petit qu'un contributeur individuel (p. ex., un développeur, un administrateur système).
 >
@@ -104,13 +91,13 @@ Les trois voies (ou manières) décrivent les valeurs et les philosophies qui en
 >
 >Les résultats de la mise en pratique de la Première Voie comprennent le fait de ne jamais transmettre un défaut connu aux centres de travail en aval, de ne jamais permettre à l'optimisation locale de créer une dégradation globale, de toujours chercher à augmenter le débit et de toujours chercher à obtenir une compréhension profonde du système (selon Deming).
 
-### 6.2. La Seconde Voie
+### 4.2. La Seconde Voie
 
 >La deuxième méthode consiste à créer des boucles de rétroaction de droite à gauche. L'objectif de presque toutes les initiatives d'amélioration des processus est de raccourcir et d'amplifier les boucles de rétroaction afin que les corrections nécessaires puissent être apportées continuellement.
 >
 >Les résultats de la deuxième voie comprennent la compréhension et la réponse à tous les clients, internes et externes, la réduction et l'amplification de toutes les boucles de rétroaction et l'intégration des connaissances là où on en a besoin.
 
-### 6.3. La Troisième Voie
+### 4.3. La Troisième Voie
 
 >La troisième voie consiste à créer une culture qui favorise deux choses : l'expérimentation continue, la prise de risques et l'apprentissage de l'échec d'une part, et la compréhension que la répétition et la pratique sont les conditions préalables à la maîtrise d'autre part.
 >
@@ -120,13 +107,13 @@ Les trois voies (ou manières) décrivent les valeurs et les philosophies qui en
 
 Source : [The Three Ways: The Principles Underpinning DevOps](https://itrevolution.com/the-three-ways-principles-underpinning-devops/)
 
-### 6.4. Culture DevOps
+### 4.4. Culture DevOps
 
 * [Elements Of The First Way: And The DevOps Implications…](https://itrevolution.com/elements-of-the-first-way-and-the-devops-implications/)
 * [DevOps Culture (Part 1)](https://itrevolution.com/devops-culture-part-1/)
 * [DevOps Culture (Part 2)](https://itrevolution.com/devops-culture-part-2/)
 
-## 7. Dev vers Ops en pipeline CI/CD
+## 5. Dev vers Ops en pipeline CI/CD
 
 Dev = Application, frameworks, stack, toolchain
 
@@ -155,7 +142,7 @@ CDN | Cloudfront | Cloudflare, OVH
 Hosting / Storage | AWS S3 | ...
 Build Node | Gitlab-ci hosted | ...
 
-## 9. Méthodes de configuration de l'infrastructure
+## 6. Méthodes de configuration de l'infrastructure
 
 * Manuelle dans la console
 * Manuelle ou scriptée avec aws-cli
