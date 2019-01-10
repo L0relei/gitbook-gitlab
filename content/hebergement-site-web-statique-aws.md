@@ -16,6 +16,19 @@ On trouvera ici une proposition à évaluer, à adapter et à améliorer sous fo
 * HTTPS : AWS Certificate Manager
 * Credits Management : AWS IAM
 
+### Phases
+
+* Déploiement sur un Bucket S3 existant
+* Infrastructure nécessaire : Nom, DNS, Distribution, certificat, utilisateur et policies.
+* Construction
+
+#### Phase Infra
+
+* Création du Bucket S3 avec une propriété 'website'. Existe-t-il ?
+* Une distribution Cloudfront associée au Bucket S3 existe-t-elle ?
+* Le nom de est-il en gestion Route 53 ? Est-il associé
+
+
 ### 1.1. Livrable Web aux normes actuelles
 
 * IPv6
@@ -85,6 +98,8 @@ Il y a lieu de réfléchir aux aspects dynamiques à donner au livrable.
 * (Facultatif) Vérification des fichiers journaux
 
 ## 3. Expérimentation avec aws-cli
+
+
 
 ## 4. Outils d'approvisionnement, de gestion de configuration, d'orchestration, IaC
 

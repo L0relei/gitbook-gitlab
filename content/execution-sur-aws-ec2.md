@@ -6,18 +6,30 @@
 
 [https://docs.aws.amazon.com/fr_fr/cli/latest/userguide/aws-cli.pdf](https://docs.aws.amazon.com/fr_fr/cli/latest/userguide/aws-cli.pdf)
 
-### Installation
+### Installation d'AWS Command Line Interface
 
-[https://docs.aws.amazon.com/fr_fr/cli/latest/userguide/cli-chap-welcome.html](https://docs.aws.amazon.com/fr_fr/cli/latest/userguide/cli-chap-welcome.html)
+[Installation d'AWS Command Line Interface](https://docs.aws.amazon.com/fr_fr/cli/latest/userguide/cli-chap-welcome.html)
 
-## EC2
+L'AWS CLI est un outil à code source libre qui vous permet d'interagir avec les services AWS à l'aide des commandes du shell de ligne de commande. Avec une configuration minimale, vous pouvez commencer à utiliser toutes les fonctionnalités fournies par la console AWS Management Console depuis l'invite de commande de votre programme terminal préféré.
 
-### régions et AZ (zone de disponibilté)
+### Configuration de l'AWS CLI
+
+[Configuration de l'AWS CLI](https://docs.aws.amazon.com/fr_fr/cli/latest/userguide/cli-chap-configure.html)
+
+### Boto
+
+```bash
+pip install boto
+```
+
+## régions et AZ (zone de disponibilté)
+
+Le cloud AWS gère 60 zones de disponibilité dans 20 régions géographiques autour du monde.
 
 * [https://aws.amazon.com/fr/about-aws/global-infrastructure/](https://aws.amazon.com/fr/about-aws/global-infrastructure/)
 * [https://docs.aws.amazon.com/fr_fr/AWSEC2/latest/UserGuide/using-regions-availability-zones.html](https://docs.aws.amazon.com/fr_fr/AWSEC2/latest/UserGuide/using-regions-availability-zones.html)
 
-Définition d'une région et d'un zone de disponibilité.
+**Les régions AWS fournissent plusieurs zones de disponibilité physiquement séparées et isolées**, reliées par un réseau à faible latence, à débit élevé et à forte redondance.
 
 ![Infrastructure mondiale](https://d1.awsstatic.com/about-aws/regions/global-infra_3.30.18.b559f46825615c1ae40f319d0c4d9139fea9c492.png)
 
@@ -51,7 +63,7 @@ Emplacements de réseaux périphériques AWS
 
 Emplacements périphériques : Amsterdam, Pays-Bas (2) ; Berlin, Allemagne ; Le Cap, Afrique du Sud ; Copenhague, Danemark ; Dubai, Émirats arabes unis ; Dublin, Irlande Francfort, Allemagne (8) ; Fujairah, Émirats arabes unis, Helsinki, Finlande ; Johannesburg, Afrique du Sud ; Londres, Angleterre (7) ; Madrid, Espagne (2) ; Manchester, Angleterre ; Marseille, France ; Milan, Italie ; Munich, Allemagne ; Oslo, Norvège ; Palerme, Italie ; Paris, France (4) ; Prague, République tchèque ; Stockholm, Suède (3) ; Vienne, Autriche ; Varsovie, Pologne ; Zurich, Suisse
 
-Caches périphériques régionaux : Francfort, Allemagne ; Londres, Angleterre
+Caches périphériques régionaux : Francfort, Allemagne, Londres, Angleterre
 
 ```bash
 aws ec2 describe-regions --output table
@@ -81,7 +93,7 @@ aws ec2 describe-regions --output table
 
 ```
 
-### AMI
+## AMI
 
 Une Amazon Machine Image (AMI) fournit les informations requises pour lancer une instance, qui est un serveur virtuel dans le cloud. Vous devez spécifier une AMI source lorsque vous lancez une instance. Lorsque vous avez besoin de plusieurs instances configurées de manière identique, il est possible de lancer plusieurs instances à partir d'une même AMI. Lorsque vous avez besoin d'instances configurées de manière différente, vous pouvez utiliser différentes AMI pour lancer ces instances.
 
@@ -118,7 +130,11 @@ Retenons l'AMI `ami-0ebc281c20e89ba4b` comme la plus récente.
 export AWS_IMAGE="ami-0ebc281c20e89ba4b"
 ```
 
-### VPC
+## VPC
+
+Un Virtual Private Cloud (VPC) est un réseau virtuel dédié logiquement isolé des autres réseaux virtuels dans le cloud AWS. On peut lancer des ressources AWS, comme des instances Amazon EC2, dans un VPC, spécifier une plage d'adresses IP pour le VPC, ajouter des sous-réseaux, associer des groupes de sécurité et configurer des tables de routage.
+
+Un sous-réseau est une plage d'adresses IP dans le VPC.
 
 ```bash
 aws ec2 describe-vpcs --output table
@@ -145,6 +161,10 @@ aws ec2 describe-vpcs --output table
 
 ```bash
 export AWS_VPC="vpc-476c332e"
+```
+
+```bash
+export AWS_VPC=$(aws ec2 describe-vpcs --query 'Vpcs[*].VpcId' --output text)
 ```
 
 ```bash
