@@ -70,6 +70,7 @@ Gitlab Runner| service d'exécution CI/CD auto-hébergé ou hébergé
 * Variables privées
 * Gitlab-ci
 * Construction automatique des images Docker et hébergement de l'image sur un registre Docker
+* Intégration d'un canal Slack
 
 ### 3.2. Exécution des jobs dans des conteneurs
 
@@ -352,7 +353,7 @@ La mise à disposition des noeuds d'exécution Docker doit être intégrée à l
 
 * Choix du service SCM.
 * Choix et emplacement du serveur d'intégration.
-* Choix et emplacement des noeuds d'éxécution.
+* Choix et emplacement des noeuds d'exécution.
 * Choix du registry Docker
 * Fabrication automatique des images "container" sur un registry (docker hub, gitlab hub ou encore AWS).
 * Fabrication d'une seule image intégrée (gitbook et aws-cli) en couches ou unique.

@@ -42,6 +42,8 @@ publier un repo `s3-https-cdn-tf`.
 
 ## Projet 4. Configurer son projet Gitlab-gitbook
 
+### 4.a. Mise en place
+
 publier un repo `user/gitlab-gitbook`
 
 * Fork du projet
@@ -50,6 +52,21 @@ publier un repo `user/gitlab-gitbook`
 * fichier gitlab-ci.yml
 * Bucket S3
 * Variables
+
+### 4.b. Améliorations à proposer
+
+* Choix du service SCM.
+* Choix et emplacement du serveur d'intégration.
+* Choix et emplacement des noeuds d'exécution.
+* Choix du registry Docker
+* Fabrication automatique des images "container" sur un registry (docker hub, gitlab hub ou encore AWS).
+* Fabrication d'une seule image intégrée (gitbook et aws-cli) en couches ou unique.
+* Mieux intégrer npm et calibre, voire pandoc dans le stage "build".
+* Découpler la phase "deploy" et ses dépendances pour chaque build.
+* Ajouter un stage post-test sur les artefacts.
+* Convertir en livre de jeu Ansible.
+* Partir d'un contenu jekyll pour la sortie HTML et markdown sans frontmatter pour traitement ultérieur en PDF, MOBI, EPUB, Kindle, notamment avec Gitbook ou MkDocs-material.
+* Test du site Web (OWASP Top 10)
 
 ## Projet 5. Créer et publier un présentation en HTML 5
 
