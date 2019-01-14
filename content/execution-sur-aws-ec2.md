@@ -193,7 +193,7 @@ Restreindre les droits
 chmod 400 ~/.ssh/demo-lab-key.pem
 ```
 
-### Lancer une instance
+### 2.3. Lancer une instance t2.micro
 
 ```bash
 aws ec2 run-instances \
@@ -298,7 +298,7 @@ aws ec2 run-instances \
 }
 ```
 
-### 2.3. Instances EC2
+### 2.4. Instances EC2
 
 Amazon Elastic Compute Cloud (Amazon EC2) est un service Web qui fournit une capacité de calcul sécurisée et redimensionnable dans le cloud. Destiné aux développeurs, il est conçu pour faciliter l'accès aux ressources de cloud computing à l'échelle du Web.
 
@@ -454,13 +454,13 @@ aws ec2 describe-instances \
     --query "Reservations[*].Instances[*].PublicDnsName"
 ```
 
-### 2.4. Connexion à l'instance
+### 2.5. Connexion à l'instance
 
 ```bash
 ssh -i ~/.ssh/demo-lab-key.pem ec2-user@ec2-35-180-32-243.eu-west-3.compute.amazonaws.com
 ```
 
-### 2.5. Opérations sur l'instance (Ansible)
+### 2.6. Opérations sur l'instance (Ansible)
 
 ```bash
 sudo yum -y update
@@ -501,7 +501,7 @@ sudo pip install ansible
 ansible-playbook apache.yml -v
 ```
 
-### 2.6. Une application simple
+### 2.7. Une application simple
 
 ```bash
 sudo yum install --enablerepo=epel -y nodejs
@@ -554,7 +554,7 @@ Démarrage du service
 sudo start helloworld
 ```
 
-### 2.7. Terminer une instance
+### 2.8. Terminer une instance
 
 ```bash
 aws ec2 terminate-instances --instance-ids $AWS_INSTANCE

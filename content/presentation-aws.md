@@ -51,10 +51,10 @@ L'AWS CLI est un outil à code source libre qui vous permet d'interagir avec les
 
 [Configuration de l'AWS CLI](https://docs.aws.amazon.com/fr_fr/cli/latest/userguide/cli-chap-configure.html)
 
-### Boto
+### Boto 3
 
 ```bash
-pip install boto
+pip install boto3
 ```
 
 ## 4. Régions et AZ (zone de disponibilté)

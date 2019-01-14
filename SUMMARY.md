@@ -7,3 +7,4 @@
 * [Hébergement AWS S3](content/hebergement-site-web-statique-aws-s3.md)
 * [Exécution sur AWS EC2](content/execution-sur-aws-ec2.md)
 * [Instances Gitlab Runner](content/instance-gitlab-runner.md)
+* [Exercices](content/exercices.md)
