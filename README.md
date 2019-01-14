@@ -10,7 +10,9 @@ Date de fabrication : {{ gitbook.time }}
 * [EPUB](/ebooks/gitbook-gitlab.epub)
 * [MOBI](/ebooks/gitbook-gitlab.mobi)
 
-Ce document est publié avec la méthode qu'il décrit.
+Ce document est publié avec la méthode qu'il décrit. Il poursuit uniquement un but éducatif.
+
+Sources du projet : [https://gitlab.com/goffinet/gitbook-gitlab/](https://gitlab.com/goffinet/gitbook-gitlab/)
 
 <!-- toc -->
 
