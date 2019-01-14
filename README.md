@@ -10,6 +10,8 @@ Date de fabrication : {{ gitbook.time }}
 * [EPUB](/ebooks/gitbook-gitlab.epub)
 * [MOBI](/ebooks/gitbook-gitlab.mobi)
 
+Ce document est publié avec la méthode qu'il décrit.
+
 <!-- toc -->
 
 ## 1. Objectifs du document et résultat attendu
