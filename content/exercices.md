@@ -2,7 +2,7 @@
 
 <!-- toc -->
 
-## Projet 1. Créer un Bucket de type website et y pousser une page Web
+## Projet 1. Créer un Bucket de type website et y pousser une page Web personnalisée
 
 ### 1.a. En AWS CLI
 
@@ -11,6 +11,10 @@ Publier un repo `user/s3-website-cli`.
 ### 1.b. En Python 3
 
 Publier un repo `user/s3-website-python3`.
+
+### 1.c. Avec Ansible
+
+Publier un repo `user/s3-website-ansible`.
 
 ## Projet 2. Reproduire le lab d'automation Wordpress
 
