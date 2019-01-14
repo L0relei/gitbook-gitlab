@@ -2,21 +2,21 @@
 
 <!-- toc -->
 
-## 1. Créer un Bucket de type website et y pousser une page Web
+## Projet 1. Créer un Bucket de type website et y pousser une page Web
 
 ### 1.a. En AWS CLI
 
-Publier un repo user/s3-website-cli.
+Publier un repo `user/s3-website-cli`.
 
 ### 1.b. En Python 3
 
-Publier un repo user/s3-website-python3
+Publier un repo `user/s3-website-python3`.
 
-## 2. Reproduire le lab d'automation Wordpress
+## Projet 2. Reproduire le lab d'automation Wordpress
 
 ### 2.a. En AWS CLI
 
-publier un repo user/ec2-wordpress-cli
+publier un repo `user/ec2-wordpress-cli`.
 
 [Voir Exécution de commandes sur votre instance Linux lors du lancement](https://docs.aws.amazon.com/fr_fr/AWSEC2/latest/UserGuide/user-data.html#user-data-api-cli)
 
@@ -26,23 +26,23 @@ Script "init" disponible sur [https://raw.githubusercontent.com/goffinet/aws-112
 
 ### 2.c. Avec Ansible
 
-## 3. Déployer un site Web Statique en HTTPS CDN IPV6 sur un domaine
+## Projet 3. Déployer un site Web Statique en HTTPS CDN IPV6 sur un domaine
 
 ### 3.a. Avec Ansible
 
-publier un repo user/s3-https-cdn-ansible
+publier un repo `user/s3-https-cdn-ansible`.
 
 ### 3.b. Avec Cloudformation
 
-publier un repo user/s3-https-cdn-ansible
+publier un repo `user/s3-https-cdn-cf`.
 
 ### 3.c. Avec Terraform
 
-publier un repo s3-https-cdn-ansible
+publier un repo `s3-https-cdn-tf`.
 
-## 4. Configurer son projet Gitlab-gitbook
+## Projet 4. Configurer son projet Gitlab-gitbook
 
-publier un repo user/gitlab-gitbook
+publier un repo `user/gitlab-gitbook`
 
 * Fork du projet
 * clé SSH
@@ -50,3 +50,13 @@ publier un repo user/gitlab-gitbook
 * fichier gitlab-ci.yml
 * Bucket S3
 * Variables
+
+## Projet 5. Créer et publier un présentation en HTML 5
+
+publier un repo `user/devops-aws-ppt`.
+
+Exemples :
+
+* [LandSlide - Generate HTML5 slideshows from markdown, ReST, or textile](https://github.com/adamzap/landslide)
+* [Example Presentations in reveal.js](https://github.com/hakimel/reveal.js/wiki/Example-Presentations)
+* [Gitpitch](https://gitpitch.com/)
