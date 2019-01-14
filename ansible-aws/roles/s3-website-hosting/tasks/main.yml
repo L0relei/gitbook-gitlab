@@ -1,0 +1,3 @@
+---
+- import_tasks: s3-cloudfront-route53.yml
+- import_tasks: sync-s3.yml

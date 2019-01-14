@@ -192,39 +192,3 @@ Dans ce projet, on découvre comment configurer un pipeline d'intégration et de
 On utilisera AWS CodePipeline pour créer, tester et déployer le code chaque fois que celui-ci est modifié, en fonction des modèles de processus de publication que l'on a définis.
 
 ![Mise en place d'un pipeline CI/CD sur AWS](https://d1.awsstatic.com/Projects/CICD%20Pipeline/setup-cicd-pipeline2.5cefde1406fa6787d9d3c38ae6ba3a53e8df3be8.png)
-
-## AWS : Présentation des services
-
-* [Amazon EC2](https://aws.amazon.com/fr/ec2/) : Serveurs virtuels dans le cloud
-* [Amazon Simple Storage Service (S3)](https://aws.amazon.com/fr/s3/) : Stockage adaptatif dans le cloud
-* [Amazon DynamoDB](https://aws.amazon.com/fr/dynamodb/) : Base de données NoSQL gérée
-* [Amazon RDS](https://aws.amazon.com/fr/rds/) : Service de base de données relationnelle géré pour MySQL, PostgreSQL, Oracle, SQL Server et MariaDB
-* [AWS Lambda](https://aws.amazon.com/fr/lambda/?nc2=h_m1) : Exécution de code à la demande sans avoir à se soucier des serveurs
-* [Amazon VPC](ttps://aws.amazon.com/fr/vpc/) : Contrôle, accès, services réseau
-* [Amazon Lightsail](https://aws.amazon.com/fr/lightsail/) : Lancement et gestion de serveurs virtuels privés
-* [Amazon Simple Notification Service (SNS)](https://aws.amazon.com/fr/ses/) : Pub/Sub, notifications Push sur mobile et SMS
-* [AWS Elastic Beanstalk](https://aws.amazon.com/fr/elasticbeanstalk/) : Exécuter et gérer des applications web
-* [Amazon EC2 Auto Scaling](https://aws.amazon.com/fr/ec2/autoscaling/) : Mettre à l'échelle la capacité de calcul pour répondre à la demande
-* [Elastic Load Balancing (ELB)](https://aws.amazon.com/fr/elasticloadbalancing/) : Distribution de trafic entrant vers plusieurs cibles
-* [AWS CloudFormation](https://aws.amazon.com/fr/cloudformation/) : Infrastructure en tant que code
-* [AWS OpsWorks](https://aws.amazon.com/fr/opsworks/) : Automatisations des opérations grâce à Chef et Puppet
-* [AWS CodeDeploy](https://aws.amazon.com/fr/codedeploy/?nc2=h_m1) : Automatisation des déploiements de code
-* AWS IAM
-* AWS ROUTE53 (Service DNS)
-* AWS ACM
-* AWS Cloudfront
-* AWS CloudFormation
-* [Amazon Elastic Container Registry (ECR)](https://aws.amazon.com/fr/ecr/) : Registre de conteneurs
-* [Amazon Elastic Container Service (ECS)](https://aws.amazon.com/fr/ecs/) : Service de conteneurs
-
-Illustration de la fonction Lambda sur Neltify :
-
-[Create your own URL shortener with Netlify's Forms and Functions](https://www.netlify.com/blog/2018/03/19/create-your-own-url-shortener-with-netlifys-forms-and-functions/) : [https://linkylinky.netlify.com/](https://linkylinky.netlify.com/) dont l'application : [https://shortener.eu/](https://shortener.eu/).
-
-## Magic Quadrant for Cloud Infrastructure as a Service
-
-[AWS Named as a Leader in Gartner’s Infrastructure as a Service (IaaS) Magic Quadrant for 7th Consecutive Year](https://aws.amazon.com/fr/blogs/aws/aws-named-as-a-leader-in-gartners-infrastructure-as-a-service-iaas-magic-quadrant-for-7th-consecutive-year/)
-
-![AWS Named as a Leader in Gartner’s Infrastructure as a Service (IaaS) Magic Quadrant for 7th Consecutive Year, 2017](/images/gartner_mq_iaas_2017_1.jpg)
-
-Source : [Magic Quadrant for Cloud Infrastructure as a Service, Worldwide](https://www.gartner.com/doc/reprints?id=1-2G2O5FC&ct=150519&st=sb)

@@ -32,11 +32,13 @@ Ce document d'énoncé n'a pas pour objectif de fournir une solution aboutie. Il
 
 Scénario : CI /CD avec Git, Gitlab, sur AWS EC2, Hébergement d'un site Web statique sur AWS S3 en CDN et en HTTPS.
 
+Générer un livre numérique (ebook) en différents formats (HTML, PDF, MOBI, EPUB) en _intégration continue_ et _en livraison continue_ à partir d'un contenu écrit en Markdown sur une infrastructure dans le nuage. Le résultat attendu est la livraison continue du document sur un site Web aux normes actuelles (IPv6, HTTPS et CDN) offrant les différents formats de lecture. La solution est fournie sous forme de code. Le résultat est évaluer sur base d'une vision défendue de la culture DevOps.
+
+Les tâches "Dev" participent à la fabrication du produit. Les tâches "Ops" visent à délivrer le produit fini et de maintenir l'infrastructure nécessaire à la chaîne de production.
+
+Il est demandé de développer la proposition de base en la testant, en la corrigeant, en la discutant, en ajoutant des étapes de retour dans les processus.
+
 ![Projet CI/CD de publication](https://www.lucidchart.com/publicSegments/view/d019e257-1ac5-45db-aff5-6c4f5c857750/image.png)
-
-L'énoncé pourrait être formulé de la manière suivante :
-
-> Générer un livre numérique (ebook) en différents formats (HTML, PDF, MOBI, EPUB) en _intégration continue_ et _en livraison continue_ à partir d'un contenu écrit en Markdown sur une infrastructure dans le nuage. Le résultat attendu est la livraison continue du document sur un site Web aux normes actuelles (IPv6, HTTPS et CDN) offrant les différents formats de lecture. La solution est fournie sous forme de code. Le résultat est évaluer sur base d'une vision défendue de la culture DevOps.
 
 On trouvera dans ce document des points de départs et des outils à évaluer, à adapter et à améliorer.
 
@@ -50,6 +52,12 @@ On trouvera dans ce document des points de départs et des outils à évaluer, �
   * AWS Route53,
   * AWS Cloudfront,
   * AWS Certificate Manager (ACM)
+* Infrastructure as Code
+  * Bash
+  * Python
+  * Ansible
+  * Terraform
+  * Cloudformation
 
 ## 3. Modèles et références
 

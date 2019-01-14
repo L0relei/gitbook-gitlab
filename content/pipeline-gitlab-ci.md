@@ -6,6 +6,8 @@
 
 ![Pipeline Gitlab-ci, Test, Build and Deploy](/images/pipeline-gitbook-gitlab.png)
 
+Inspiration : [AWS S3 + GitLab CI = automatic deploy for every branch of your static website](https://rpadovani.com/aws-s3-gitlab)
+
 Dans ce point de départ, le concepteur du contenu soumet son code au SCM.
 
 Cette action enclenche une alerte auprès d'un serveur/service d'intégration continue qui exécute un pipeline divisé en quelques stages classiques (Test, Build, Deploy) interdépendants. Chaque stage comprend des jobs (ensembles de tâches) parallèles dont une exécution réussie fait passer à un stage suivant.
@@ -49,7 +51,7 @@ Le Pipeline de base proposé est le suivant :
 * Phase de construction : usage des outils
 * Phase de déploiement : déploiement auprès d'une infrastructure codée (ici sur AWS S3 en HTTPS/CDN)
 
-## 3. Le serveur d'intégration
+## 3. Le serveur d'intégration Gitlab / Gitlab-CI
 
 Gitlab fournit une solution d'intégration complète et facile à prendre en main.
 
@@ -85,13 +87,13 @@ Avec Gitlab-ci, il est habituel d'exécuter les jobs dans des conteneurs (voir p
 
 L'application choisie n'utilise pas un compilateur C ou un framework JEE ou encore un célèbre framework Web PHP, Python, Node ou Angular.
 
-L'apllication choisie est un générateur statique de sites Web [StaticGen : A List of Static Site Generators for JAMstack Sites](https://www.staticgen.com/).
+L'aplication choisie est un générateur statique de sites Web [StaticGen : A List of Static Site Generators for JAMstack Sites](https://www.staticgen.com/).
 
 ### 4.2. Gitbook-cli Toolchain
 
-[Gitbook Toolchain](https://toolchain.gitbook.com/)
+[Gitbook Toolchain](https://toolchain.gitbook.com/). Gitbook-cli est un projet open-source à personnaliser soi-même et/ou à partir d'une librairie de "plug-ins" pour générer un site Web statique de type "documentation". Il génère un site Web statique et utilise le logiciel calibre pour produire des fichiers en format PDF, MOBI et EPUB.
 
-Il est recommandé de s'exercer sur le Toolchain gitbook-cli en suivant et en comprenant de manière approfondie le document [GitBook Toolchain Documentation](https://toolchain.gitbook.com/).
+Il est recommandé de s'exercer sur le Toolchain gitbook-cli en suivant et en comprenant de manière approfondie le document [GitBook Toolchain Documentation](https://toolchain.gitbook.com/). Le détail de l'utilisation du toolchain est illustré dans le pipeline.
 
 En bref au préalable,
 
@@ -126,12 +128,12 @@ RUN npm install --global gitbook-cli \
              calibre \
              ttf-freefont \
              ttf-liberation fonts-liberation \
-  && mkdir -p /root/.ssh \
+  #&& mkdir -p /root/.ssh \
   && rm -rf /var/lib/apt/lists/* \
   && rm -rf /tmp/*
 ```
 
-### 4.4. Point de départ avec Netify
+### 4.4. Point de départ avec Netlify
 
 [A Step-by-Step Guide: GitBook on Netlify](https://www.netlify.com/blog/2015/12/08/a-step-by-step-guide-gitbook-on-netlify/)
 
@@ -142,6 +144,13 @@ Netlify publie l'image qu'il utilise pour déployer ses services : [Netlify auto
 ### 4.5. Autres générateurs et toolchains
 
 Le projet pourrait prendre de la plus-value à partir d'un contenu écrit en Markdown pour **Jekyll** ou plus simplement pour **MkDocs-Material** qui au passage d'une moulinette fabriquerait le modèle "gitbook" pour générer le différents artefacts.
+
+## 4.6. Créér un contenu gitbook
+
+* création du projet
+* construction et lancement du conteneur
+* installation des plug-ins
+* création du support
 
 ## 5. Paramètres du pipeline
 
@@ -159,7 +168,7 @@ stages:
 
 Avec un serveur Gitlab, les variables publiques du pipeline peuvent être déclarées dans le fichier de configuration.
 
-Il est préférable de définir les variables d'authentification AWS `AWS_ACCESS_KEY_ID` et `AWS_SECRET_ACCESS_KEY` dans l'interface du serveur Gitlab dans le menu `Project | Settings | CI / CD | Variables` en tant que variables protégées.
+Le projet se déploie sur AWS S3 avec un utilisateur IAM déjà créé avec les bonnes autorisations. Il est préférable de définir les variables d'authentification AWS `AWS_ACCESS_KEY_ID` et `AWS_SECRET_ACCESS_KEY` dans l'interface du serveur Gitlab dans le menu `Project | Settings | CI / CD | Variables` en tant que variables protégées.
 
 ```yaml
 # Open variables for S3
@@ -288,7 +297,7 @@ mobi:
 
 ## 8. Deploy
 
-La phase "Deploy" utilise une autre image `python:latest` qui installe le stack aws-cli utile au transfert des fichiers sur le Bucket AWS S3.
+La phase "Deploy" utilise une autre image `python:latest` qui installe le "stack" aws-cli. Celle-ci sera utile au transfert des fichiers sur le Bucket AWS S3. On suppose que le Bucket est déjà configuré, que le domaine existe ainsi qu'un enregistrement ALIAS qui pointe vers une distribution Cloudfront associée au Bucket et à un certificat TLS. Ces "pré-supposés" devraient faire partie du projet d'intégration continue sous forme de code de déploiement (cloudformation, terraform, ansible, awscli, python3 boto3)
 
 ```yaml
 deploys3:
@@ -310,15 +319,34 @@ deploys3:
 
 ```
 
-## 9. Noeud d'exécution Docker
+## 9. Exécutions
+
+### 9.1. Noeud d'exécution Docker et registre d'images
 
 On remarquera qu'une implémentation DevOps en intégration continue demande des ressources locales ou dans le nuage.
 
 Si ces instances d'exécution sont situées dans le nuage elle sont soit partagées (offertes dans les limites d'une offre payante ou gratuite), soit dédiée mais surtout à la charge du client.
 
-Gitlab-ci offre des noeuds d'exécution partagés gratuits et offre la possibilité d'intégrer facilement des noeuds externes à un serveur Gitlab.
+Le pipeline est exécuté dans le nuage avec des conteneur docker à partir d'images stockées elle-même dans le nuage. Leur mise à disposition pose question. Quel serait la balance de coût et d'impact entre le téléchargement d'images et une construction locale  ? Quel est le délai de construction en fonction des type d'instance. (exercice de test, résultats à inclure).
+
+Quoi qu'il en soit, dans notre cas d'étude, il est nécessaire de disposer de noeud d'exécution lié au serveur/service Gitlab. Faut-il dédier une instance statique (à quelle dimension), ne faut-il pas réfléchir à une infrastructure de noeuds d'exécution plus élastique ? A qui confier cette infrastructure, à AWS, à un autre, à Gitlab-ci ?
+
+Gitlab-ci offre des noeuds d'exécution partagés gratuits, mais que l'on peut acheter avec services, que l'on peut déployer avec terraform sur Google Cloud Platform (GCP) et offre la possibilité d'intégrer facilement des noeuds externes à un serveur Gitlab ou au service.
 
 La mise à disposition des noeuds d'exécution Docker doit être intégrée à la partie Ops sous forme IaC (Infrastructure as Code) Cloudformation, Ansible ou Terraform.
+
+### 9.2. Serveur d'intégration
+
+* **Service Gitblab-ci avec gitlab-runner partagés**
+* **Service Gitblab-ci avec gitlab-runner dédié chez AWS EC2 (un réutilisable dans ce PoC)** ou autre (attention souci de "scalabilité")
+* Solution sur l'AWS Market Place avec gitlab server "scalable" sur AWS
+
+### 9.3. Alternatives d'hébergement de site statique
+
+* Le gitlab-runner pourrait être le serveur d'hébergement.
+* AWS S3, ACM, Route 53, Cloudfront tout intégré AWS
+* AWS EC2 Natif Ubuntu/Centos Apache HTTPD avec cloudfare/Let's Encryot
+* AWS EC2 Natif Ubuntu/Centos Ngnix
 
 ## 10. Améliorations à proposer
 
@@ -332,4 +360,5 @@ La mise à disposition des noeuds d'exécution Docker doit être intégrée à l
 * Découpler la phase "deploy" et ses dépendances pour chaque build.
 * Ajouter un stage post-test sur les artefacts.
 * Convertir en livre de jeu Ansible.
-* Partir d'un contenu jekyll en sortie HTML et markdown sans frontmatter pour traitement ultérieur en PDF, MOBI, EPUB, Kindle.
+* Partir d'un contenu jekyll pour la sortie HTML et markdown sans frontmatter pour traitement ultérieur en PDF, MOBI, EPUB, Kindle, notamment avec Gitbook ou MkDocs-material.
+* Test du site Web (OWASP Top 10)

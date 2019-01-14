@@ -1,0 +1,13 @@
+---
+- name: synchronize files
+  s3_sync:
+    bucket: "{{ website_bucket.name }}"
+    file_root: "{{ website_root }}"
+    file_change_strategy: force
+    permission: public-read
+    delete: yes
+- name: create a batch of invalidations using a distribution_id for a reference
+  cloudfront_invalidation:
+    distribution_id: "{{ cloudfront_website_distribution.id }}"
+    target_paths:
+      - /*

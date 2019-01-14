@@ -1,14 +1,9 @@
 # Summary
 
 * [Projet de publication en CI/CD sur AWS](README.md)
-
-### Ops vers Dev IaC sur AWS
-
+* [Pipeline : Gitlab-ci](content/pipeline-gitlab-ci.md)
 * [Ops vers Dev en IaC](content/ops-dev-iac.md)
-* [Hébergement AWS S3](content/hebergement-site-web-statique-aws.md)
+* [Présentation AWS](content/presentation-aws.md)
+* [Hébergement AWS S3](content/hebergement-site-web-statique-aws-s3.md)
 * [Exécution sur AWS EC2](content/execution-sur-aws-ec2.md)
 * [Instances Gitlab Runner](content/instance-gitlab-runner.md)
-
-### Dev vers Ops en Pipeline CI/CD
-
-* [Pipeline : Gitlab-ci](content/pipeline-gitlab-ci.md)
