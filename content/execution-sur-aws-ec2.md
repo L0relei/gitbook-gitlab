@@ -560,15 +560,19 @@ sudo start helloworld
 aws ec2 terminate-instances --instance-ids $AWS_INSTANCE
 ```
 
-## 3. AWS CloudFormation
+## 3. AWS EC2 avec Ansible
+
+...
+
+## 4. AWS CloudFormation
 
 AWS CloudFormation fournit un langage commun pour décrire et provisionner toutes les ressources d'infrastructure dans votre environnement cloud. CloudFormation vous permet d'utiliser un simple fichier texte pour modéliser et provisionner, de manière automatisée et sécurisée, toutes les ressources nécessaires pour vos applications à travers toutes les régions et tous les comptes. Ce fichier sert de source unique de vérité pour votre environnement cloud.
 
-### 3.1. Fonctionnement AWS CloudFormation
+### 4.1. Fonctionnement AWS CloudFormation
 
 ![Fonctionnement AWS CloudFormation](https://d1.awsstatic.com/CloudFormation%20Assets/howitworks.c316d3856638c6c9786e49011bad660d57687259.png)
 
-### 3.2. Notes
+### 4.2. Notes
 
 [https://console.aws.amazon.com/cloudformation/designer](https://console.aws.amazon.com/cloudformation/designer)
 
@@ -580,6 +584,6 @@ AWS CloudFormation fournit un langage commun pour décrire et provisionner toute
 
 [https://github.com/tongueroo/cloudformation-examples/blob/master/templates/single-instance.yml](https://github.com/tongueroo/cloudformation-examples/blob/master/templates/single-instance.yml)
 
-## 4. LightSail
+## 5. LightSail
 
 [https://lightsail.aws.amazon.com/ls/docs/en/articles/getting-started-with-amazon-lightsail](https://lightsail.aws.amazon.com/ls/docs/en/articles/getting-started-with-amazon-lightsail)

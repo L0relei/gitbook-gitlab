@@ -2,24 +2,26 @@
 
 <!-- toc -->
 
-## Ops vers Dev
+## 1. Ops vers Dev
 
 ![Ops vers Dev](https://www.lucidchart.com/publicSegments/view/0fb88f39-3133-4d6d-9112-118e73fe485d/image.png)
 
-## AWS
+## 2. AWS
 
-### Hébergement S3
+AWS Amazon Web Services est le leader mondial des technologies en nuage (voir plus loin).
+
+### 2.1. Hébergement S3
 
 * Découverte du service AWS S3
 * Hébergement d'un site Web
 * Domaine, HTTPS, distribution Cloudfront
 
-### Instances d'exécution EC2
+### 2.2. Instances d'exécution EC2
 
 * Automatisation d'instances EC2.
 * Instances de conteneur [Amazon Elastic Container Service (ECS)](https://aws.amazon.com/fr/ecs/) / [Amazon Elastic Container Registry (ECR)](https://aws.amazon.com/fr/ecr/)
 
-## Infrastructure as Code
+## 3. Infrastructure as Code
 
 Comparaison des outils IaC : Cloudformation | Ansible | Terraform
 
@@ -27,23 +29,45 @@ Comparaison des outils IaC : Cloudformation | Ansible | Terraform
 * [Comparing CloudFormation, Terraform and Ansible - Part #2](https://technodrone.blogspot.com/2018/07/comparing-cloudformation-terraform-and.html)
 * [Pourquoi ansible n’est pas un bon choix pour créer son infra AWS ?](https://blog.xebia.fr/2017/03/14/pourquoi-ansible-nest-pas-un-bon-choix-pour-creer-son-infra-aws/)
 
-### Ansible
+### 3.1. Ansible
 
 [Amazon Web Services Guide](https://docs.ansible.com/ansible/latest/scenario_guides/guide_aws.html)
 
-## Introduction à AWS DevOps
+### 3.2. Cloudformation
 
-### Fondamentaux
+...
+
+## 4. Alternatives
+
+### 4.1. Google Cloud Platform (GCP)
+
+...
+
+### 4.2. Microsoft Azure
+
+...
+
+### 4.3. API OpenStack
+
+OVH, par exemple.
+
+### 4.4. API Tierce
+
+Scaleway pour ses offres "Compute" mais utilise l'API de S3 pour son offre "Bucket".
+
+## 5. Introduction à AWS DevOps
+
+### 5.1. Fondamentaux
 
 * [https://aws.amazon.com/fr/training/course-descriptions/cloud-practitioner-essentials/](https://aws.amazon.com/fr/training/course-descriptions/cloud-practitioner-essentials/)
 * [https://aws.amazon.com/fr/devops/](https://aws.amazon.com/fr/devops/)
 
-## Technologie Cloud
+### 5.2. Technologie Cloud
 
 * [The NIST Definition of Cloud Computing](https://nvlpubs.nist.gov/nistpubs/legacy/sp/nistspecialpublication800-145.pdf)
 * [NIST Cloud Computing Standards Roadmap](https://www.nist.gov/sites/default/files/documents/itl/cloud/NIST_SP-500-291_Version-2_2013_June18_FINAL.pdf)
 
-## Philosophie et outils DevOps
+### 5.3. Philosophie et outils DevOps
 
 * [https://aws.amazon.com/fr/devops/what-is-devops/](https://aws.amazon.com/fr/devops/what-is-devops/)
 
@@ -55,7 +79,7 @@ Illustration :
 
 Formation : [Apprendre le développement continu avec des générateurs de site statique](https://ci-cd.goffinet.org/)
 
-### La philosophie culturelle de DevOps
+### 5.4. La philosophie culturelle de DevOps
 
 La transition vers le DevOps implique un changement de culture et d'état d'esprit.
 
@@ -68,7 +92,7 @@ Pour simplifier, le DevOps consiste à éliminer les obstacles entre deux équip
 
 Les organisations adoptant un modèle axé sur le DevOps, quelle que soit leur structure organisationnelle, rassemblent des équipes qui considèrent tout le cycle de développement et d'infrastructure comme faisant partie de leurs responsabilités.
 
-### Explications à propos des bonnes pratiques concernant DevOps
+### 5.5. Explications à propos des bonnes pratiques concernant DevOps
 
 Il existe quelques pratiques clés pouvant aider les organisations à innover plus rapidement, par le biais de l'automatisation et de la simplification des processus de développement de logiciel et de gestion d'infrastructure. La plupart de ces pratiques sont rendues possibles par l'utilisation des outils appropriés.
 
@@ -80,7 +104,7 @@ Cependant, l'alliance des microservices et d'une fréquence de publication plus 
 
 Ensemble, ces pratiques aident les entreprises à livrer rapidement des mises à jour plus fiables à leurs clients. Voici une vue d'ensemble des pratiques de DevOps les plus importantes.
 
-### Explications à propos de l'intégration continue
+### 5.6. Explications à propos de l'intégration continue
 
 L'intégration continue est une méthode de développement de logiciel DevOps avec laquelle les développeurs intègrent régulièrement leurs modifications de code à un référentiel centralisé, suite à quoi des opérations de création et de test sont automatiquement menées. L'intégration continue désigne souvent l'étape de création ou d'intégration du processus de publication de logiciel, et implique un aspect automatisé (un service d'IC ou de création) et un aspect culturel (apprendre à intégrer fréquemment). Les principaux objectifs de l'intégration continue sont de trouver et de corriger plus rapidement les bogues, d'améliorer la qualité des logiciels et de réduire le temps nécessaire pour valider et publier de nouvelles mises à jour de logiciels.
 
@@ -88,7 +112,7 @@ L'intégration continue est une méthode de développement de logiciel DevOps av
 
 Autrefois, les développeurs au sein d'une même équipe avaient tendance à travailler séparément pendant de longues périodes et à n'intégrer leurs modifications au référentiel centralisé qu'après avoir fini de travailler. Cela a rendu la fusion de changement de codes difficile et chronophage, et a également entraîné des bogues pendant une longue période, sans correction. La combinaison de ces différents facteurs empêchait de livrer rapidement des mises à jour aux clients.
 
-### Comment fonctionne l'intégration continue
+### 5.7. Comment fonctionne l'intégration continue
 
 Avec l'intégration continue, les développeurs appliquent régulièrement leurs modifications sur un référentiel partagé, avec un système de contrôle des versions comme Git. Avant d'envoyer leur code, les développeurs peuvent choisir d'exécuter des tests sur des unités locales pour le vérifier davantage avant son l'intégration. Un service d'intégration continue crée et exécute automatiquement des tests unitaires sur les nouveaux changements de codes pour détecter immédiatement n'importe quelle erreur.
 
@@ -98,27 +122,27 @@ L'intégration continue désigne les étapes de création et de test d'unité du
 
 Avec la livraison continue, les modifications de code sont automatiquement appliquées, testées et préparées à la production. La livraison continue étend le principe de l'intégration continue en déployant tous les changements de code dans un environnement de test et/ou un environnement de production après l'étape de création.
 
-#### Avantages de l'intégration continue
+### 5.8. Avantages de l'intégration continue
 
-##### Améliorer la productivité des développeurs
+#### Améliorer la productivité des développeurs
 
 ![Améliorer la productivité des développeurs](https://d1.awsstatic.com/product-marketing/DevOps/CICD_improve-productivity.c73191c7af7e9f0a859c9ec8af8b1bd4e4eae5be.png)
 
 L'intégration continue aide votre équipe à gagner en productivité, en limitant de nombre de tâches manuelles devant être accomplies par les développeurs et en encourageant les comportements qui contribuent à réduire le nombre d'erreurs et de bogues dans les versions publiées auprès des clients.
 
-##### Trouver et corriger plus rapidement les bogues
+#### Trouver et corriger plus rapidement les bogues
 
 ![Trouver et corriger plus rapidement les bogues](https://d1.awsstatic.com/product-marketing/DevOps/CICD_find-bugs.a60937d9bd1ba25ac3781db46758ebe92c5c889a.png)
 
 Avec des tests plus fréquents, votre équipe peut découvrir et corriger plus rapidement les bogues avant qu'ils ne prennent de l'ampleur.
 
-##### Livrer plus rapidement des mises à jour
+#### Livrer plus rapidement des mises à jour
 
 ![Livrer plus rapidement des mises à jour](https://d1.awsstatic.com/product-marketing/DevOps/CICD_deliver-updates.1d175ba80e02e998a0bcb5f4918bac95338820b2.png)
 
 L'intégration continue aide votre équipe à livrer plus rapidement et plus fréquemment des mises à jour après des clients.
 
-### Explications à propos de la livraison continue
+### 5.9. Explications à propos de la livraison continue
 
 La livraison continue est une méthode de développement de logiciels DevOps avec laquelle les changements de code sont automatiquement générés, testés et préparés pour une publication dans un environnement de production. Cette pratique étend le principe de l'intégration continue en déployant tous les changements de code dans un environnement de test et/ou un environnement de production après l'étape de création. Une bonne livraison continue permet aux développeurs de toujours disposer d'un artéfact prêt au déploiement après avoir suivi un processus de test normalisé.
 
@@ -138,11 +162,11 @@ En plus des avantages l'intégration continue, la livraison continue a pour avan
 
 La livraison continue permet à votre équipe de créer, tester et préparer automatiquement les modifications de code en vue d'une mise en production, afin d'améliorer la rapidité et l'efficacité de vos projets de livraison de logiciel.
 
-#### Produits AWS CI/CD
+## 6. Produits AWS CI/CD
 
 Dans une solution Amazon AWS, on configure un flux de travail d'intégration continue avec [AWS CodePipeline](https://aws.amazon.com/fr/codepipeline/), qui vous permet de créer un flux de travail qui produit du code dans [AWS CodeBuild](https://aws.amazon.com/fr/codebuild/) à chaque fois que vous validez un changement.
 
-### Microservices
+### 6.1. Microservices
 
 L'architecture de microservices est une approche de conception qui consiste à diviser une application en un ensemble de petits services. Chaque service est exécuté par son propre processus et communique avec les autres services par le biais d'une interface bien définie et à l'aide d'un mécanisme léger, typiquement une interface de programmation d'application (API) HTTP. Les microservices sont conçus autour de capacités métier. Chaque service est dédié à une seule fonction. Vous pouvez utiliser différents frameworks ou langages de programmation pour écrire des microservices et les déployer indépendamment, en tant que service unique ou en tant que groupe de services.
 
@@ -151,7 +175,7 @@ L'architecture de microservices est une approche de conception qui consiste à d
 * [Amazon Container Service (ECS)](https://aws.amazon.com/fr/ecs/) : Service de conteneurs logiciels.
 * [AWS Lambda](https://aws.amazon.com/fr/lambda/) : exécution de code à la demande.
 
-### Infrastructure en tant que code
+### 6.2. Infrastructure en tant que code
 
 L'infrastructure en tant que code est une pratique qui implique la mise en service et la gestion de l'infrastructure à l'aide de code et de techniques de développement de logiciel, notamment le contrôle des versions et l'intégration continue. Le modèle axé sur les API du cloud permet aux développeurs et aux administrateurs système d'interagir avec l'infrastructure de manière programmatique et à n'importe quelle échelle, au lieu de devoir installer et configurer manuellement chaque ressource. Ainsi, les ingénieurs peuvent créer une interface avec l'infrastructure à l'aide d'outils de code et traiter l'infrastructure de la même manière qu'un code d'application. Puisqu'ils sont définis par du code, l'infrastructure et les serveurs peuvent être rapidement déployés à l'aide de modèles standardisés, mis à jour avec les derniers patchs et les dernières versions, ou dupliqués de manière répétable.
 
@@ -165,7 +189,7 @@ Le produit Amazon [EC2 Systems Manager](https://aws.amazon.com/fr/ec2/systems-ma
 
 Le produit [AWS OpsWorks](https://aws.amazon.com/fr/opsworks/) offre des fonctions de gestion des configuration.
 
-### Consignation et supervision
+### 6.3. Consignation et supervision
 
 Les entreprises suivent les métriques et les journaux pour découvrir l'impact des performances de l'application et de l'infrastructure sur l'expérience de l'utilisateur final du produit.
 
@@ -177,13 +201,13 @@ Le produit [Amazon CloudWatch](https://aws.amazon.com/fr/cloudwatch/) permet de 
 
 Le produit [AWS CloudTrail](https://aws.amazon.com/fr/cloudtrail/) permet d'enregistrer et de journaliser les appels d'API AWS.
 
-### Communication et collaboration
+### 6.4. Communication et collaboration
 
 L'instauration d'une meilleure collaboration et communication au sein de l'entreprise est un des principaux aspects culturels du DevOps. Le recours aux outils de DevOps et l'automatisation du processus de livraison de logiciel établit la collaboration en rapprochant physiquement les workflows et les responsabilités des équipes de développement et d'exploitation.
 
 Partant de cela, ces équipes instaurent des normes culturelles importantes autour du partager des informations et de la facilitation des communications par le biais d'applications de **messagerie**, de **systèmes de suivi des problèmes** ou des projets et de **wikis**. Cela permet d'accélérer les communications entre les équipes de développement et d'exploitation et même d'autres services comme le marketing et les ventes, afin d'aligner chaque composant de l'entreprise sur des objectifs et des projets communs.
 
-### Exemple de configuration d'un pipeline de CI/CD sur AWS
+### 6.5. Exemple de configuration d'un pipeline de CI/CD sur AWS
 
 [https://aws.amazon.com/fr/getting-started/projects/set-up-ci-cd-pipeline/](https://aws.amazon.com/fr/getting-started/projects/set-up-ci-cd-pipeline/)
 
