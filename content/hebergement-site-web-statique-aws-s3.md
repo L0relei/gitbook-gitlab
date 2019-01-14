@@ -22,7 +22,7 @@ On trouvera ici une proposition à évaluer, à adapter et à améliorer sous fo
 * Infrastructure nécessaire : Nom, DNS, Distribution, certificat, utilisateur et policies.
 * Construction
 
-#### Phase Infra
+### Phase Infra
 
 * Création du Bucket S3 avec une propriété 'website'. Existe-t-il ?
 * Une distribution Cloudfront associée au Bucket S3 existe-t-elle ?
@@ -57,9 +57,20 @@ Il y a lieu de réfléchir aux aspects dynamiques à donner au livrable.
 * URL signées
 * ...
 
+### Droits nécessaires
+
+À définir précisément.
+
+* S3
+* Cloudfront
+* Route53
+* ACM
+
 ## 2. Expérimentation dans la console AWS
 
 [Mise en route sur Amazon Simple Storage Service](https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/gsg/GetStartedWithS3.html)
+
+Inspiration : un tuto parmi beaucoup d'autres [Hosting a HTTPS static website on Amazon S3 w/ CloudFront and Route 53](https://medium.com/@matthewmanuel/hosting-a-https-static-website-on-amazon-s3-w-cloudfront-and-route-53-f347a16b6a91) avec des captures d'écran.
 
 ### 2.1. Création d'un bucket avec un utilisateur autorisé
 
@@ -100,6 +111,10 @@ Il y a lieu de réfléchir aux aspects dynamiques à donner au livrable.
 * (Facultatif) Vérification des fichiers journaux
 
 ## 3. Expérimentation avec aws-cli
+
+On suppose qu'un certificat HTTPS est disponible et que l'on dispose de son ARN. On suppose que la zone Route 53 existe.
+
+Se référer à [Hosting a Static Website with Hugo and AWS](https://nickolaskraus.org/articles/hosting-a-website-with-hugo-and-aws/) pour la correction.
 
 ### Étape 1
 
@@ -155,15 +170,19 @@ aws s3 rb s3://${BUCKET_NAME}
 
 ### Étape 2
 
-4. Créez une distribution web CloudFront. Assurez-vous de configurer les paramètres suivants :
+Créez une distribution web CloudFront. Assurez-vous de configurer les paramètres suivants :
 
 Pour Nom du domaine d'origine, indiquez le point de terminaison.
 Pour Méthodes HTTP autorisées, sélectionnez GET, HEAD, OPTIONS.
 Pour Autres noms de domaine (CNAME), entrez le CNAME que vous souhaitez utiliser pour votre site web.
 
-5. Si vous souhaitez utiliser le protocole SSL pour votre site web, vous pouvez choisir l'option Demander ou importer un certificat avec ACM pour demander un certificat. Pour plus d'informations, consultez Utilisation de noms de domaines alternatifs et de HTTPS.
+Si vous souhaitez utiliser le protocole SSL pour votre site web, vous pouvez choisir l'option Demander ou importer un certificat avec ACM pour demander un certificat. Pour plus d'informations, consultez Utilisation de noms de domaines alternatifs et de HTTPS.
 
-6. Choisissez Créer une distribution.
+```bash
+aws acm request-certificate --domain-name example.com --subject-alternative-names a.example.com b.example.com *.c.example.com
+```
+
+!!! à vérifier et corriger
 
 ```bash
 aws configure set preview.cloudfront true
@@ -261,26 +280,213 @@ cat /tmp/distconfig_result.json | jq .Distribution.DomainName
 
 ```
 
+
+Exemple réel :
+
+[ETag indispensable](https://engineering.ifdb.com/2017/10/quick-static-websites-on-aws-s3-and-cloudfront-with-the-aws-cli/) ? Mise en variable de `"ViewerCertificate.ACMCertificateArn"` et `"ViewerCertificate.Certificate`.
+
+```json
+{
+    "ETag": "E2908GS64VRLST",
+    "DistributionConfig": {
+        "Comment": "Created by Ansible s3-website-hosting role",
+        "CacheBehaviors": {
+            "Quantity": 0
+        },
+        "IsIPV6Enabled": true,
+        "Logging": {
+            "Bucket": "",
+            "Prefix": "",
+            "Enabled": false,
+            "IncludeCookies": false
+        },
+        "WebACLId": "",
+        "Origins": {
+            "Items": [
+                {
+                    "OriginPath": "",
+                    "CustomOriginConfig": {
+                        "OriginSslProtocols": {
+                            "Items": [
+                                "TLSv1",
+                                "TLSv1.1",
+                                "TLSv1.2"
+                            ],
+                            "Quantity": 3
+                        },
+                        "OriginProtocolPolicy": "http-only",
+                        "OriginReadTimeout": 30,
+                        "HTTPPort": 80,
+                        "HTTPSPort": 443,
+                        "OriginKeepaliveTimeout": 5
+                    },
+                    "CustomHeaders": {
+                        "Quantity": 0
+                    },
+                    "Id": "S3-${BUCKET_NAME}",
+                    "DomainName": "${BUCKET_NAME}.s3-website-us-east-1.amazonaws.com"
+                }
+            ],
+            "Quantity": 1
+        },
+        "DefaultRootObject": "index.html",
+        "PriceClass": "PriceClass_100",
+        "Enabled": true,
+        "DefaultCacheBehavior": {
+            "FieldLevelEncryptionId": "",
+            "TrustedSigners": {
+                "Enabled": false,
+                "Quantity": 0
+            },
+            "LambdaFunctionAssociations": {
+                "Quantity": 0
+            },
+            "TargetOriginId": "S3-${BUCKET_NAME}",
+            "ViewerProtocolPolicy": "redirect-to-https",
+            "ForwardedValues": {
+                "Headers": {
+                    "Quantity": 0
+                },
+                "Cookies": {
+                    "Forward": "none"
+                },
+                "QueryStringCacheKeys": {
+                    "Quantity": 0
+                },
+                "QueryString": false
+            },
+            "MaxTTL": 2592000,
+            "SmoothStreaming": false,
+            "DefaultTTL": 86400,
+            "AllowedMethods": {
+                "Items": [
+                    "HEAD",
+                    "GET"
+                ],
+                "CachedMethods": {
+                    "Items": [
+                        "HEAD",
+                        "GET"
+                    ],
+                    "Quantity": 2
+                },
+                "Quantity": 2
+            },
+            "MinTTL": 0,
+            "Compress": true
+        },
+        "CallerReference": "'${BUCKET_NAME}'-'`date +%s`'",
+        "ViewerCertificate": {
+            "SSLSupportMethod": "sni-only",
+            "ACMCertificateArn": "arn:aws:acm:us-east-1:733718180495:certificate/e60e1dd7-6329-4598-bc85-6003b2237cf5",
+            "MinimumProtocolVersion": "TLSv1.1_2016",
+            "Certificate": "arn:aws:acm:us-east-1:733718180495:certificate/e60e1dd7-6329-4598-bc85-6003b2237cf5",
+            "CertificateSource": "acm"
+        },
+        "CustomErrorResponses": {
+            "Items": [
+                {
+                    "ErrorCode": 403,
+                    "ResponsePagePath": "/index.html",
+                    "ResponseCode": "200",
+                    "ErrorCachingMinTTL": 300
+                },
+                {
+                    "ErrorCode": 404,
+                    "ResponsePagePath": "/index.html",
+                    "ResponseCode": "200",
+                    "ErrorCachingMinTTL": 300
+                }
+            ],
+            "Quantity": 2
+        },
+        "OriginGroups": {
+            "Items": [],
+            "Quantity": 0
+        },
+        "HttpVersion": "http2",
+        "Restrictions": {
+            "GeoRestriction": {
+                "RestrictionType": "none",
+                "Quantity": 0
+            }
+        },
+        "Aliases": {
+            "Items": [
+                "${BUCKET_NAME}"
+            ],
+            "Quantity": 1
+        }
+    }
+}
+
+```
+
 ### Étape 3
 
-7. Mettez à jour les enregistrements DNS pour que votre domaine pointe le CNAME de votre site web vers votre nom de domaine de distribution CloudFront. Le nom de domaine de votre distribution est disponible dans la console CloudFront dans un format similaire à celui-ci : d1234abcd.cloudfront.net.
+Mettez à jour les enregistrements DNS pour que votre domaine pointe le CNAME de votre site web vers votre nom de domaine de distribution CloudFront. Le nom de domaine de votre distribution est disponible dans la console CloudFront dans un format similaire à celui-ci : d1234abcd.cloudfront.net.
 
-8. Attendez que vos modifications de DNS soient propagées et que les entrées précédentes du DNS expirent.
+Attendez que vos modifications de DNS soient propagées et que les entrées précédentes du DNS expirent.
 
-### TLS
+[Comment créer des jeux d'enregistrements de ressources d'alias dans Route 53 à l'aide de l'interface de ligne de commande AWS CLI ?](https://aws.amazon.com/fr/premiumsupport/knowledge-center/alias-resource-record-set-route53-cli/)
+
+[Jeu d'enregistrement de ressources d'alias pour une distribution CloudFront](https://docs.aws.amazon.com/fr_fr/AWSCloudFormation/latest/UserGuide/quickref-route53.html#w2ab1c17c23c81c11)
+
+```json
+"myDNS" : {
+    "Type" : "AWS::Route53::RecordSetGroup",
+    "Properties" : {
+        "HostedZoneId" : { "Ref" : "myHostedZoneID" },
+        "RecordSets" : [{
+            "Name" : { "Ref" : "myRecordSetDomainName" },
+            "Type" : "A",
+            "AliasTarget" : {
+                "HostedZoneId" : "Z2FDTNDATAQYW2",
+                "DNSName" : { "Ref" : "myCloudFrontDistributionDomainName" }
+            }
+        }]
+    }
+}
+```
+
+### Étape 4
+
+Utilisateur S3 pour les mise à jour
+
+Create the user
 
 ```bash
-aws acm request-certificate --domain-name example.com --subject-alternative-names a.example.com b.example.com *.c.example.com
+aws iam create-user --user-name S3-user
+```
+
+Create the policy
+
+
+```bash
+aws iam create-policy --policy-name S3-user-write --policy-document file://iam.json
+
+```
+
+Attach the iam policy to the user (policy-arn will be in output from previous command)
+
+```bash
+aws iam attach-user-policy --usr-name S3-user --policy-arn arn:aws:iam::938109129012:policy/S3-user-write
+
+```
+
+You probably want the access and secret key for your user to use somewhere:
+
+```bash
+aws iam create-access-key --user-name S3-user
+
 ```
 
 ## 4. Outils d'approvisionnement, de gestion de configuration, d'orchestration, IaC
 
-[A collection of bash shell scripts for automating various tasks with Amazon Web Services using the AWS CLI and jq.
+### 4.1. Bash avec aws cli et jq
+
+* [A collection of bash shell scripts for automating various tasks with Amazon Web Services using the AWS CLI and jq.
 ](https://github.com/swoodford/aws)
-
-### 4.1. Cloudformation
-
-* [Cloudformation template for creating static website](https://github.com/sjevs/cloudformation-s3-static-website-with-cloudfront-and-route-53)
 
 ### 4.2. Ansible
 
@@ -288,9 +494,14 @@ aws acm request-certificate --domain-name example.com --subject-alternative-name
 * ACM ?
 * [Ansible Role - Sets up a website in a S3 bucket fronted by Cloudfront for HTTPs and custom domains](https://github.com/mediapeers/ansible-role-s3-website-hosting)
 
+### 4.3. Cloudformation
+
+* [Cloudformation template for creating static website](https://github.com/sjevs/cloudformation-s3-static-website-with-cloudfront-and-route-53)
+
 ### 4.3. Terraform
 
 * [Terraform scripts to setup an S3 based static website, with a CloudFront distribution and the required Route53 entries.](https://github.com/ringods/terraform-website-s3-cloudfront-route53)
+* [Terraform module to easily provision CloudFront CDN backed by an S3 origin https://cloudposse.com/](https://github.com/cloudposse/terraform-aws-cloudfront-s3-cdn)
 
 ## 5. Expérimentation Ansible
 
@@ -375,3 +586,11 @@ Cette liste de tâche on été ajoutée.
 
 * Création du certificat
 * Restriction des droits
+
+## 6. En Python
+
+* [S3 Website Using cf , Route 53 and Python Scripts](https://100awsprojects.com/post/2018-01-27-s3-website-using-cf--route-53-and-python-scripts/#create-route53-a-record-and-cname)
+
+## 7. Template Cloudformation
+
+* [Cloudformation template for creating static website](https://github.com/sjevs/cloudformation-s3-static-website-with-cloudfront-and-route-53)
