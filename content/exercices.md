@@ -18,6 +18,8 @@ Publier un repo `user/s3-website-ansible`.
 
 ## Projet 2. Reproduire le lab d'automation Wordpress
 
+A partir d'une AMI Ubuntu par exemple.
+
 ### 2.a. En AWS CLI
 
 publier un repo `user/ec2-wordpress-cli`.
