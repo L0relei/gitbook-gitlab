@@ -2,19 +2,29 @@
 
 <!-- toc -->
 
+## Introduction
+
+Pour lancer une instance EC2, on besoin :
+
+1. AMI : une image de référence
+2. VPC : un switch virtuel auquel va se connecter l'instance EC2 avec des règles d'accès entrant (au minimum TCP22)
+3. Clé : une clé privée SSH pour se connecter à l'instance. Il est nécessaire de prendre connaissance du nom d'utilisateur
+4. Script Cloud-init : un script à lancer au démarrage de l'instance pour un approvisionnement automatique
+
 ## 1. AMI
 
 Une Amazon Machine Image (AMI) fournit les informations requises pour lancer une instance, qui est un serveur virtuel dans le cloud. Vous devez spécifier une AMI source lorsque vous lancez une instance. Lorsque vous avez besoin de plusieurs instances configurées de manière identique, il est possible de lancer plusieurs instances à partir d'une même AMI. Lorsque vous avez besoin d'instances configurées de manière différente, vous pouvez utiliser différentes AMI pour lancer ces instances.
 
 Une AMI comprend les éléments suivants :
 
-Un modèle pour le volume racine de l'instance (par exemple, un système d'exploitation, un serveur d'applications et des applications)
-
-Les autorisations de lancement qui contrôlent les comptes AWS qui peuvent utiliser l'AMI pour lancer les instances
+* Un modèle d'image pour le volume racine de l'instance (par exemple, un système d'exploitation, un serveur d'applications et des applications)
+* Les autorisations de lancement qui contrôlent les comptes AWS qui peuvent utiliser l'AMI pour lancer les instances
 
 Un "mappage" de périphérique de stockage en mode bloc qui spécifie les volumes à attacher à l'instance lorsqu'elle est lancée
 
 [https://docs.aws.amazon.com/fr_fr/AWSEC2/latest/UserGuide/AMIs.html](https://docs.aws.amazon.com/fr_fr/AWSEC2/latest/UserGuide/AMIs.html)
+
+Cette commande effectue une recherche d'une AMI Linux Amazon (Amazon Linux AMI) pour une instance "x86_64 HVM GP2" :
 
 ```bash
 aws ec2 describe-images --filters "Name=description,Values=Amazon Linux AMI * x86_64 HVM GP2" --query 'Images[*].[CreationDate, Description, ImageId]' --output text | sort -k 1 | tail
@@ -38,6 +48,49 @@ Retenons l'AMI `ami-0ebc281c20e89ba4b` comme la plus récente.
 ```bash
 export AWS_IMAGE="ami-0ebc281c20e89ba4b"
 ```
+
+### 1.1. Trouver une AMI Linux
+
+Exemple : Rechercher l'IMA Amazon Linux 2 actuelle
+
+```bash
+aws ec2 describe-images --owners amazon \
+--filters 'Name=name,Values=amzn2-ami-hvm-2.0.????????-x86_64-gp2' 'Name=state,Values=available' \
+--output json | jq -r '.Images | sort_by(.CreationDate) | last(.[]).ImageId'
+```
+
+Exemple : Rechercher l'IMA Amazon Linux actuelle
+
+```bash
+aws ec2 describe-images --owners amazon \
+--filters 'Name=name,Values=amzn-ami-hvm-????.??.?.????????-x86_64-gp2' 'Name=state,Values=available' \
+--output json | jq -r '.Images | sort_by(.CreationDate) | last(.[]).ImageId'
+```
+
+Exemple : Rechercher l'IMA Ubuntu Server 16.04 LTS actuelle
+
+```bash
+aws ec2 describe-images --owners 099720109477 \
+--filters 'Name=name,Values=ubuntu/images/hvm-ssd/ubuntu-xenial-16.04-amd64-server-????????' 'Name=state,Values=available' \
+--output json | jq -r '.Images | sort_by(.CreationDate) | last(.[]).ImageId'
+```
+
+Exemple : Rechercher l'IMA Red Hat Enterprise Linux 7.5 actuelle
+
+```bash
+aws ec2 describe-images --owners 309956199498 \
+--filters 'Name=name,Values=RHEL-7.5_HVM_GA*' 'Name=state,Values=available' \
+--output json | jq -r '.Images | sort_by(.CreationDate) | last(.[]).ImageId'
+```
+
+Exemple : Rechercher l'IMA SUSE Linux Enterprise Server 15 actuelle
+
+```bash
+aws ec2 describe-images --owners amazon \
+--filters 'Name=name,Values=suse-sles-15-v????????-hvm-ssd-x86_64' 'Name=state,Values=available' \
+--output json | jq -r '.Images | sort_by(.CreationDate) | last(.[]).ImageId'
+```
+
 
 ## 2. Création d'une instance EC2 avec aws cli
 
@@ -302,6 +355,10 @@ aws ec2 run-instances \
 
 Amazon Elastic Compute Cloud (Amazon EC2) est un service Web qui fournit une capacité de calcul sécurisée et redimensionnable dans le cloud. Destiné aux développeurs, il est conçu pour faciliter l'accès aux ressources de cloud computing à l'échelle du Web.
 
+[Type d'instances](https://docs.aws.amazon.com/fr_fr/AWSEC2/latest/UserGuide/instance-types.html)
+
+[Types de virtualisation AMI Linux](https://docs.aws.amazon.com/fr_fr/AWSEC2/latest/UserGuide/virtualization_types.html)
+
 [Instances dédiées Amazon EC2](https://aws.amazon.com/fr/ec2/purchasing-options/dedicated-instances/)
 
 ```bash
@@ -562,7 +619,7 @@ aws ec2 terminate-instances --instance-ids $AWS_INSTANCE
 
 ## 3. Déploiement avec Cloud-init
 
-...
+[Exécution de commandes sur votre instance Linux lors du lancement](https://docs.aws.amazon.com/fr_fr/AWSEC2/latest/UserGuide/user-data.html#user-data-api-cli)
 
 * Approvisionnement de stack Python ou Ansible
 
