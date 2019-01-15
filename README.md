@@ -14,6 +14,8 @@ Ce document est publié avec la méthode qu'il décrit. Il poursuit uniquement u
 
 Sources du projet : [https://gitlab.com/goffinet/gitbook-gitlab/](https://gitlab.com/goffinet/gitbook-gitlab/)
 
+---
+
 <!-- toc -->
 
 ## 1. Objectifs du document et résultat attendu
