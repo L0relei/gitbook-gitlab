@@ -449,6 +449,32 @@ Attendez que vos modifications de DNS soient propagées et que les entrées pré
 }
 ```
 
+#### Note sur le hosted_zone_id
+
+```python
+# Specify the region to create the AWS resources in
+DEFAULT_REGION = "us-east-1"
+
+# A mapping of hosted zone IDs to AWS regions.
+# Apparently this data is not accessible via API
+# http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region
+# https://forums.aws.amazon.com/thread.jspa?threadID=116724
+S3_HOSTED_ZONE_IDS = {
+    'us-east-1': 'Z3AQBSTGFYJSTF',
+    'us-west-1': 'Z2F56UZL2M1ACD',
+    'us-west-2': 'Z3BJ6K6RIION7M',
+    'ap-south-1': 'Z11RGJOFQNVJUP',
+    'ap-northeast-1': 'Z2M4EHUR26P7ZW',
+    'ap-northeast-2': 'Z3W03O7B5YMIYP',
+    'ap-southeast-1': 'Z3O0J2DXBE1FTB',
+    'ap-southeast-2': 'Z1WCIGYICN2BYD',
+    'eu-central-1': 'Z21DNDUVLTQW6Q',
+    'eu-west-1': 'Z1BKCTXD74EZPE',
+    'sa-east-1': 'Z7KQH4QJS55SO',
+    'us-gov-west-1': 'Z31GFT0UA1I2HV',
+}
+```
+
 ### Étape 4
 
 Utilisateur S3 pour les mise à jour
