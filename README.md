@@ -65,6 +65,8 @@ On trouvera dans ce document des points de départs et des outils à évaluer, �
   * Terraform
   * Cloudformation
 
+![DevOps Diagram Generator](/images/devops-diagram.png)
+
 ## 3. Modèles et références
 
 * [Gitbook.com Legacy](https://legacy.gitbook.com/) et [Calibre](https://calibre-ebook.com/)
