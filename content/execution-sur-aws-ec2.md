@@ -618,9 +618,9 @@ aws ec2 terminate-instances --instance-ids $AWS_INSTANCE
 
 ## 3. Déploiement avec Cloud-init
 
-[Exécution de commandes sur votre instance Linux lors du lancement](https://docs.aws.amazon.com/fr_fr/AWSEC2/latest/UserGuide/user-data.html#user-data-api-cli)
+[Exécution de commandes sur votre instance Linux lors du lancement](https://docs.aws.amazon.com/fr_fr/AWSEC2/latest/UserGuide/user-data.html#user-data-api-cli) : on ajoute le paramètres `--user-data file://my_script.sh`lors de la création de l'instance avec la commande `aws ec2 run-instances`, `my_script.sh` étant le script qui s'exécutera au démarrage. C'est la solution [Cloud-init](https://cloudinit.readthedocs.io/en/latest/topics/datasources/ec2.html) qui est utilisée dans ce cas. Beaucoup d'autres prestataires utilisent ce logiciel pour approvisionner des instances.
 
-* Approvisionnement de stack Python ou Ansible
+* Approvisionnement de stack Python, Ansible, encore LAMP ou enore Gitlab Runner.
 
 ## 4. AWS EC2 avec Ansible
 
