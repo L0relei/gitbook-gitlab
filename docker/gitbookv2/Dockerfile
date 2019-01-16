@@ -15,8 +15,6 @@ RUN npm install --global gitbook-cli \
     #curl \
     #vim \
     calibre \
-    ttf-freefont \
-    ttf-liberation \
-    fonts-liberation \
+    fonts-roboto \
   && rm -rf /var/lib/apt/lists/* \
   && rm -rf /tmp/*
