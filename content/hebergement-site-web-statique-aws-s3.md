@@ -550,7 +550,7 @@ aws iam create-access-key --user-name S3-user
 
 Voici un exemple de livre de jeu en un seul fichier déploie un site web en HTTP sur un Bucket S3 et qui le détruit ensuite (fichier [demo-s3-http.yml](ansible-aws/demo-s3-http.yml)).
 
-```
+```yaml
 #demo-s3-http.yml
 ---
 - name: Deploy S3 Static Website
