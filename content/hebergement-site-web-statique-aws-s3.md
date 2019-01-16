@@ -140,8 +140,6 @@ Le point de terminaison de votre compartiment est `bucketname.s3-website-region.
 
 Ajoutez une stratégie de compartiment qui autorise un accès en lecture public sur le compartiment que vous avez créé.
 
-
-
 ```bash
 BUCKET_NAME="test1.aws-fr.com"
 BUCKET_REGION="eu-west-3"
@@ -508,7 +506,6 @@ aws iam create-user --user-name S3-user
 
 Create the policy
 
-
 ```bash
 aws iam create-policy --policy-name S3-user-write --policy-document file://iam.json
 
@@ -532,8 +529,7 @@ aws iam create-access-key --user-name S3-user
 
 ### 4.1. Bash avec aws cli et jq
 
-* [A collection of bash shell scripts for automating various tasks with Amazon Web Services using the AWS CLI and jq.
-](https://github.com/swoodford/aws)
+* [A collection of bash shell scripts for automating various tasks with Amazon Web Services using the AWS CLI and jq.](https://github.com/swoodford/aws)
 
 ### 4.2. Ansible
 
@@ -552,9 +548,81 @@ aws iam create-access-key --user-name S3-user
 
 ## 5. Expérimentation Ansible
 
-Voir le document local [ansible-aws/roles/s3-website-hosting](ansible-aws/roles/s3-website-hosting/README.md)
+Voici un exemple de livre de jeu en un seul fichier déploie un site web en HTTP sur un Bucket S3 et qui le détruit ensuite (fichier [demo-s3-http.yml](ansible-aws/demo-s3-http.yml)).
+
+```
+#demo-s3-http.yml
+---
+- name: Deploy S3 Static Website
+  hosts: localhost
+  vars:
+    BUCKET_NAME: "{{ ansible_date_time.iso8601_micro | to_uuid }}" # random bucket name
+    BUCKET_REGION: "eu-west-3"
+    SOURCE_PATH: /tmp/website
+  tasks:
+    - name: create a website directory to host the website files
+      file:
+        path: "{{ SOURCE_PATH }}"
+        state: directory
+    - name: create a index.html file
+      copy:
+        dest: "{{ SOURCE_PATH }}/index.html"
+        content: |
+          <html xmlns="http://www.w3.org/1999/xhtml" >
+          <head>
+              <title>My Website Home Page {{ BUCKET_NAME }}</title>
+          </head>
+          <body>
+            <h1>Welcome to my website {{ BUCKET_NAME }}</h1>
+            <p>Now hosted on Amazon S3!</p>
+          </body>
+          </html>
+    - name: Create a bucket and attach policy
+      s3_bucket:
+        name: "{{ BUCKET_NAME }}"
+        state: present
+        region: "{{ BUCKET_REGION }}"
+        policy:
+          Version: '2012-10-17'
+          Statement:
+          - Sid: Allow Public Access to All Objects
+            Effect: Allow
+            Principal: "*"
+            Action: s3:GetObject
+            Resource: arn:aws:s3:::{{ BUCKET_NAME }}/*
+    - name: set website configuration index/error file
+      s3_website:
+        name: "{{ BUCKET_NAME }}"
+        state: present
+        error_key: error.html
+    - name: synchronize the files
+      s3_sync:
+        bucket: "{{ BUCKET_NAME }}"
+        file_root: "{{ SOURCE_PATH }}/"
+        permission: public-read
+        delete: yes
+    - name: 5 sec. waiting
+      pause:
+        seconds: 5
+        prompt: "Please check the URL http://{{ BUCKET_NAME }}.s3-website.{{ BUCKET_REGION }}.amazonaws.com/"
+    - name: test the website
+      uri:
+        url: "http://{{ BUCKET_NAME }}.s3-website.{{ BUCKET_REGION }}.amazonaws.com/"
+        return_content: yes
+      register: thepage
+      failed_when: "'{{ BUCKET_NAME }}' not in thepage.content"
+    - name: 3 minutes waiting before deleting the bucket
+      pause:
+        minutes: 3
+    - name: Delete a bucket and all contents
+      aws_s3:
+        bucket: "{{ BUCKET_NAME }}"
+        mode: delete
+```
 
 ### 5.1. Livre de jeu
+
+Voir le document local [ansible-aws](ansible-aws/roles/s3-website-hosting/README.md)
 
 On crée un libre de jeu adapté avec les bonnes variables.
 
@@ -573,10 +641,9 @@ On crée un libre de jeu adapté avec les bonnes variables.
      - s3-website-hosting
 ```
 
-### 2. Rôle d'hébergement
+#### Rôle d'hébergement
 
 On a ajouté une tâche de synchronisation d'un site de test.
-
 
 ```yaml
 #roles/s3-website-hosting/tasks/main.yml
@@ -586,7 +653,6 @@ On a ajouté une tâche de synchronisation d'un site de test.
 ```
 
 On ajouté des entrées `ignore_errors` pour être en mesure de jouer le rôle.
-
 
 ```yaml
 #grep 'name:' roles/s3-website-hosting/tasks/s3-cloudfront-route53.yml
@@ -629,7 +695,7 @@ Cette liste de tâche on été ajoutée.
       - /*
 ```
 
-### 5.3. Optimisation
+#### Optimisation
 
 * Création du certificat
 * Restriction des droits
