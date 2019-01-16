@@ -147,8 +147,9 @@ aws s3api put-bucket-policy --bucket ${BUCKET_NAME} --policy file:///tmp/policy.
 aws s3 website s3://${BUCKET_NAME} --index-document index.html --error-document error.html
 
 mkdir website
-cat << EOF >> website/index.html
+cat < EOF >> website/index.html
 <html xmlns="http://www.w3.org/1999/xhtml" >
+<meta charset="UTF-8">
 <head>
     <title>My Website Home Page</title>
 </head>
@@ -187,7 +188,7 @@ aws acm request-certificate --domain-name example.com --subject-alternative-name
 ```bash
 aws configure set preview.cloudfront true
 
-cat << EOF >> /tmp/distconfig.json
+cat < EOF >> /tmp/distconfig.json
 {
     "CallerReference": "'${BUCKET_NAME}'-'`date +%s`'",
     "Aliases": {
