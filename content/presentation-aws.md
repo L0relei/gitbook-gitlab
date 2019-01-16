@@ -37,27 +37,35 @@ Illustration de la fonction Lambda sur Neltify :
 
 Source : [Magic Quadrant for Cloud Infrastructure as a Service, Worldwide](https://www.gartner.com/doc/reprints?id=1-2G2O5FC&ct=150519&st=sb)
 
-## 3. AWS /cli
+## 3. Commencer sur AWS avec IAM AWS Identity and Access Management
+
+* [Offre gratuite d'AWS](https://aws.amazon.com/fr/free/)
+* [Création de votre premier utilisateur administrateur et groupe IAM](https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/getting-started_create-admin-group.html)
+* [Création de votre premier groupe et utilisateur délégué IAM](https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/getting-started_create-delegated-user.html)
+* [Comment les utilisateurs se connectent-ils à votre compte ?](https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/getting-started_how-users-sign-in.html)
+* [Bonnes pratiques IAM](https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/best-practices.html)
+
+## 4. AWS /cli
 
 [https://docs.aws.amazon.com/fr_fr/cli/latest/userguide/aws-cli.pdf](https://docs.aws.amazon.com/fr_fr/cli/latest/userguide/aws-cli.pdf)
 
-### Installation d'AWS Command Line Interface
+### 4.1. Installation d'AWS Command Line Interface
 
 [Installation d'AWS Command Line Interface](https://docs.aws.amazon.com/fr_fr/cli/latest/userguide/cli-chap-welcome.html)
 
 L'AWS CLI est un outil à code source libre qui vous permet d'interagir avec les services AWS à l'aide des commandes du shell de ligne de commande. Avec une configuration minimale, vous pouvez commencer à utiliser toutes les fonctionnalités fournies par la console AWS Management Console depuis l'invite de commande de votre programme terminal préféré.
 
-### Configuration de l'AWS CLI
+### 4.2. Configuration de l'AWS CLI
 
 [Configuration de l'AWS CLI](https://docs.aws.amazon.com/fr_fr/cli/latest/userguide/cli-chap-configure.html)
 
-### Boto 3
+### 4.3. Boto 3
 
 ```bash
 pip install boto3
 ```
 
-## 4. Régions et AZ (zone de disponibilté)
+## 5. Régions et AZ (zone de disponibilté)
 
 Le cloud AWS gère 60 zones de disponibilité dans 20 régions géographiques autour du monde.
 
@@ -70,7 +78,7 @@ Le cloud AWS gère 60 zones de disponibilité dans 20 régions géographiques au
 
 Amazon Infrastructure sur [Wiki Leaks](https://wikileaks.org/amazon-atlas/).
 
-### Europe/Moyen-Orient/Afrique
+### 5.1. Europe/Moyen-Orient/Afrique
 
 ![Europe/Moyen-Orient/Afrique](https://d1.awsstatic.com/global-infrastructure/maps/EMEA-UAE1000X1000.4c5421ef5ef22a2598d0e05da52996934e36fbb4.png)
 
