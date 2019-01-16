@@ -40,7 +40,7 @@ Scénario : CI /CD avec Git, Gitlab, sur AWS EC2, Hébergement d'un site Web sta
 
 Générer un livre numérique (ebook) en différents formats (HTML, PDF, MOBI, EPUB) en _intégration continue_ et _en livraison continue_ à partir d'un contenu écrit en Markdown sur une infrastructure dans le nuage. Le résultat attendu est la livraison continue du document sur un site Web aux normes actuelles (IPv6, HTTPS et CDN) offrant les différents formats de lecture. La solution est fournie sous forme de code. Le résultat est évaluer sur base d'une vision défendue de la culture DevOps.
 
-Les tâches "Dev" participent à la fabrication du produit. Les tâches "Ops" visent à délivrer le produit fini et de maintenir l'infrastructure nécessaire à la chaîne de production.
+Les tâches "Dev" participent à la fabrication du produit. Les tâches "Ops" visent à délivrer le produit fini et à maintenir l'infrastructure nécessaire à la chaîne de production.
 
 Il est demandé de développer la proposition de base en la testant, en la corrigeant, en la discutant, en ajoutant des étapes de retour dans les processus.
 

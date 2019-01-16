@@ -4,7 +4,7 @@
 
 ## Introduction
 
-Pour lancer une instance EC2, on besoin :
+Pour lancer une instance EC2, on a besoin :
 
 1. AMI : une image de référence
 2. VPC : un switch virtuel auquel va se connecter l'instance EC2 avec des règles d'accès entrant (au minimum TCP22)
@@ -90,7 +90,6 @@ aws ec2 describe-images --owners amazon \
 --filters 'Name=name,Values=suse-sles-15-v????????-hvm-ssd-x86_64' 'Name=state,Values=available' \
 --output json | jq -r '.Images | sort_by(.CreationDate) | last(.[]).ImageId'
 ```
-
 
 ## 2. Création d'une instance EC2 avec aws cli
 
@@ -653,6 +652,6 @@ AWS CloudFormation fournit un langage commun pour décrire et provisionner toute
 
 [https://lightsail.aws.amazon.com/ls/docs/en/articles/getting-started-with-amazon-lightsail](https://lightsail.aws.amazon.com/ls/docs/en/articles/getting-started-with-amazon-lightsail)
 
-## 7. Elastic Beanstack
+## 7. Elastic Beanstalk
 
 [AWS Elastic Beanstalk - Didacticiels et exemples](https://docs.aws.amazon.com/fr_fr/elasticbeanstalk/latest/dg/tutorials.html)

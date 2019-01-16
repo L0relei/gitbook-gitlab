@@ -18,9 +18,9 @@ On trouvera ici une proposition à évaluer, à adapter et à améliorer sous fo
 
 ### Phases
 
-* Déploiement sur un Bucket S3 existant
-* Infrastructure nécessaire : Nom, DNS, Distribution, certificat, utilisateur et policies.
-* Construction
+* Phase de construction et éploiement sur un Bucket S3 existant (pipeline CI/CD)
+* Infrastructure nécessaire : Nom, DNS, Distribution, certificat, utilisateur et policies (IaC)
+* Comment intégrer les deux ?
 
 ### Phase Infra
 
@@ -28,6 +28,7 @@ On trouvera ici une proposition à évaluer, à adapter et à améliorer sous fo
 * Une distribution Cloudfront associée au Bucket S3 existe-t-elle ?
 * Le nom de domaine est-il en gestion Route 53 ? Est-il associé ?
 * Le certificat HTTPS existe-t-il pour le domaine ?
+* Idempotence ?
 
 ### 1.1. Livrable Web aux normes actuelles
 
@@ -38,6 +39,21 @@ On trouvera ici une proposition à évaluer, à adapter et à améliorer sous fo
 * Robustesse du stockage
 
 ### 1.2. Avantages des sites Web statiques
+
+Qu'est-ce qu'un générateur de site statique ?
+
+Le concept de base d'un générateur de site statique (aussi appelé moteur de site statique) est simple: **prendre du contenu et des données dynamiques et générer des fichiers HTML/JavaScript/CSS statiques pouvant être déployés sur le serveur.** Cette idée n'est pas nouvelle. [^static-site-generators]
+
+[^static-site-generators]: [Voir cet excellent source  du blog O'Reilly](https://www.oreilly.com/ideas/static-site-generators).
+
+On peut caractériser les sites fabriqués de cette manière :
+
+* Il existe de nombreux services, gratuits et payants, qui offrent la possibilité d'ajouter des aspects dynamiques dans des pages statiques.
+* Les fichiers de sites statiques sont livrés à l'utilisateur final exactement comme ils le sont sur le serveur.
+* Il n'y a pas de langage côté serveur.
+* Il n'y a pas de base de données.
+* Les sites statiques sont en HTML, CSS et JavaScript.
+* Les performances, l'hébergement, la sécurité, la gestion des versions de contenu sont des avantages des sites statiques.
 
 ### 1.3. Coûts estimés
 
@@ -116,7 +132,7 @@ On suppose qu'un certificat HTTPS est disponible et que l'on dispose de son ARN.
 
 Se référer à [Hosting a Static Website with Hugo and AWS](https://nickolaskraus.org/articles/hosting-a-website-with-hugo-and-aws/) pour la correction.
 
-### Étape 1
+### Étape 1 : Créer le bucket pour un hébergment Web Statique
 
 Créer un compartiment et activer l'hébergement d'un site web statique sur le compartiment.
 
@@ -169,7 +185,7 @@ aws s3 rm s3://${BUCKET_NAME} --recursive
 aws s3 rb s3://${BUCKET_NAME}
 ```
 
-### Étape 2
+### Étape 2 Distribution Cloudfront et certificat HTTPS
 
 Créez une distribution web CloudFront. Assurez-vous de configurer les paramètres suivants :
 
@@ -181,13 +197,16 @@ Si vous souhaitez utiliser le protocole SSL pour votre site web, vous pouvez cho
 
 ```bash
 aws acm request-certificate --domain-name example.com --subject-alternative-names a.example.com b.example.com *.c.example.com
+
 ```
 
-!!! à vérifier et corriger
+à vérifier et corriger
 
 ```bash
 aws configure set preview.cloudfront true
+```
 
+```shell
 cat < EOF >> /tmp/distconfig.json
 {
     "CallerReference": "'${BUCKET_NAME}'-'`date +%s`'",
@@ -274,17 +293,18 @@ cat < EOF >> /tmp/distconfig.json
         }
 }
 EOF
+```
 
+```bash
 aws cloudfront create-distribution --distribution-config file:///tmp/distconfig.json > /tmp/distconfig_result.json
 
 cat /tmp/distconfig_result.json | jq .Distribution.DomainName
 
 ```
 
-
 Exemple réel :
 
-[ETag indispensable](https://engineering.ifdb.com/2017/10/quick-static-websites-on-aws-s3-and-cloudfront-with-the-aws-cli/) ? Mise en variable de `"ViewerCertificate.ACMCertificateArn"` et `"ViewerCertificate.Certificate`.
+[ETag indispensable](https://engineering.ifdb.com/2017/10/quick-static-websites-on-aws-s3-and-cloudfront-with-the-aws-cli/) ? Mise en variable de `ViewerCertificate.ACMCertificateArn` et `ViewerCertificate.Certificate`.
 
 ```json
 {
