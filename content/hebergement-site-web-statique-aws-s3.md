@@ -200,7 +200,6 @@ aws acm request-certificate --domain-name example.com --subject-alternative-name
 
 Quoi qu'il en soit l'"arn" du certificat sera nécessaire, on le place dans une variable `CERTIFICATE_ARN`
 
-
 à vérifier et à corriger
 
 ```bash
@@ -210,7 +209,6 @@ aws configure set preview.cloudfront true
 ```bash
 CERTIFICATE_ARN="arn:aws:acm:us-east-1:733718180495:certificate/e60e1dd7-6329-4598-bc85-6003b2237cf5"
 ```
-
 
 ```shell
 cat < EOF >> /tmp/distconfig.json
@@ -355,7 +353,6 @@ aws cloudfront create-distribution --distribution-config file:///tmp/distconfig.
 cat /tmp/distconfig_result.json | jq .Distribution.DomainName
 
 ```
-
 
 ### Étape 3
 
