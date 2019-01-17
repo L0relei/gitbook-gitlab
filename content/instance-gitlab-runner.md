@@ -42,7 +42,53 @@ L'image est gratuite et une instance t2.medium (2 vCPUs et 4G RAM) est recommand
 
 ## 4. Installation et configuration de Gitlab Runner
 
-...
+### 4.1. Installation
+
+Téléchargement des dépôts de paquetage Gitlab.
+
+Pour Debian/Ubuntu :
+
+```bash
+curl -L https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh | sudo bash
+```
+
+Pour RHEL/CentOS/Fedora
+
+```bash
+curl -L https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.rpm.sh | sudo bash
+```
+
+Installation de Gitlab Runner.
+
+```bash
+sudo apt-get install gitlab-runner || sudo yum install gitlab-runner
+```
+
+## 4.2. Enregistrement auprès du serveur Gitlab
+
+Pour que votre instance devienne un noeud d'exécution Gitlab, veuillez vous rendre sur la page Settings/CI CD/Runners du projet Gitlab. Vous y trouverez le token qui permettra à votre instance de se faire connaître auprès du projet Gitlab.
+
+```bash
+sudo gitlab-runner register \
+  --non-interactive \
+  --url "https://gitlab.com/" \
+  --registration-token "PROJECT_REGISTRATION_TOKEN" \
+  --executor "docker" \
+  --docker-image alpine:3 \
+  --description "docker-runner" \
+  --tag-list "docker,aws" \
+  --run-untagged \
+  --locked="false"
+```
+
+Ensuite démarrer le logiciel. En revenant sur la page Settings/CI CD/Runners du projet Gitlab, on devrait y trouver la liste des "runners" avec l'instance.
+
+```bash
+sudo gitlab-runner start
+
+```
+
+![Runners dans Gitlab CI](/images/gitlab-runners.jpg)
 
 ## 5. Scénario de vie / Orchestration
 

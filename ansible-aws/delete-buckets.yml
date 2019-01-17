@@ -1,0 +1,29 @@
+- name: delete buckets
+  hosts: localhost
+  vars:
+    buckets:
+      - assanesene.aws-fr.com
+      - azou12.aws-fr.com
+      - francoisajc
+      - francoisx1.aws-fr.com
+      - francoisx2.aws-fr.com
+      - kevinx1.aws-fr.com
+      - lynajesse.aws-fr.com
+      - mohameds2.aws-fr.com
+      - pascalx1.aws-fr.com
+      - pascalx2.aws-fr.com
+      - raouia18.aws-fr.com
+      - raouiaajc.aws-fr.com
+      - sarah2.aws-fr.com
+      - sarahtata.aws-fr.com
+      - sarahtavernel.aws-fr.com
+      - stephaniex1.aws-fr.com
+      - test-amar.aws-fr.com
+      - test-stephanie.aws-fr.com
+      - testkevin.aws-fr.com
+  tasks:
+    - name: Delete a bucket and all contents
+      aws_s3:
+        bucket: "{{ item }}"
+        mode: delete
+      loop: "{{ buckets }}" 
