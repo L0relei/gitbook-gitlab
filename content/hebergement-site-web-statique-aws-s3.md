@@ -187,128 +187,36 @@ aws s3 rb s3://${BUCKET_NAME}
 
 Créez une distribution web CloudFront. Assurez-vous de configurer les paramètres suivants :
 
-Pour Nom du domaine d'origine, indiquez le point de terminaison.
-Pour Méthodes HTTP autorisées, sélectionnez GET, HEAD, OPTIONS.
-Pour Autres noms de domaine (CNAME), entrez le CNAME que vous souhaitez utiliser pour votre site web.
+* Pour Nom du domaine d'origine, indiquez le point de terminaison.
+* Pour Méthodes HTTP autorisées, sélectionnez GET, HEAD, OPTIONS.
+* Pour Autres noms de domaine (CNAME), entrez le CNAME que vous souhaitez utiliser pour votre site web.
 
-Si vous souhaitez utiliser le protocole SSL pour votre site web, vous pouvez choisir l'option Demander ou importer un certificat avec ACM pour demander un certificat. Pour plus d'informations, consultez Utilisation de noms de domaines alternatifs et de HTTPS.
+Si vous souhaitez utiliser le protocole SSL pour votre site web, vous pouvez choisir l'option Demander ou importer un certificat avec ACM pour demander un certificat.
 
 ```bash
 aws acm request-certificate --domain-name example.com --subject-alternative-names a.example.com b.example.com *.c.example.com
 
 ```
 
-à vérifier et corriger
+Quoi qu'il en soit l'"arn" du certificat sera nécessaire, on le place dans une variable `CERTIFICATE_ARN`
+
+
+à vérifier et à corriger
 
 ```bash
 aws configure set preview.cloudfront true
 ```
 
+```bash
+CERTIFICATE_ARN="arn:aws:acm:us-east-1:733718180495:certificate/e60e1dd7-6329-4598-bc85-6003b2237cf5"
+```
+
+
 ```shell
 cat < EOF >> /tmp/distconfig.json
 {
-    "CallerReference": "'${BUCKET_NAME}'-'`date +%s`'",
-    "Aliases": {
-        "Quantity": 0
-    },
-    "DefaultRootObject": "",
-    "Origins": {
-        "Quantity": 1,
-        "Items": [
-            {
-                "OriginPath": "",
-                "S3OriginConfig": {
-                    "OriginAccessIdentity": ""
-                },
-                "Id": "S3-${BUCKET_NAME}",
-                "DomainName": "${BUCKET_NAME}.s3.amazonaws.com"
-            }
-        ]
-    },
-    "DefaultCacheBehavior": {
-        "TrustedSigners": {
-            "Enabled": false,
-            "Quantity": 0
-        },
-        "TargetOriginId": "S3-${BUCKET_NAME}",
-        "ViewerProtocolPolicy": "allow-all",
-        "ForwardedValues": {
-            "Headers": {
-                "Items": [
-                    "Access-Control-Request-Headers",
-                    "Origin"
-                ],
-                "Quantity": 2
-            },
-            "Cookies": {
-                "Forward": "none"
-            },
-            "QueryString": true
-        },
-        "MaxTTL": 31536000,
-        "SmoothStreaming": false,
-        "DefaultTTL": 86400,
-        "AllowedMethods": {
-            "Items": [
-                "HEAD",
-                "GET"
-            ],
-            "CachedMethods": {
-                "Items": [
-                    "HEAD",
-                    "GET"
-                ],
-                "Quantity": 2
-            },
-            "Quantity": 2
-        },
-        "MinTTL": 0
-    },
-    "CacheBehaviors": {
-        "Quantity": 0
-    },
-    "Comment": "",
-    "Logging": {
-        "Bucket": "",
-        "Prefix": "",
-        "Enabled": false,
-        "IncludeCookies": false
-    },
-    "WebACLId": "",
-    "PriceClass": "PriceClass_All",
-    "Enabled": true,
-    "ViewerCertificate": {
-        "CloudFrontDefaultCertificate": true,
-        "MinimumProtocolVersion": "SSLv3"
-    },
-    "CustomErrorResponses": {
-        "Quantity": 0
-    },
-    "Restrictions": {
-        "GeoRestriction": {
-            "RestrictionType": "none",
-            "Quantity": 0
-        }
-}
-EOF
-```
-
-```bash
-aws cloudfront create-distribution --distribution-config file:///tmp/distconfig.json > /tmp/distconfig_result.json
-
-cat /tmp/distconfig_result.json | jq .Distribution.DomainName
-
-```
-
-Exemple réel :
-
-[ETag indispensable](https://engineering.ifdb.com/2017/10/quick-static-websites-on-aws-s3-and-cloudfront-with-the-aws-cli/) ? Mise en variable de `ViewerCertificate.ACMCertificateArn` et `ViewerCertificate.Certificate`.
-
-```json
-{
-    "ETag": "E2908GS64VRLST",
     "DistributionConfig": {
-        "Comment": "Created by Ansible s3-website-hosting role",
+        "Comment": "Demo Distribution",
         "CacheBehaviors": {
             "Quantity": 0
         },
@@ -343,7 +251,7 @@ Exemple réel :
                         "Quantity": 0
                     },
                     "Id": "S3-${BUCKET_NAME}",
-                    "DomainName": "${BUCKET_NAME}.s3-website-us-east-1.amazonaws.com"
+                    "DomainName": "${BUCKET_NAME}.s3-website-${BUCKET_REGION}.amazonaws.com"
                 }
             ],
             "Quantity": 1
@@ -397,9 +305,9 @@ Exemple réel :
         "CallerReference": "'${BUCKET_NAME}'-'`date +%s`'",
         "ViewerCertificate": {
             "SSLSupportMethod": "sni-only",
-            "ACMCertificateArn": "arn:aws:acm:us-east-1:733718180495:certificate/e60e1dd7-6329-4598-bc85-6003b2237cf5",
+            "ACMCertificateArn": "${CERTIFICATE_ARN}",
             "MinimumProtocolVersion": "TLSv1.1_2016",
-            "Certificate": "arn:aws:acm:us-east-1:733718180495:certificate/e60e1dd7-6329-4598-bc85-6003b2237cf5",
+            "Certificate": "${CERTIFICATE_ARN}",
             "CertificateSource": "acm"
         },
         "CustomErrorResponses": {
@@ -438,8 +346,16 @@ Exemple réel :
         }
     }
 }
+EOF
+```
+
+```bash
+aws cloudfront create-distribution --distribution-config file:///tmp/distconfig.json > /tmp/distconfig_result.json
+
+cat /tmp/distconfig_result.json | jq .Distribution.DomainName
 
 ```
+
 
 ### Étape 3
 
@@ -468,31 +384,7 @@ Attendez que vos modifications de DNS soient propagées et que les entrées pré
 }
 ```
 
-#### Note sur le hosted_zone_id
-
-```python
-# Specify the region to create the AWS resources in
-DEFAULT_REGION = "us-east-1"
-
-# A mapping of hosted zone IDs to AWS regions.
-# Apparently this data is not accessible via API
-# http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region
-# https://forums.aws.amazon.com/thread.jspa?threadID=116724
-S3_HOSTED_ZONE_IDS = {
-    'us-east-1': 'Z3AQBSTGFYJSTF',
-    'us-west-1': 'Z2F56UZL2M1ACD',
-    'us-west-2': 'Z3BJ6K6RIION7M',
-    'ap-south-1': 'Z11RGJOFQNVJUP',
-    'ap-northeast-1': 'Z2M4EHUR26P7ZW',
-    'ap-northeast-2': 'Z3W03O7B5YMIYP',
-    'ap-southeast-1': 'Z3O0J2DXBE1FTB',
-    'ap-southeast-2': 'Z1WCIGYICN2BYD',
-    'eu-central-1': 'Z21DNDUVLTQW6Q',
-    'eu-west-1': 'Z1BKCTXD74EZPE',
-    'sa-east-1': 'Z7KQH4QJS55SO',
-    'us-gov-west-1': 'Z31GFT0UA1I2HV',
-}
-```
+Note : Pour les points de terminaison optimisés pour les périphériques, l'ID de la zone hébergée Route 53 est Z2FDTNDATAQYW2 pour toutes les régions.
 
 ### Étape 4
 

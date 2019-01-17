@@ -81,6 +81,8 @@ sudo gitlab-runner register \
   --locked="false"
 ```
 
+Le fichier de configuration créé est situé dans l'emplacement `/etc/gitlab-runner/config.toml`.
+
 Ensuite démarrer le logiciel. En revenant sur la page Settings/CI CD/Runners du projet Gitlab, on devrait y trouver la liste des "runners" avec l'instance.
 
 ```bash
@@ -89,6 +91,8 @@ sudo gitlab-runner start
 ```
 
 ![Runners dans Gitlab CI](/images/gitlab-runners.jpg)
+
+
 
 ## 5. Scénario de vie / Orchestration
 
