@@ -173,7 +173,7 @@ cat < EOF >> website/index.html
 </body>
 </html>
 EOF
-aws s3 sync --acl public-read --sse --delete website/ s3://${BUCKET_NAME}
+aws s3 sync --acl public-read --delete website/ s3://${BUCKET_NAME}
 curl http://${BUCKET_NAME}.s3-website.eu-west-3.amazonaws.com/
 
 ```
@@ -523,6 +523,15 @@ You probably want the access and secret key for your user to use somewhere:
 ```bash
 aws iam create-access-key --user-name S3-user
 
+```
+
+### Étape 5
+
+```bash
+CDN_DISTRIBUTION_ID="E2E3MF8G25BWVL"
+aws s3 sync --acl public-read --delete website/ s3://${BUCKET_NAME}
+aws cloudfront create-invalidation --distribution-id ${CDN_DISTRIBUTION_ID} --paths "/*"
+# The next time a viewer requests the file, CloudFront returns to the origin to fetch the latest version of the file.
 ```
 
 ## 4. Outils d'approvisionnement, de gestion de configuration, d'orchestration, IaC
