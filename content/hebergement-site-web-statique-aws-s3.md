@@ -707,3 +707,5 @@ Cette liste de tâche on été ajoutée.
 ## 7. Template Cloudformation
 
 * [Cloudformation template for creating static website](https://github.com/sjevs/cloudformation-s3-static-website-with-cloudfront-and-route-53)
+
+![Cloudformation template for creating static website](/images/WebsiteBucket-designer.png)

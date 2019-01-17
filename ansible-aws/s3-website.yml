@@ -1,9 +1,9 @@
 - hosts: localhost
   vars:
     website_root: 'website/'
-    s3_website_bucket_name: 'test6.aws-fr.com'
+    s3_website_bucket_name: 'test8.aws-fr.com'
     s3_website_alias_domain_names:
-      - 'test6.aws-fr.com'
+      - 'test8.aws-fr.com'
     s3_website_certificate_arn: 'arn:aws:acm:us-east-1:733718180495:certificate/e60e1dd7-6329-4598-bc85-6003b2237cf5'
     s3_website_create_dns_record: true
     s3_website_root_object: 'index.html'
