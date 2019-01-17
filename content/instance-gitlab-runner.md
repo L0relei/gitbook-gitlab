@@ -12,11 +12,13 @@ Installation de [GitLab Community Edition AMI sur l'AWS Marketplace](https://aws
 
 ![GitLab Community Edition AMI sur l'AWS Marketplace](/images/AWS-Marketplace-GitLab-Community-Edition.jpg)
 
-L'image est gratuite et une instance t2.medium (2 vCPUs et 4G RAM) est recommandé selon un modèle de coût pour une seule instance :
+L'image est gratuite mais **une instance t2.medium (2 vCPUs et 4G RAM) est recommandée**. Selon un modèle de coût pour une seule instance, on peut estimer le prix :
 
 * 0,054 $ /heure
 * 1,3 $ /jour
 * 40,18 $ /mois
+
+On évaluera finement les ressources nécessaires à un runner.
 
 ### 1.2. Installation manuelle
 
@@ -72,7 +74,7 @@ Pour que votre instance devienne un noeud d'exécution Gitlab, veuillez vous ren
 sudo gitlab-runner register \
   --non-interactive \
   --url "https://gitlab.com/" \
-  --registration-token "PROJECT_REGISTRATION_TOKEN" \
+  --registration-token "$PROJECT_REGISTRATION_TOKEN" \
   --executor "docker" \
   --docker-image alpine:3 \
   --description "docker-runner" \
@@ -96,4 +98,50 @@ En revenant sur la page Settings/CI CD/Runners du projet Gitlab, on devrait y tr
 
 ## 5. Scénario de vie / Orchestration
 
-...
+### 5.1. Approvisionnement automatique du runner
+
+#### Installation, enrigistrement et démarrage de gitlab runner
+
+Veuillez vérifier tous les paramètres.
+
+```bash
+#!/bin/bash
+
+# Gitlab runner installation
+PROJECT_REGISTRATION_TOKEN="SpcLK-kDo_cle"
+apt-get update && apt-get -y upgrade
+apt-get -y install curl
+curl -L https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh | sudo bash
+apt-get -y install gitlab-runner
+gitlab-runner register \
+  --non-interactive \
+  --url "https://gitlab.com/" \
+  --registration-token "$PROJECT_REGISTRATION_TOKEN" \
+  --executor "docker" \
+  --docker-image alpine:3 \
+  --description "AWS docker-runner" \
+  --tag-list "docker,aws" \
+  --run-untagged \
+  --locked="false"
+gitlab-runner start
+```
+
+#### Installation de Docker CE
+
+```bash
+# Docker installation
+apt-get -y install \
+	apt-transport-https \
+  ca-certificates \
+  curl \
+  gnupg2 \
+  software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+apt-get update
+apt-get install docker-ce
+
+```
