@@ -1,0 +1,8 @@
+- name: delete a stack
+  hosts: localhost
+  tasks:
+    - name: delete a stack
+      cloudformation:
+        stack_name: "francoisx2"
+        state: "absent"
+        region: us-east-1

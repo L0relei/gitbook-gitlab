@@ -71,6 +71,7 @@ Le cloud AWS gère 60 zones de disponibilité dans 20 régions géographiques au
 
 * [https://aws.amazon.com/fr/about-aws/global-infrastructure/](https://aws.amazon.com/fr/about-aws/global-infrastructure/)
 * [https://docs.aws.amazon.com/fr_fr/AWSEC2/latest/UserGuide/using-regions-availability-zones.html](https://docs.aws.amazon.com/fr_fr/AWSEC2/latest/UserGuide/using-regions-availability-zones.html)
+* [Régions et points de terminaison AWS](https://docs.aws.amazon.com/fr_fr/general/latest/gr/rande.html)
 
 **Les régions AWS fournissent plusieurs zones de disponibilité physiquement séparées et isolées**, reliées par un réseau à faible latence, à débit élevé et à forte redondance.
 
