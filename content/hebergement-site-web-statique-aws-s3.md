@@ -605,7 +605,7 @@ Cette liste de tâche on été ajoutée.
 
 * [S3 Website Using cf , Route 53 and Python Scripts](https://100awsprojects.com/post/2018-01-27-s3-website-using-cf--route-53-and-python-scripts/#create-route53-a-record-and-cname)
 
-## 7. Template Cloudformation
+## 7. Template Cloudformation de création d'un site web statique
 
 * [Cloudformation template for creating static website](https://github.com/sjevs/cloudformation-s3-static-website-with-cloudfront-and-route-53)
 

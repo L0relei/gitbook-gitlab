@@ -21,3 +21,9 @@ AWS CloudFormation fournit un langage commun pour décrire et provisionner toute
 [https://medium.com/boltops/a-simple-introduction-to-aws-cloudformation-part-1-1694a41ae59d](https://medium.com/boltops/a-simple-introduction-to-aws-cloudformation-part-1-1694a41ae59d)
 
 [https://github.com/tongueroo/cloudformation-examples/blob/master/templates/single-instance.yml](https://github.com/tongueroo/cloudformation-examples/blob/master/templates/single-instance.yml)
+
+## Template Cloudformation de création d'un site web statique
+
+* [Cloudformation template for creating static website](https://github.com/sjevs/cloudformation-s3-static-website-with-cloudfront-and-route-53)
+
+![Cloudformation template for creating static website](/images/WebsiteBucket-designer.png)
