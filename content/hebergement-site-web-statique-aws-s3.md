@@ -608,6 +608,8 @@ Cette liste de tâche on été ajoutée.
 
 ![Cloudformation template for creating static website](/images/WebsiteBucket-designer.png)
 
+Comment créer un stack --> lien
+
 ```yaml
 AWSTemplateFormatVersion: '2010-09-09'
 Description: Creates an S3 bucket configured for hosting a static website, and a Route
@@ -723,6 +725,19 @@ Outputs:
 ```
 
 Déploiement bash
+
+```bash
+CERTIFICATE_ARN="arn:aws:acm:us-east-1:733....:certificate/..."
+STACK_ID=$(aws cloudformation create-stack --stack-name s3website$(date +%s) --template-body file://s3-static-website-with-cloudfront-and-route-53.yaml --parameters ParameterKey=DomainName,ParameterValue=aws-fr.com ParameterKey=FullDomainName,ParameterValue=$(date +%s).aws-fr.com ParameterKey=AcmCertificateArn,ParameterValue=$CERTIFICATE_ARN | jq -r '.StackId')
+echo $STACK_ID
+
+```
+
+Interroger un stack
+
+* Bucket
+* Distribution
+* Entrée Route 53
 
 Déploiement ansible
 
