@@ -64,7 +64,7 @@ Installation de Gitlab Runner.
 sudo apt-get install gitlab-runner || sudo yum install gitlab-runner
 ```
 
-## 4.2. Enregistrement auprès du serveur Gitlab
+### 4.2. Enregistrement auprès du serveur Gitlab
 
 Pour que votre instance devienne un noeud d'exécution Gitlab, veuillez vous rendre sur la page Settings/CI CD/Runners du projet Gitlab. Vous y trouverez le token qui permettra à votre instance de se faire connaître auprès du projet Gitlab.
 
@@ -81,18 +81,18 @@ sudo gitlab-runner register \
   --locked="false"
 ```
 
-Le fichier de configuration créé est situé dans l'emplacement `/etc/gitlab-runner/config.toml`.
+Un fichier de configuration sera créé à l'endroit `/etc/gitlab-runner/config.toml`.
 
-Ensuite démarrer le logiciel. En revenant sur la page Settings/CI CD/Runners du projet Gitlab, on devrait y trouver la liste des "runners" avec l'instance.
+Ensuite, démarrer le logiciel.
 
 ```bash
 sudo gitlab-runner start
 
 ```
 
+En revenant sur la page Settings/CI CD/Runners du projet Gitlab, on devrait y trouver la liste des "runners" avec l'instance.
+
 ![Runners dans Gitlab CI](/images/gitlab-runners.jpg)
-
-
 
 ## 5. Scénario de vie / Orchestration
 
