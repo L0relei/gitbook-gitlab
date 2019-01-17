@@ -616,11 +616,23 @@ sudo start helloworld
 aws ec2 terminate-instances --instance-ids $AWS_INSTANCE
 ```
 
-## 3. Déploiement avec Cloud-init
+### 2.9. Supprimer une paire de clés
+
+...
+
+### 2.10. Supprimer un groupe de sécurité
+
+...
+
+### 2.11. Déploiement avec Cloud-init
 
 [Exécution de commandes sur votre instance Linux lors du lancement](https://docs.aws.amazon.com/fr_fr/AWSEC2/latest/UserGuide/user-data.html#user-data-api-cli) : on ajoute le paramètres `--user-data file://my_script.sh`lors de la création de l'instance avec la commande `aws ec2 run-instances`, `my_script.sh` étant le script qui s'exécutera au démarrage. C'est la solution [Cloud-init](https://cloudinit.readthedocs.io/en/latest/topics/datasources/ec2.html) qui est utilisée dans ce cas. Beaucoup d'autres prestataires utilisent ce logiciel pour approvisionner des instances.
 
 * Approvisionnement de stack Python, Ansible, encore LAMP ou enore Gitlab Runner.
+
+## 3. AWS automatisé en Bash
+
+...
 
 ## 4. AWS EC2 avec Ansible
 
@@ -628,30 +640,10 @@ aws ec2 terminate-instances --instance-ids $AWS_INSTANCE
 * envoi de crédits
 * suppression d'instances et de clés
 
-## 5. AWS CloudFormation
-
-AWS CloudFormation fournit un langage commun pour décrire et provisionner toutes les ressources d'infrastructure dans votre environnement cloud. CloudFormation vous permet d'utiliser un simple fichier texte pour modéliser et provisionner, de manière automatisée et sécurisée, toutes les ressources nécessaires pour vos applications à travers toutes les régions et tous les comptes. Ce fichier sert de source unique de vérité pour votre environnement cloud.
-
-### 5.1. Fonctionnement AWS CloudFormation
-
-![Fonctionnement AWS CloudFormation](https://d1.awsstatic.com/CloudFormation%20Assets/howitworks.c316d3856638c6c9786e49011bad660d57687259.png)
-
-### 5.2. Notes
-
-[https://console.aws.amazon.com/cloudformation/designer](https://console.aws.amazon.com/cloudformation/designer)
-
-[https://templates.cloudonaut.io/en/stable/](https://templates.cloudonaut.io/en/stable/)
-
-[https://github.com/widdix/learn-cloudformation/](https://github.com/widdix/learn-cloudformation/)
-
-[https://medium.com/boltops/a-simple-introduction-to-aws-cloudformation-part-1-1694a41ae59d](https://medium.com/boltops/a-simple-introduction-to-aws-cloudformation-part-1-1694a41ae59d)
-
-[https://github.com/tongueroo/cloudformation-examples/blob/master/templates/single-instance.yml](https://github.com/tongueroo/cloudformation-examples/blob/master/templates/single-instance.yml)
-
-## 6. LightSail
+## 5. Instances légères LightSail
 
 [https://lightsail.aws.amazon.com/ls/docs/en/articles/getting-started-with-amazon-lightsail](https://lightsail.aws.amazon.com/ls/docs/en/articles/getting-started-with-amazon-lightsail)
 
-## 7. Elastic Beanstalk
+## 6. PaaS Elastic Beanstalk
 
 [AWS Elastic Beanstalk - Didacticiels et exemples](https://docs.aws.amazon.com/fr_fr/elasticbeanstalk/latest/dg/tutorials.html)

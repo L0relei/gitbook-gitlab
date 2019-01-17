@@ -449,7 +449,7 @@ aws cloudfront create-invalidation --distribution-id ${CDN_DISTRIBUTION_ID} --pa
 
 ## 5. Expérimentation Ansible
 
-Voici un exemple de livre de jeu en un seul fichier déploie un site web en HTTP sur un Bucket S3 et qui le détruit ensuite (fichier [demo-s3-http.yml](ansible-aws/demo-s3-http.yml)).
+Voici un exemple de livre de jeu en un seul fichier déploie un site web en HTTP sur un Bucket S3 et qui le détruit ensuite (fichier [demo-s3-http.yml]({{ book.repo }}ansible-aws/demo-s3-http.yml)).
 
 ```yaml
 #demo-s3-http.yml
