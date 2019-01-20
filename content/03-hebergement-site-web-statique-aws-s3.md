@@ -520,7 +520,7 @@ Voici un exemple de livre de jeu en un seul fichier déploie un site web en HTTP
 
 ### 5.1. Livre de jeu
 
-Voir le document local [ansible-aws](ansible-aws/roles/s3-website-hosting/README.md)
+Voir le document fichier README du code source original [ansible-aws]({{ book.repo }}ansible-aws/roles/s3-website-hosting/README.md), le rôle `s3-website-hosting` ayant été adapté.
 
 On crée un libre de jeu adapté avec les bonnes variables.
 
@@ -604,11 +604,18 @@ Cette liste de tâche on été ajoutée.
 
 ## 7. Template Cloudformation de création d'un site web statique
 
-* [Cloudformation template for creating static website](https://github.com/sjevs/cloudformation-s3-static-website-with-cloudfront-and-route-53)
+### AWS Cloudformation
+
+AWS CloudFormation fournit un langage commun pour décrire et provisionner toutes les ressources d'infrastructure dans votre environnement cloud. CloudFormation vous permet d'utiliser un simple fichier texte (JSON ou YAML) pour modéliser et approvisionner de manière automatisée et sécurisée toutes les ressources nécessaires pour des applications à travers toutes les régions et tous les comptes. Ce fichier sert de source unique de vérité pour un environnement cloud.
+
+### Template S3 Website
+
+Source originale : [Cloudformation template for creating static website](https://github.com/sjevs/cloudformation-s3-static-website-with-cloudfront-and-route-53)
+
+Source du support: ...
 
 ![Cloudformation template for creating static website](/images/WebsiteBucket-designer.png)
 
-Comment créer un stack --> lien
 
 ```yaml
 AWSTemplateFormatVersion: '2010-09-09'
@@ -724,12 +731,24 @@ Outputs:
     Description: Full DomainName
 ```
 
+Déploiement AWS console
+
+Comment créer un stack en AWS Console --> lien
+
 Déploiement bash
 
 ```bash
 CERTIFICATE_ARN="arn:aws:acm:us-east-1:733....:certificate/..."
-STACK_ID=$(aws cloudformation create-stack --stack-name s3website$(date +%s) --template-body file://s3-static-website-with-cloudfront-and-route-53.yaml --parameters ParameterKey=DomainName,ParameterValue=aws-fr.com ParameterKey=FullDomainName,ParameterValue=$(date +%s).aws-fr.com ParameterKey=AcmCertificateArn,ParameterValue=$CERTIFICATE_ARN | jq -r '.StackId')
+STACK_NAME="s3website$(date +%s)"
+STACK_ID=$(aws cloudformation create-stack --stack-name s3website$(date +%s) \
+--template-body file://s3-static-website-with-cloudfront-and-route-53.yaml \
+--parameters ParameterKey=DomainName,ParameterValue=aws-fr.com \
+ParameterKey=FullDomainName,ParameterValue=$(date +%s).aws-fr.com \
+ParameterKey=AcmCertificateArn,ParameterValue=$CERTIFICATE_ARN | jq -r '.StackId')
 echo $STACK_ID
+aws cloudformation list-stacks | jq '.StackSummaries[] | select(.StackId=="'$STACK_ID'")'
+STACK_NAME=$(aws cloudformation list-stacks | jq -r '.StackSummaries[] | select(.StackId=="'$STACK_ID'") | .StackName')
+aws cloudformation list-stack-resources --stack-name $STACK_NAME | jq '.StackResourceSummaries[] | .ResourceType'
 
 ```
 

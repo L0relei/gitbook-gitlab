@@ -81,6 +81,7 @@ On trouvera dans ce document des points de départs et des outils à évaluer, �
 * [Jekyll](https://jekyllrb.com/)
 * [MkDocs-Material](https://squidfunk.github.io/mkdocs-material/)
 * [Hugo](https://gohugo.io/)
+* [Bookdown](https://bookdown.org/)
 
 ### 3.2. Autres Frameworks de publication
 
