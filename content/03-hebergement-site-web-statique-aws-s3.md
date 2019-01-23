@@ -760,4 +760,31 @@ Interroger un stack
 
 Déploiement ansible
 
+```yaml
+- name: "Creates an S3 bucket configured for hosting a static website, and a Route 53 DNS record pointing to the bucket via Cloudformation"
+  hosts: localhost
+  vars:
+    serial: "{{ ansible_date_time.epoch }}"
+    DomainName: "aws-fr.com"
+    FullDomainName: "{{ serial }}.{{ DomainName }}"
+    AcmCertificateArn: "arn:aws:acm:us-east-1:733718180495:certificate/e60e1dd7-6329-4598-bc85-6003b2237cf5"
+    region: "eu-west-3"
+    template: "s3-static-website-with-cloudfront-and-route-53.yaml"
+  tasks:
+    - name: "Create the stack"
+      cloudformation:
+        stack_name: "websites3cf{{ serial }}"
+        state: "present"
+        region: "{{ region }}"
+        disable_rollback: true
+        template: "{{ template }}"
+        template_parameters:
+          DomainName: "{{ DomainName }}"
+          FullDomainName: "{{ FullDomainName }}"
+          AcmCertificateArn: "{{ AcmCertificateArn }}"
+        tags:
+          Stack: "websites3cf{{ serial }}"
+
+```
+
 Déploiement python
