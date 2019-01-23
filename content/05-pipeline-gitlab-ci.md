@@ -24,6 +24,8 @@ Enfin, les étapes d'intégration continue et de le livraison continue sont anno
 
 ## 2. Boîte à outil
 
+### 2.1. Gitlab-CI
+
 Ce tableau représente la proposition de départ.
 
 Outil | Fournisseur | Alternatives
@@ -50,6 +52,11 @@ Le Pipeline de base proposé est le suivant :
 * Phase de test des outils et du code (test) : test des images docker et du code
 * Phase de construction : usage des outils
 * Phase de déploiement : déploiement auprès d'une infrastructure codée (ici sur AWS S3 en HTTPS/CDN)
+
+## 2.2. Alternatives
+
+* Jenkins / AWS
+* [How To Build a Serverless CI/CD Pipeline On AWS](https://medium.com/devopslinks/how-to-build-a-serverless-ci-cd-pipeline-on-aws-907be91c2e48)
 
 ## 3. Le serveur d'intégration Gitlab / Gitlab-CI
 

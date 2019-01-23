@@ -614,7 +614,7 @@ Source originale : [Cloudformation template for creating static website](https:/
 
 Source du support: ...
 
-![Cloudformation template for creating static website](/images/WebsiteBucket-designer.png)
+![Cloudformation template for creating static website](/images/WebsiteBucket-designer-2.png)
 
 
 ```yaml
