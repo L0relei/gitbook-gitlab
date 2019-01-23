@@ -740,7 +740,7 @@ Déploiement bash
 ```bash
 CERTIFICATE_ARN="arn:aws:acm:us-east-1:733....:certificate/..."
 STACK_NAME="s3website$(date +%s)"
-STACK_ID=$(aws cloudformation create-stack --stack-name s3website$(date +%s) \
+STACK_ID=$(aws cloudformation create-stack --stack-name $STACK_NAME \
 --template-body file://s3-static-website-with-cloudfront-and-route-53.yaml \
 --parameters ParameterKey=DomainName,ParameterValue=aws-fr.com \
 ParameterKey=FullDomainName,ParameterValue=$(date +%s).aws-fr.com \
