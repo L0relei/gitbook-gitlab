@@ -11,9 +11,6 @@ RUN npm install --global gitbook-cli \
   && npm cache clear --force \
   && apt-get update \
   && apt-get install --no-install-recommends --no-install-suggests -y \
-    #wget \
-    #curl \
-    #vim \
     calibre \
     fonts-roboto \
   && rm -rf /var/lib/apt/lists/* \

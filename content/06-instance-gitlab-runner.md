@@ -108,7 +108,7 @@ Veuillez vérifier tous les paramètres.
 #!/bin/bash
 
 # Gitlab runner installation
-PROJECT_REGISTRATION_TOKEN="SpcLK-kDo_cle"
+PROJECT_REGISTRATION_TOKEN=$1
 apt-get update && apt-get -y upgrade
 apt-get -y install curl
 curl -L https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh | sudo bash
@@ -145,3 +145,7 @@ apt-get update
 apt-get -y install docker-ce
 
 ```
+
+### 5.2. Approvisionnement d'instance via cloud-init
+
+### 5.3. Approvisionnement d'instances via Kubernetes

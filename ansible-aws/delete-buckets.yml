@@ -2,8 +2,7 @@
   hosts: localhost
   vars:
     buckets:
-      - f3696dc1-7f3d-4d68-b7f3-43ac70413ae6
-      - d0d7a0a3-6b81-4acc-a9cc-7d2c1b7a5366
+      - cf-templates-188123uubvcny-eu-west-3
   tasks:
     - name: Delete a bucket and all contents
       aws_s3:

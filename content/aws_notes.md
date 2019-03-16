@@ -2,6 +2,10 @@
 
 <!-- toc -->
 
+## Liens
+
+[The Open Guide to Amazon Web Services](https://github.com/open-guides/og-aws)
+
 ## 1. AWS CloudFormation
 
 AWS CloudFormation fournit un langage commun pour décrire et provisionner toutes les ressources d'infrastructure dans votre environnement cloud. CloudFormation vous permet d'utiliser un simple fichier texte (JSON ou YAML) pour modéliser et approvisionner de manière automatisée et sécurisée toutes les ressources nécessaires pour des applications à travers toutes les régions et tous les comptes. Ce fichier sert de source unique de vérité pour un environnement cloud.
@@ -64,8 +68,6 @@ Ici un tableau "book" qui comprend deux objets (lignes) avec quatre propriétés
 Ces données en format JSON peut être représentées sous forme de tableau.
 
 <table><tbody><tr><td colspan="2"><div class="td_head">book</div><table style="width:100%"><tbody><tr><td><div class="td_head">id</div></td><td><div class="td_head">language</div></td><td><div class="td_head">edition</div></td><td><div class="td_head">author</div></td></tr><tr><td class="td_row_even"><div class="td_row_even">01</div></td><td class="td_row_even"><div class="td_row_even">Java</div></td><td class="td_row_even"><div class="td_row_even">third</div></td><td class="td_row_even"><div class="td_row_even">Herbert Schildt</div></td></tr><tr><td class="td_row_odd"><div class="td_row_odd">07</div></td><td class="td_row_odd"><div class="td_row_odd">C++</div></td><td class="td_row_odd"><div class="td_row_odd">second</div></td><td class="td_row_odd"><div class="td_row_odd">E.Balagurusamy</div></td></tr></tbody></table></td></tr></tbody></table>
-
-
 
 ### Tutorial jq avec curl sur l'api de Github
 
