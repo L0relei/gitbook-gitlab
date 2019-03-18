@@ -18,7 +18,7 @@ On trouvera ici une proposition à évaluer, à adapter et à améliorer sous fo
 
 ### Phases
 
-* Phase de construction et éploiement sur un Bucket S3 existant (pipeline CI/CD)
+* Phase de construction et de déploiement sur un Bucket S3 existant (pipeline CI/CD)
 * Infrastructure nécessaire : Nom, DNS, Distribution, certificat, utilisateur et policies (IaC)
 * Comment intégrer les deux ?
 
