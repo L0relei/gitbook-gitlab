@@ -1,5 +1,7 @@
 # Projet de publication en CI/CD sur AWS
 
+### Bonjour la classe Talan
+
 ![Projet de publication en CI/CD sur AWS](cover_small.jpg)
 
 Auteur : {{ book.author }}
