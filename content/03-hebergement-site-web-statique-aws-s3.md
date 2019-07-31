@@ -141,7 +141,8 @@ Le point de terminaison de votre compartiment est `bucketname.s3-website-region.
 Ajoutez une stratégie de compartiment qui autorise un accès en lecture public sur le compartiment que vous avez créé.
 
 ```bash
-BUCKET_NAME="test1.aws-fr.com"
+HOST=${USER}${RANDOM}
+BUCKET_NAME="${HOST}.aws-fr.com"
 BUCKET_REGION="eu-west-3"
 aws s3 mb s3://${BUCKET_NAME} --region ${BUCKET_REGION}
 echo '{
@@ -158,17 +159,23 @@ echo '{
 }' > /tmp/policy.json
 
 aws s3api put-bucket-policy --bucket ${BUCKET_NAME} --policy file:///tmp/policy.json
-aws s3 website s3://${BUCKET_NAME} --index-document index.html --error-document error.html
 
+aws s3 website s3://${BUCKET_NAME} --index-document index.html --error-document error.html
+```
+
+Création et téléchargement d'une page Web `index.html`.
+
+```bash
 mkdir website
-cat < EOF >> website/index.html
-<html xmlns="http://www.w3.org/1999/xhtml" >
+
+cat << EOF > website/index.html
+<html xmlns="http://www.w3.org/1999/xhtml">
 <meta charset="UTF-8">
 <head>
     <title>My Website Home Page</title>
 </head>
 <body>
-  <h1>Welcome to my website</h1>
+  <h1>Welcome to my ${BUCKET_NAME} website</h1>
   <p>Now hosted on Amazon S3!</p>
 </body>
 </html>
@@ -177,6 +184,8 @@ aws s3 sync --acl public-read --delete website/ s3://${BUCKET_NAME}
 curl http://${BUCKET_NAME}.s3-website.eu-west-3.amazonaws.com/
 
 ```
+
+Suppression du contenu et effacement :
 
 ```bash
 aws s3 rm s3://${BUCKET_NAME} --recursive
