@@ -196,162 +196,160 @@ aws s3 rb s3://${BUCKET_NAME}
 
 Créez une distribution web CloudFront. Assurez-vous de configurer les paramètres suivants :
 
-* Pour Nom du domaine d'origine, indiquez le point de terminaison.
-* Pour Méthodes HTTP autorisées, sélectionnez GET, HEAD, OPTIONS.
-* Pour Autres noms de domaine (CNAME), entrez le CNAME que vous souhaitez utiliser pour votre site web.
+* Pour "Nom du domaine d'origine", indiquez le point de terminaison.
+* Pour "Méthodes HTTP autorisées", sélectionnez `GET`, `HEAD`, `OPTIONS`.
+* Pour "Autres noms de domaine (CNAME)", entrez le `CNAME` que vous souhaitez utiliser pour votre site web.
 
-Si vous souhaitez utiliser le protocole SSL pour votre site web, vous pouvez choisir l'option Demander ou importer un certificat avec ACM pour demander un certificat.
+Par exemple :
 
 ```bash
-aws acm request-certificate --domain-name example.com --subject-alternative-names a.example.com b.example.com *.c.example.com
-
+aws acm request-certificate --domain-name aws-fr.com --subject-alternative-names ${BUCKET_NAME}
 ```
 
-Quoi qu'il en soit l'"arn" du certificat sera nécessaire, on le place dans une variable `CERTIFICATE_ARN`
+```json
+{
+    "CertificateArn": "arn:aws:acm:eu-west-3:733718180495:certificate/fa55d90a-b52a-4d29-82af-c401521b68ea"
+}
+```
 
-à vérifier et à corriger
+Quoi qu'il en soit l'"arn" du certificat sera nécessaire. On le place dans une variable `CERTIFICATE_ARN`
 
 ```bash
 aws configure set preview.cloudfront true
 ```
 
 ```bash
-CERTIFICATE_ARN="arn:aws:acm:us-east-1:733718180495:certificate/e60e1dd7-6329-4598-bc85-6003b2237cf5"
+CERTIFICATE_ARN="arn:aws:acm:eu-west-3:733718180495:certificate/fa55d90a-b52a-4d29-82af-c401521b68ea"
 ```
 
-```shell
-cat < EOF >> /tmp/distconfig.json
+```json
+cat << EOF > /tmp/distconfig.json
 {
-    "DistributionConfig": {
-        "Comment": "Demo Distribution",
-        "CacheBehaviors": {
-            "Quantity": 0
-        },
-        "IsIPV6Enabled": true,
-        "Logging": {
-            "Bucket": "",
-            "Prefix": "",
-            "Enabled": false,
-            "IncludeCookies": false
-        },
-        "WebACLId": "",
-        "Origins": {
+  "IsIPV6Enabled": true,
+  "Comment": "",
+  "Logging": {
+    "Bucket": "",
+    "Prefix": "",
+    "Enabled": false,
+    "IncludeCookies": false
+  },
+  "WebACLId": "",
+  "Origins": {
+    "Items": [
+      {
+        "OriginPath": "",
+        "CustomOriginConfig": {
+          "OriginSslProtocols": {
             "Items": [
-                {
-                    "OriginPath": "",
-                    "CustomOriginConfig": {
-                        "OriginSslProtocols": {
-                            "Items": [
-                                "TLSv1",
-                                "TLSv1.1",
-                                "TLSv1.2"
-                            ],
-                            "Quantity": 3
-                        },
-                        "OriginProtocolPolicy": "http-only",
-                        "OriginReadTimeout": 30,
-                        "HTTPPort": 80,
-                        "HTTPSPort": 443,
-                        "OriginKeepaliveTimeout": 5
-                    },
-                    "CustomHeaders": {
-                        "Quantity": 0
-                    },
-                    "Id": "S3-${BUCKET_NAME}",
-                    "DomainName": "${BUCKET_NAME}.s3-website-${BUCKET_REGION}.amazonaws.com"
-                }
+              "TLSv1",
+              "TLSv1.1",
+              "TLSv1.2"
             ],
-            "Quantity": 1
+            "Quantity": 3
+          },
+          "OriginProtocolPolicy": "http-only",
+          "OriginReadTimeout": 30,
+          "HTTPPort": 80,
+          "HTTPSPort": 443,
+          "OriginKeepaliveTimeout": 5
         },
-        "DefaultRootObject": "index.html",
-        "PriceClass": "PriceClass_100",
-        "Enabled": true,
-        "DefaultCacheBehavior": {
-            "FieldLevelEncryptionId": "",
-            "TrustedSigners": {
-                "Enabled": false,
-                "Quantity": 0
-            },
-            "LambdaFunctionAssociations": {
-                "Quantity": 0
-            },
-            "TargetOriginId": "S3-${BUCKET_NAME}",
-            "ViewerProtocolPolicy": "redirect-to-https",
-            "ForwardedValues": {
-                "Headers": {
-                    "Quantity": 0
-                },
-                "Cookies": {
-                    "Forward": "none"
-                },
-                "QueryStringCacheKeys": {
-                    "Quantity": 0
-                },
-                "QueryString": false
-            },
-            "MaxTTL": 2592000,
-            "SmoothStreaming": false,
-            "DefaultTTL": 86400,
-            "AllowedMethods": {
-                "Items": [
-                    "HEAD",
-                    "GET"
-                ],
-                "CachedMethods": {
-                    "Items": [
-                        "HEAD",
-                        "GET"
-                    ],
-                    "Quantity": 2
-                },
-                "Quantity": 2
-            },
-            "MinTTL": 0,
-            "Compress": true
+        "CustomHeaders": {
+          "Quantity": 0
         },
-        "CallerReference": "'${BUCKET_NAME}'-'`date +%s`'",
-        "ViewerCertificate": {
-            "SSLSupportMethod": "sni-only",
-            "ACMCertificateArn": "${CERTIFICATE_ARN}",
-            "MinimumProtocolVersion": "TLSv1.1_2016",
-            "Certificate": "${CERTIFICATE_ARN}",
-            "CertificateSource": "acm"
-        },
-        "CustomErrorResponses": {
-            "Items": [
-                {
-                    "ErrorCode": 403,
-                    "ResponsePagePath": "/index.html",
-                    "ResponseCode": "200",
-                    "ErrorCachingMinTTL": 300
-                },
-                {
-                    "ErrorCode": 404,
-                    "ResponsePagePath": "/index.html",
-                    "ResponseCode": "200",
-                    "ErrorCachingMinTTL": 300
-                }
-            ],
-            "Quantity": 2
-        },
-        "OriginGroups": {
-            "Items": [],
-            "Quantity": 0
-        },
-        "HttpVersion": "http2",
-        "Restrictions": {
-            "GeoRestriction": {
-                "RestrictionType": "none",
-                "Quantity": 0
-            }
-        },
-        "Aliases": {
-            "Items": [
-                "${BUCKET_NAME}"
-            ],
-            "Quantity": 1
-        }
+        "Id": "S3-${BUCKET_NAME}",
+        "DomainName": "${BUCKET_NAME}.s3-website-${BUCKET_REGION}.amazonaws.com"
+      }
+    ],
+    "Quantity": 1
+  },
+  "DefaultRootObject": "index.html",
+  "PriceClass": "PriceClass_100",
+  "Enabled": true,
+  "DefaultCacheBehavior": {
+    "FieldLevelEncryptionId": "",
+    "TrustedSigners": {
+      "Enabled": false,
+      "Quantity": 0
+    },
+    "LambdaFunctionAssociations": {
+      "Quantity": 0
+    },
+    "TargetOriginId": "S3-${BUCKET_NAME}",
+    "ViewerProtocolPolicy": "redirect-to-https",
+    "ForwardedValues": {
+      "Headers": {
+        "Quantity": 0
+      },
+      "Cookies": {
+        "Forward": "none"
+      },
+      "QueryStringCacheKeys": {
+        "Quantity": 0
+      },
+      "QueryString": false
+    },
+    "MaxTTL": 2592000,
+    "SmoothStreaming": false,
+    "DefaultTTL": 86400,
+    "AllowedMethods": {
+      "Items": [
+        "HEAD",
+        "GET"
+      ],
+      "CachedMethods": {
+        "Items": [
+          "HEAD",
+          "GET"
+        ],
+        "Quantity": 2
+      },
+      "Quantity": 2
+    },
+    "MinTTL": 0,
+    "Compress": true
+  },
+  "CallerReference": "'${BUCKET_NAME}'-'`date +%s`'",
+  "ViewerCertificate": {
+    "SSLSupportMethod": "sni-only",
+    "ACMCertificateArn": "${CERTIFICATE_ARN}",
+    "MinimumProtocolVersion": "TLSv1.1_2016",
+    "Certificate": "${CERTIFICATE_ARN}",
+    "CertificateSource": "acm"
+  },
+  "CustomErrorResponses": {
+    "Items": [
+      {
+        "ErrorCode": 403,
+        "ResponsePagePath": "/index.html",
+        "ResponseCode": "200",
+        "ErrorCachingMinTTL": 300
+      },
+      {
+        "ErrorCode": 404,
+        "ResponsePagePath": "/index.html",
+        "ResponseCode": "200",
+        "ErrorCachingMinTTL": 300
+      }
+    ],
+    "Quantity": 2
+  },
+  "OriginGroups": {
+    "Items": [],
+    "Quantity": 0
+  },
+  "HttpVersion": "http2",
+  "Restrictions": {
+    "GeoRestriction": {
+      "RestrictionType": "none",
+      "Quantity": 0
     }
+  },
+  "Aliases": {
+    "Items": [
+      "${BUCKET_NAME}"
+    ],
+    "Quantity": 1
+  }
 }
 EOF
 ```
@@ -374,20 +372,27 @@ Attendez que vos modifications de DNS soient propagées et que les entrées pré
 [Jeu d'enregistrement de ressources d'alias pour une distribution CloudFront](https://docs.aws.amazon.com/fr_fr/AWSCloudFormation/latest/UserGuide/quickref-route53.html#w2ab1c17c23c81c11)
 
 ```json
-"myDNS" : {
-    "Type" : "AWS::Route53::RecordSetGroup",
-    "Properties" : {
-        "HostedZoneId" : { "Ref" : "myHostedZoneID" },
-        "RecordSets" : [{
-            "Name" : { "Ref" : "myRecordSetDomainName" },
-            "Type" : "A",
-            "AliasTarget" : {
-                "HostedZoneId" : "Z2FDTNDATAQYW2",
-                "DNSName" : { "Ref" : "myCloudFrontDistributionDomainName" }
-            }
-        }]
+{
+  "Comment": "Creating Alias resource record sets in Route 53",
+  "Changes": [
+    {
+      "Action": "CREATE",
+      "ResourceRecordSet": {
+        "Name": "${BUCKET_NAME}",
+        "Type": "A",
+        "AliasTarget": {
+          "HostedZoneId": "Z2FDTNDATAQYW2",
+          "DNSName": "CLOUDFRONT",
+          "EvaluateTargetHealth": false
+        }
+      }
     }
+  ]
 }
+```
+
+```
+aws route53 change-resource-record-sets --hosted-zone-id Z2FDTNDATAQYW2 --change-batch file:///tmp/route53-.json
 ```
 
 Note : Pour les points de terminaison optimisés pour les périphériques, l'ID de la zone hébergée Route 53 est Z2FDTNDATAQYW2 pour toutes les régions.

@@ -51,7 +51,7 @@ export AWS_IMAGE="ami-0ebc281c20e89ba4b"
 
 ### 1.1. Trouver une AMI Linux
 
-Exemple : Rechercher l'IMA Amazon Linux 2 actuelle
+Exemple : Rechercher l'AMI Amazon Linux 2 actuelle
 
 ```bash
 aws ec2 describe-images --owners amazon \
@@ -59,7 +59,7 @@ aws ec2 describe-images --owners amazon \
 --output json | jq -r '.Images | sort_by(.CreationDate) | last(.[]).ImageId'
 ```
 
-Exemple : Rechercher l'IMA Amazon Linux actuelle
+Exemple : Rechercher l'AMI Amazon Linux actuelle
 
 ```bash
 aws ec2 describe-images --owners amazon \
@@ -67,23 +67,23 @@ aws ec2 describe-images --owners amazon \
 --output json | jq -r '.Images | sort_by(.CreationDate) | last(.[]).ImageId'
 ```
 
-Exemple : Rechercher l'IMA Ubuntu Server 16.04 LTS actuelle
+Exemple : Rechercher l'AMI Ubuntu Server 18.04 LTS actuelle
 
 ```bash
 aws ec2 describe-images --owners 099720109477 \
---filters 'Name=name,Values=ubuntu/images/hvm-ssd/ubuntu-xenial-16.04-amd64-server-????????' 'Name=state,Values=available' \
+--filters 'Name=name,Values=ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-????????' 'Name=state,Values=available' \
 --output json | jq -r '.Images | sort_by(.CreationDate) | last(.[]).ImageId'
 ```
 
-Exemple : Rechercher l'IMA Red Hat Enterprise Linux 7.5 actuelle
+Exemple : Rechercher l'AMI Red Hat Enterprise Linux 7.6 actuelle
 
 ```bash
 aws ec2 describe-images --owners 309956199498 \
---filters 'Name=name,Values=RHEL-7.5_HVM_GA*' 'Name=state,Values=available' \
+--filters 'Name=name,Values=RHEL-7.6_HVM_GA*' 'Name=state,Values=available' \
 --output json | jq -r '.Images | sort_by(.CreationDate) | last(.[]).ImageId'
 ```
 
-Exemple : Rechercher l'IMA SUSE Linux Enterprise Server 15 actuelle
+Exemple : Rechercher l'AMI SUSE Linux Enterprise Server 15 actuelle
 
 ```bash
 aws ec2 describe-images --owners amazon \
@@ -101,25 +101,28 @@ Un sous-réseau est une plage d'adresses IP dans le VPC.
 
 ```bash
 aws ec2 describe-vpcs --output table
----------------------------------------------------------------------------------------------------
-|                                          DescribeVpcs                                           |
-+-------------------------------------------------------------------------------------------------+
-||                                             Vpcs                                              ||
-|+---------------+----------------+------------------+------------+-------------+----------------+|
-||   CidrBlock   | DhcpOptionsId  | InstanceTenancy  | IsDefault  |    State    |     VpcId      ||
-|+---------------+----------------+------------------+------------+-------------+----------------+|
-||  172.31.0.0/16|  dopt-93e8ccfa |  default         |  True      |  available  |  vpc-476c332e  ||
-|+---------------+----------------+------------------+------------+-------------+----------------+|
-|||                                   CidrBlockAssociationSet                                   |||
-||+--------------------------------------------------------+------------------------------------+||
-|||                      AssociationId                     |             CidrBlock              |||
-||+--------------------------------------------------------+------------------------------------+||
-|||  vpc-cidr-assoc-a9c5c4c0                               |  172.31.0.0/16                     |||
-||+--------------------------------------------------------+------------------------------------+||
-||||                                      CidrBlockState                                       ||||
-|||+----------------------------------+--------------------------------------------------------+|||
-||||  State                           |  associated                                            ||||
-|||+----------------------------------+--------------------------------------------------------+|||
+--------------------------------------------------
+|                  DescribeVpcs                  |
++------------------------------------------------+
+||                     Vpcs                     ||
+|+-----------------------+----------------------+|
+||  CidrBlock            |  172.31.0.0/16       ||
+||  DhcpOptionsId        |  dopt-93e8ccfa       ||
+||  InstanceTenancy      |  default             ||
+||  IsDefault            |  True                ||
+||  OwnerId              |  733718180495        ||
+||  State                |  available           ||
+||  VpcId                |  vpc-476c332e        ||
+|+-----------------------+----------------------+|
+|||           CidrBlockAssociationSet          |||
+||+----------------+---------------------------+||
+|||  AssociationId |  vpc-cidr-assoc-a9c5c4c0  |||
+|||  CidrBlock     |  172.31.0.0/16            |||
+||+----------------+---------------------------+||
+||||              CidrBlockState              ||||
+|||+---------------+--------------------------+|||
+||||  State        |  associated              ||||
+|||+---------------+--------------------------+|||
 ```
 
 ```bash
@@ -131,15 +134,19 @@ export AWS_VPC=$(aws ec2 describe-vpcs --query 'Vpcs[*].VpcId' --output text)
 ```
 
 ```bash
+LABID="${USER}${RANDOM}"
+```
+
+```bash
 aws ec2 create-security-group \
-        --group-name demo-lab \
-        --description "Demo Lab Security Group" \
+        --group-name $LABID-demo-lab \
+        --description "$LABID Demo Lab Security Group" \
         --vpc-id $AWS_VPC
 ```
 
 ```bash
 aws ec2 authorize-security-group-ingress \
-        --group-name demo-lab \
+        --group-name $LABID-demo-lab \
         --protocol tcp \
         --port 22 \
         --cidr 0.0.0.0/0
@@ -147,7 +154,7 @@ aws ec2 authorize-security-group-ingress \
 
 ```bash
 aws ec2 authorize-security-group-ingress \
-        --group-name demo-lab \
+        --group-name $LABID-demo-lab \
         --protocol tcp \
         --port 80 \
         --cidr 0.0.0.0/0
@@ -155,7 +162,7 @@ aws ec2 authorize-security-group-ingress \
 
 ```bash
 aws ec2 authorize-security-group-ingress \
-        --group-name demo-lab \
+        --group-name $LABID-demo-lab \
         --protocol tcp \
         --port 3000 \
         --cidr 0.0.0.0/0
@@ -163,72 +170,79 @@ aws ec2 authorize-security-group-ingress \
 
 ```bash
 aws ec2 describe-security-groups \
-        --group-names demo-lab \
+        --group-names $LABID-demo-lab \
         --output table
 ```
 
 ```bash
-----------------------------------------------------------------------------------------------------
-|                                      DescribeSecurityGroups                                      |
-+--------------------------------------------------------------------------------------------------+
-||                                         SecurityGroups                                         ||
-|+--------------------------+------------------------+------------+---------------+---------------+|
-||        Description       |        GroupId         | GroupName  |    OwnerId    |     VpcId     ||
-|+--------------------------+------------------------+------------+---------------+---------------+|
-||  Demo Lab Security Group |  sg-04edf90e659364a62  |  demo-lab  |  733718180495 |  vpc-476c332e ||
-|+--------------------------+------------------------+------------+---------------+---------------+|
-|||                                         IpPermissions                                        |||
-||+------------------------------+------------------------------------+--------------------------+||
-|||           FromPort           |            IpProtocol              |         ToPort           |||
-||+------------------------------+------------------------------------+--------------------------+||
-|||  80                          |  tcp                               |  80                      |||
-||+------------------------------+------------------------------------+--------------------------+||
-||||                                          IpRanges                                          ||||
-|||+--------------------------------------------------------------------------------------------+|||
-||||                                           CidrIp                                           ||||
-|||+--------------------------------------------------------------------------------------------+|||
-||||  0.0.0.0/0                                                                                 ||||
-|||+--------------------------------------------------------------------------------------------+|||
-|||                                         IpPermissions                                        |||
-||+------------------------------+------------------------------------+--------------------------+||
-|||           FromPort           |            IpProtocol              |         ToPort           |||
-||+------------------------------+------------------------------------+--------------------------+||
-|||  22                          |  tcp                               |  22                      |||
-||+------------------------------+------------------------------------+--------------------------+||
-||||                                          IpRanges                                          ||||
-|||+--------------------------------------------------------------------------------------------+|||
-||||                                           CidrIp                                           ||||
-|||+--------------------------------------------------------------------------------------------+|||
-||||  0.0.0.0/0                                                                                 ||||
-|||+--------------------------------------------------------------------------------------------+|||
-|||                                      IpPermissionsEgress                                     |||
-||+----------------------------------------------------------------------------------------------+||
-|||                                          IpProtocol                                          |||
-||+----------------------------------------------------------------------------------------------+||
-|||  -1                                                                                          |||
-||+----------------------------------------------------------------------------------------------+||
-||||                                          IpRanges                                          ||||
-|||+--------------------------------------------------------------------------------------------+|||
-||||                                           CidrIp                                           ||||
-|||+--------------------------------------------------------------------------------------------+|||
-||||  0.0.0.0/0                                                                                 ||||
-|||+--------------------------------------------------------------------------------------------+|||
+----------------------------------------------------------
+|                 DescribeSecurityGroups                 |
++--------------------------------------------------------+
+||                    SecurityGroups                    ||
+|+--------------+---------------------------------------+|
+||  Description |  francois606 Demo Lab Security Group  ||
+||  GroupId     |  sg-0a518bf1e2fd2cc83                 ||
+||  GroupName   |  francois606-demo-lab                 ||
+||  OwnerId     |  733718180495                         ||
+||  VpcId       |  vpc-476c332e                         ||
+|+--------------+---------------------------------------+|
+|||                    IpPermissions                   |||
+||+----------------------------------+-----------------+||
+|||  FromPort                        |  80             |||
+|||  IpProtocol                      |  tcp            |||
+|||  ToPort                          |  80             |||
+||+----------------------------------+-----------------+||
+||||                     IpRanges                     ||||
+|||+---------------------+----------------------------+|||
+||||  CidrIp             |  0.0.0.0/0                 ||||
+|||+---------------------+----------------------------+|||
+|||                    IpPermissions                   |||
+||+----------------------------------+-----------------+||
+|||  FromPort                        |  22             |||
+|||  IpProtocol                      |  tcp            |||
+|||  ToPort                          |  22             |||
+||+----------------------------------+-----------------+||
+||||                     IpRanges                     ||||
+|||+---------------------+----------------------------+|||
+||||  CidrIp             |  0.0.0.0/0                 ||||
+|||+---------------------+----------------------------+|||
+|||                    IpPermissions                   |||
+||+--------------------------------+-------------------+||
+|||  FromPort                      |  3000             |||
+|||  IpProtocol                    |  tcp              |||
+|||  ToPort                        |  3000             |||
+||+--------------------------------+-------------------+||
+||||                     IpRanges                     ||||
+|||+---------------------+----------------------------+|||
+||||  CidrIp             |  0.0.0.0/0                 ||||
+|||+---------------------+----------------------------+|||
+|||                 IpPermissionsEgress                |||
+||+------------------------------------+---------------+||
+|||  IpProtocol                        |  -1           |||
+||+------------------------------------+---------------+||
+||||                     IpRanges                     ||||
+|||+---------------------+----------------------------+|||
+||||  CidrIp             |  0.0.0.0/0                 ||||
+|||+---------------------+----------------------------+|||
 ```
 
 On retiendra l'ID du groupe de sécurité
 
 ```bash
-export AWS_SGID="sg-04edf90e659364a62"
+export AWS_SGID="sg-0a518bf1e2fd2cc83"
 ```
 
 ### 2.2. Clé d'accès
 
 ```bash
-aws ec2 create-key-pair --key-name demo-lab-key --query 'KeyMaterial' --output text > ~/.ssh/demo-lab-key.pem
+aws ec2 create-key-pair --key-name $LABID-demo-lab-key --query 'KeyMaterial' --output text > ~/.ssh/$LABID-demo-lab-key.pem
 ```
 
 ```bash
-aws ec2 describe-key-pairs --key-name demo-lab-key
+aws ec2 describe-key-pairs --key-name $LABID-demo-lab-key
+```
+
+```json
 {
     "KeyPairs": [
         {
@@ -242,7 +256,7 @@ aws ec2 describe-key-pairs --key-name demo-lab-key
 Restreindre les droits
 
 ```bash
-chmod 400 ~/.ssh/demo-lab-key.pem
+chmod 400 ~/.ssh/$LABID-demo-lab-key.pem
 ```
 
 ### 2.3. Lancer une instance t2.micro
@@ -250,7 +264,7 @@ chmod 400 ~/.ssh/demo-lab-key.pem
 ```bash
 aws ec2 run-instances \
     --instance-type t2.micro \
-    --key-name demo-lab-key \
+    --key-name $LABID-demo-lab-key \
     --security-group-ids $AWS_SGID \
     --image-id $AWS_IMAGE
 ```
@@ -368,125 +382,9 @@ aws ec2 describe-instances
 aws ec2 describe-instances --output table
 ```
 
-```bash
-aws ec2 describe-instances --output table
-------------------------------------------------------------------------------------
-|                                 DescribeInstances                                |
-+----------------------------------------------------------------------------------+
-||                                  Reservations                                  ||
-|+---------------------------------+----------------------------------------------+|
-||  OwnerId                        |  733718180495                                ||
-||  ReservationId                  |  r-091126bd779f312ce                         ||
-|+---------------------------------+----------------------------------------------+|
-|||                                   Instances                                  |||
-||+------------------------+-----------------------------------------------------+||
-|||  AmiLaunchIndex        |  0                                                  |||
-|||  Architecture          |  x86_64                                             |||
-|||  ClientToken           |                                                     |||
-|||  EbsOptimized          |  False                                              |||
-|||  EnaSupport            |  True                                               |||
-|||  Hypervisor            |  xen                                                |||
-|||  ImageId               |  ami-0ebc281c20e89ba4b                              |||
-|||  InstanceId            |  i-03f6971fddaff8558                                |||
-|||  InstanceType          |  t2.micro                                           |||
-|||  KeyName               |  demo-lab-key                                       |||
-|||  LaunchTime            |  2018-10-28T12:34:52.000Z                           |||
-|||  PrivateDnsName        |  ip-172-31-35-250.eu-west-3.compute.internal        |||
-|||  PrivateIpAddress      |  172.31.35.250                                      |||
-|||  PublicDnsName         |  ec2-35-180-32-243.eu-west-3.compute.amazonaws.com  |||
-|||  PublicIpAddress       |  35.180.32.243                                      |||
-|||  RootDeviceName        |  /dev/xvda                                          |||
-|||  RootDeviceType        |  ebs                                                |||
-|||  SourceDestCheck       |  True                                               |||
-|||  StateTransitionReason |                                                     |||
-|||  SubnetId              |  subnet-074deb4a                                    |||
-|||  VirtualizationType    |  hvm                                                |||
-|||  VpcId                 |  vpc-476c332e                                       |||
-||+------------------------+-----------------------------------------------------+||
-||||                             BlockDeviceMappings                            ||||
-|||+--------------------------------------+-------------------------------------+|||
-||||  DeviceName                          |  /dev/xvda                          ||||
-|||+--------------------------------------+-------------------------------------+|||
-|||||                                    Ebs                                   |||||
-||||+--------------------------------+-----------------------------------------+||||
-|||||  AttachTime                    |  2018-10-28T12:34:52.000Z               |||||
-|||||  DeleteOnTermination           |  True                                   |||||
-|||||  Status                        |  attached                               |||||
-|||||  VolumeId                      |  vol-043ff032d638e917a                  |||||
-||||+--------------------------------+-----------------------------------------+||||
-||||                                 CpuOptions                                 ||||
-|||+-----------------------------------------------------------+----------------+|||
-||||  CoreCount                                                |  1             ||||
-||||  ThreadsPerCore                                           |  1             ||||
-|||+-----------------------------------------------------------+----------------+|||
-||||                                 Monitoring                                 ||||
-|||+-------------------------------+--------------------------------------------+|||
-||||  State                        |  disabled                                  ||||
-|||+-------------------------------+--------------------------------------------+|||
-||||                              NetworkInterfaces                             ||||
-|||+-----------------------+----------------------------------------------------+|||
-||||  Description          |                                                    ||||
-||||  MacAddress           |  0e:3e:0a:fc:59:56                                 ||||
-||||  NetworkInterfaceId   |  eni-092f4bd7687ea0b89                             ||||
-||||  OwnerId              |  733718180495                                      ||||
-||||  PrivateDnsName       |  ip-172-31-35-250.eu-west-3.compute.internal       ||||
-||||  PrivateIpAddress     |  172.31.35.250                                     ||||
-||||  SourceDestCheck      |  True                                              ||||
-||||  Status               |  in-use                                            ||||
-||||  SubnetId             |  subnet-074deb4a                                   ||||
-||||  VpcId                |  vpc-476c332e                                      ||||
-|||+-----------------------+----------------------------------------------------+|||
-|||||                                Association                               |||||
-||||+----------------+---------------------------------------------------------+||||
-|||||  IpOwnerId     |  amazon                                                 |||||
-|||||  PublicDnsName |  ec2-35-180-32-243.eu-west-3.compute.amazonaws.com      |||||
-|||||  PublicIp      |  35.180.32.243                                          |||||
-||||+----------------+---------------------------------------------------------+||||
-|||||                                Attachment                                |||||
-||||+------------------------------+-------------------------------------------+||||
-|||||  AttachTime                  |  2018-10-28T12:34:52.000Z                 |||||
-|||||  AttachmentId                |  eni-attach-0f2b364177e190547             |||||
-|||||  DeleteOnTermination         |  True                                     |||||
-|||||  DeviceIndex                 |  0                                        |||||
-|||||  Status                      |  attached                                 |||||
-||||+------------------------------+-------------------------------------------+||||
-|||||                                  Groups                                  |||||
-||||+-------------------------+------------------------------------------------+||||
-|||||  GroupId                |  sg-04edf90e659364a62                          |||||
-|||||  GroupName              |  demo-lab                                      |||||
-||||+-------------------------+------------------------------------------------+||||
-|||||                            PrivateIpAddresses                            |||||
-||||+---------------------+----------------------------------------------------+||||
-|||||  Primary            |  True                                              |||||
-|||||  PrivateDnsName     |  ip-172-31-35-250.eu-west-3.compute.internal       |||||
-|||||  PrivateIpAddress   |  172.31.35.250                                     |||||
-||||+---------------------+----------------------------------------------------+||||
-||||||                               Association                              ||||||
-|||||+----------------+-------------------------------------------------------+|||||
-||||||  IpOwnerId     |  amazon                                               ||||||
-||||||  PublicDnsName |  ec2-35-180-32-243.eu-west-3.compute.amazonaws.com    ||||||
-||||||  PublicIp      |  35.180.32.243                                        ||||||
-|||||+----------------+-------------------------------------------------------+|||||
-||||                                  Placement                                 ||||
-|||+--------------------------------------------+-------------------------------+|||
-||||  AvailabilityZone                          |  eu-west-3c                   ||||
-||||  GroupName                                 |                               ||||
-||||  Tenancy                                   |  default                      ||||
-|||+--------------------------------------------+-------------------------------+|||
-||||                               SecurityGroups                               ||||
-|||+-------------------------+--------------------------------------------------+|||
-||||  GroupId                |  sg-04edf90e659364a62                            ||||
-||||  GroupName              |  demo-lab                                        ||||
-|||+-------------------------+--------------------------------------------------+|||
-||||                                    State                                   ||||
-|||+-------------------------------+--------------------------------------------+|||
-||||  Code                         |  16                                        ||||
-||||  Name                         |  running                                   ||||
-|||+-------------------------------+--------------------------------------------+|||
-```
 
 ```bash
-aws ec2 describe-instances --filters "Name=tag:Name,Values=demo-lab"
+aws ec2 describe-instances --filters "Name=instance.group-name,Values=$LABID-demo-lab"
 
 ```
 
@@ -495,25 +393,32 @@ aws ec2 describe-instances --filters "Name=instance-type,Values=t2.micro" --quer
 ```
 
 ```bash
-[
-    "i-01295da4c589e3178"
-]
+aws ec2 describe-instances --filters "Name=instance.group-name,Values=$LABID-demo-lab" --query Reservations[].Instances[].InstanceId --output text
 ```
 
 ```bash
-export AWS_INSTANCE="i-03f6971fddaff8558"
+i-01295da4c589e3178
+```
+
+```bash
+export AWS_INSTANCE="$(aws ec2 describe-instances --filters "Name=instance.group-name,Values=$LABID-demo-lab" --query Reservations[].Instances[].InstanceId --output text)"
 ```
 
 ```bash
 aws ec2 describe-instances \
     --instance-ids $AWS_INSTANCE \
-    --query "Reservations[*].Instances[*].PublicDnsName"
+    --query "Reservations[*].Instances[*].PublicDnsName" --output text
 ```
+
+```bash
+INSTANCE=$(aws ec2 describe-instances --instance-ids $AWS_INSTANCE --query "Reservations[*].Instances[*].PublicDnsName" --output text)
+```
+
 
 ### 2.5. Connexion à l'instance
 
 ```bash
-ssh -i ~/.ssh/demo-lab-key.pem ec2-user@ec2-35-180-32-243.eu-west-3.compute.amazonaws.com
+ssh -i ~/.ssh/$LABID-demo-lab-key.pem ec2-user@$INSTANCE
 ```
 
 ### 2.6. Opérations sur l'instance (Ansible)
@@ -612,8 +517,10 @@ sudo start helloworld
 
 ### 2.8. Terminer une instance
 
+
+
 ```bash
-aws ec2 terminate-instances --instance-ids $AWS_INSTANCE
+aws ec2 stop-instances --instance-ids $AWS_INSTANCE && aws ec2 terminate-instances --instance-ids $AWS_INSTANCE
 ```
 
 ### 2.9. Supprimer une paire de clés
