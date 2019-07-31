@@ -55,14 +55,29 @@ Source : [Magic Quadrant for Cloud Infrastructure as a Service, Worldwide](https
 
 L'AWS CLI est un outil à code source libre qui vous permet d'interagir avec les services AWS à l'aide des commandes du shell de ligne de commande. Avec une configuration minimale, vous pouvez commencer à utiliser toutes les fonctionnalités fournies par la console AWS Management Console depuis l'invite de commande de votre programme terminal préféré.
 
+Par exemple, pour Centos 7 :
+
+```bash
+sudo yum -y install epel-release
+sudo yum -y install python36
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+sudo python3 get-pip.py
+pip3 install awscli --upgrade --user
+aws --version
+
+```
+
 ### 4.2. Configuration de l'AWS CLI
 
 [Configuration de l'AWS CLI](https://docs.aws.amazon.com/fr_fr/cli/latest/userguide/cli-chap-configure.html)
 
+* En ligne de commande : par exemple avec `aws configure --profile user2`.
+* En créant un dossier `~/.aws/` contenant deux fichiers `~/.aws/credentials` et `~/.aws/config`.
+
 ### 4.3. Boto 3
 
 ```bash
-pip install boto3
+pip3 install boto3 --upgrade --user
 ```
 
 ## 5. Régions et AZ (zone de disponibilté)
