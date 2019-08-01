@@ -91,6 +91,97 @@ aws ec2 describe-images --owners amazon \
 --output json | jq -r '.Images | sort_by(.CreationDate) | last(.[]).ImageId'
 ```
 
+### 1.2. Fabriquer une image AMI
+
+* Fabriquer une image AMI avec [Packer](https://www.packer.io/)
+* Fabriquer une image AMI avec Packer en intégration continue
+
+comme :
+
+* [Builder](https://www.packer.io/docs/builders/index.html),
+* [Provisioner](https://www.packer.io/docs/provisioners/index.html)
+* [Post-Processor](https://www.packer.io/docs/post-processors/index.html)
+
+```bash
+sudo yum -y install wget unzip
+wget https://releases.hashicorp.com/packer/1.4.2/packer_1.4.2_linux_amd64.zip
+unzip packer_1.4.2_linux_amd64.zip
+chmod +x packer
+sudo mv packer /usr/local/bin/
+```
+
+Un fichier déclaratif en format JSON : `ami.json`.
+
+```json
+{
+  "variables": {
+    "aws_access_key": "{{env `AWS_ACCESS_KEY_ID`}}",
+    "aws_secret_key": "{{env `AWS_SECRET_ACCESS_KEY`}}"
+  },
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "access_key": "{{user `aws_access_key`}}",
+      "secret_key": "{{user `aws_secret_key`}}",
+      "region": "eu-west-3",
+      "source_ami": "ami-0c4224e392ec4e440",
+      "instance_type": "t2.micro",
+      "ssh_username": "{{env `USER`}}",
+      "ami_name": "packer_AWS {{timestamp}}"
+    }
+  ]
+}
+```
+
+Création de l'AMI.
+
+```bash
+packer build ami-ubuntu.json
+```
+
+```bash
+...
+==> Builds finished. The artifacts of successful builds are:
+--> amazon-ebs: AMIs were created:
+eu-west-3: ami-077dc62244c80aac7
+```
+
+Approvisionnement : des logiciels intégrés et tiers installent et configurent l'image après son démarrage sur la VM de construction.
+
+```json
+  "provisioners": [
+    {
+      "type": "shell",
+      "execute_command": "{{ .Vars }} sudo -E bash '{{ .Path }}'",
+      "inline": [
+        "sudo apt-get update",
+        "sudo apt-get -y install software-properties-common",
+        "sudo apt-add-repository --yes --update ppa:ansible/ansible",
+        "sudo apt update",
+        "sudo apt -y install ansible"
+      ]
+    },
+    {
+      "type": "ansible-local",
+      "playbook_file": "ansible/playbook.yml",
+      "playbook_dir": "ansible"
+    },
+    {
+      "type": "shell",
+      "execute_command": "{{ .Vars }} sudo -E bash '{{ .Path }}'",
+      "inline": [
+        "sudo apt -y remove ansible",
+        "sudo apt-get clean",
+        "sudo apt-get -y autoremove --purge"
+      ]
+    }
+  ]
+```
+
+Post-traitement :
+
+
+
 ## 2. Création d'une instance EC2 avec aws cli
 
 ### 2.1. VPC
@@ -517,19 +608,21 @@ sudo start helloworld
 
 ### 2.8. Terminer une instance
 
-
-
 ```bash
 aws ec2 stop-instances --instance-ids $AWS_INSTANCE && aws ec2 terminate-instances --instance-ids $AWS_INSTANCE
 ```
 
 ### 2.9. Supprimer une paire de clés
 
-...
+```bash
+aws ec2 delete-key-pair --key-name $LABID-demo-lab-key
+```
 
 ### 2.10. Supprimer un groupe de sécurité
 
-...
+```bash
+aws ec2 delete-security-group --group-name $LABID-demo-lab
+```
 
 ### 2.11. Déploiement avec Cloud-init
 
@@ -539,9 +632,11 @@ aws ec2 stop-instances --instance-ids $AWS_INSTANCE && aws ec2 terminate-instanc
 
 ## 3. AWS automatisé en Bash
 
-...
+Exercice à réaliser
 
 ## 4. AWS EC2 avec Ansible
+
+Voir le dossier [ansible-aws](https://gitlab.com/goffinet/gitbook-gitlab/tree/master/ansible-aws) du projet.
 
 * roles ec2 aws
 * envoi de crédits
