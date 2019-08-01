@@ -524,8 +524,10 @@ ssh -i ~/.ssh/$LABID-demo-lab-key.pem ubuntu@$INSTANCE
 ### 2.6. Opérations sur l'instance (Ansible)
 
 ```bash
-sudo yum -y update || sudo apt -y install python-pip
-sudo pip install --upgrade pip
+sudo yum -y install epel-release
+sudo yum -y install python36
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+sudo python3 get-pip.py
 sudo pip install ansible
 ```
 
