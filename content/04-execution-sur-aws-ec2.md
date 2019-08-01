@@ -525,6 +525,7 @@ ssh -i ~/.ssh/$LABID-demo-lab-key.pem ubuntu@$INSTANCE
 
 ```bash
 sudo yum -y update
+sudo apt -y install python-pip
 pip install --upgrade pip
 sudo pip install ansible
 ```
