@@ -411,7 +411,7 @@ cat << EOF > /tmp/distconfig.json
     "LambdaFunctionAssociations": {
       "Quantity": 0
     },
-    "TargetOriginId": "${BUCKET_NAME}.s3-website-${BUCKET_REGION}.amazonaws.com",
+    "TargetOriginId": "S3-${BUCKET_NAME}",
     "ViewerProtocolPolicy": "redirect-to-https",
     "ForwardedValues": {
       "Headers": {
@@ -445,7 +445,7 @@ cat << EOF > /tmp/distconfig.json
     "MinTTL": 0,
     "Compress": true
   },
-  "CallerReference": "'${BUCKET_NAME}'-'`date +%s`'",
+  "CallerReference": "S3-${BUCKET_NAME}",
   "ViewerCertificate": {
     "SSLSupportMethod": "sni-only",
     "ACMCertificateArn": "${CERTIFICATE_ARN}",
@@ -482,10 +482,7 @@ cat << EOF > /tmp/distconfig.json
     }
   },
   "Aliases": {
-    "Items": [
-      "${BUCKET_NAME}"
-    ],
-    "Quantity": 1
+    "Quantity": 0
   }
 }
 EOF
