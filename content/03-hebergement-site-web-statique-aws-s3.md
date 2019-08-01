@@ -16,13 +16,13 @@ On trouvera ici une proposition à évaluer, à adapter et à améliorer sous fo
 * HTTPS : AWS Certificate Manager
 * Credits Management : AWS IAM
 
-### Phases
+### 1.1. Phases
 
 * Phase de construction et de déploiement sur un Bucket S3 existant (pipeline CI/CD)
 * Infrastructure nécessaire : Nom, DNS, Distribution, certificat, utilisateur et policies (IaC)
 * Comment intégrer les deux ?
 
-### Phase Infra
+### 1.2. Phase Infra
 
 * Création du Bucket S3 avec une propriété 'website'. Existe-t-il ?
 * Une distribution Cloudfront associée au Bucket S3 existe-t-elle ?
@@ -30,7 +30,7 @@ On trouvera ici une proposition à évaluer, à adapter et à améliorer sous fo
 * Le certificat HTTPS existe-t-il pour le domaine ?
 * Idempotence ?
 
-### 1.1. Livrable Web aux normes actuelles
+### 1.3. Livrable Web aux normes actuelles
 
 * IPv6
 * HTTP 2.0
@@ -38,7 +38,7 @@ On trouvera ici une proposition à évaluer, à adapter et à améliorer sous fo
 * HTTPS
 * Robustesse du stockage
 
-### 1.2. Avantages des sites Web statiques
+### 1.4. Avantages des sites Web statiques
 
 Qu'est-ce qu'un générateur de site statique ?
 
@@ -55,7 +55,7 @@ On peut caractériser les sites fabriqués de cette manière :
 * Les sites statiques sont en HTML, CSS et JavaScript.
 * Les performances, l'hébergement, la sécurité, la gestion des versions de contenu sont des avantages des sites statiques.
 
-### 1.3. Coûts estimés
+### 1.5. Coûts estimés
 
 Coûts estimés mensuels.
 
@@ -63,7 +63,7 @@ Coûts estimés mensuels.
 
 [AWS Tableau de bord Gestion de la facturation et des coûts](https://console.aws.amazon.com/billing/home?region=us-east-1#/)
 
-### 1.4. Aspects dynamiques
+### 1.6. Aspects dynamiques
 
 Il y a lieu de réfléchir aux aspects dynamiques à donner au livrable.
 
@@ -73,7 +73,7 @@ Il y a lieu de réfléchir aux aspects dynamiques à donner au livrable.
 * URL signées
 * ...
 
-### Droits nécessaires
+### 1.7. Droits nécessaires
 
 À définir précisément.
 
@@ -194,7 +194,7 @@ aws s3 rm s3://${BUCKET_NAME} --recursive
 aws s3 rb s3://${BUCKET_NAME}
 ```
 
-### Étape 2 Distribution Cloudfront et certificat HTTPS
+### Étape 2 : Certificat TLS
 
 Créez une distribution web CloudFront. Assurez-vous de configurer les paramètres suivants :
 
@@ -303,11 +303,61 @@ aws acm describe-certificate \
 --region us-east-1
 ```
 
-### Création de la distribution.
+### Étape 3 : Création de la distribution Cloudfront
 
 ```bash
 aws configure set preview.cloudfront true
 ```
+
+```json
+{
+  "CallerReference": "my-distribution-2015-09-01",
+  "Aliases": {
+    "Quantity": 0
+  },
+  "DefaultRootObject": "index.html",
+  "Origins": {
+    "Quantity": 1,
+    "Items": [
+      {
+        "Id": "my-origin",
+        "DomainName": "my-bucket.s3.amazonaws.com",
+        "S3OriginConfig": {
+          "OriginAccessIdentity": ""
+        }
+      }
+    ]
+  },
+  "DefaultCacheBehavior": {
+    "TargetOriginId": "my-origin",
+    "ForwardedValues": {
+      "QueryString": true,
+      "Cookies": {
+        "Forward": "none"
+      }
+    },
+    "TrustedSigners": {
+      "Enabled": false,
+      "Quantity": 0
+    },
+    "ViewerProtocolPolicy": "allow-all",
+    "MinTTL": 3600
+  },
+  "CacheBehaviors": {
+    "Quantity": 0
+  },
+  "Comment": "",
+  "Logging": {
+    "Enabled": false,
+    "IncludeCookies": true,
+    "Bucket": "",
+    "Prefix": ""
+  },
+  "PriceClass": "PriceClass_All",
+  "Enabled": true
+}
+```
+
 
 ```json
 cat << EOF > /tmp/distconfig.json
@@ -361,7 +411,7 @@ cat << EOF > /tmp/distconfig.json
     "LambdaFunctionAssociations": {
       "Quantity": 0
     },
-    "TargetOriginId": "S3-${BUCKET_NAME}",
+    "TargetOriginId": "${BUCKET_NAME}.s3-website-${BUCKET_REGION}.amazonaws.com",
     "ViewerProtocolPolicy": "redirect-to-https",
     "ForwardedValues": {
       "Headers": {
@@ -465,12 +515,12 @@ aws cloudfront list-distributions | grep -B 8 "$BUCKET_NAME" | head
 aws cloudfront wait distribution-deployed --id ...
 ```
 
-### Mise à jour du bucket pour une redirection vers la distribution
+### Étape 4 : Mise à jour du bucket pour une redirection vers la distribution
+
+...
 
 
-
-
-### Étape 3 : Mise à jour de l'entrée DNS
+### Étape 5 : Mise à jour de l'entrée DNS
 
 Mettez à jour les enregistrements DNS pour que votre domaine pointe le CNAME de votre site web vers votre nom de domaine de distribution CloudFront. Le nom de domaine de votre distribution est disponible dans la console CloudFront dans un format similaire à celui-ci : d16imb1u6cuxhd.cloudfront.net.
 
@@ -505,9 +555,7 @@ aws route53 change-resource-record-sets --hosted-zone-id ${R53_HOSTED_ZONE} --ch
 
 Note : Pour les points de terminaison optimisés pour les périphériques, l'ID de la zone hébergée Route 53 est Z2FDTNDATAQYW2 pour toutes les régions.
 
-### Étape 4
-
-Utilisateur S3 pour les mise à jour
+### Étape 6 : Utilisateur S3 pour les mises à jour
 
 Create the user
 
@@ -536,7 +584,7 @@ aws iam create-access-key --user-name S3-user
 
 ```
 
-### Étape 5
+### Étape 7 : Mise à jour du site et effacement du cache CDN
 
 ```bash
 CDN_DISTRIBUTION_ID="..."
