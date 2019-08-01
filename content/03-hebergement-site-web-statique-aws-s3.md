@@ -136,14 +136,19 @@ Se référer à [Hosting a Static Website with Hugo and AWS](https://nickolaskra
 
 Créer un compartiment et activer l'hébergement d'un site web statique sur le compartiment.
 
-Le point de terminaison de votre compartiment est `bucketname.s3-website-region.amazonaws.com`.
+Le point de terminaison de votre compartiment est `${BUCKET_NAME}.s3-website.$BUCKET_REGION.amazonaws.com`.
 
-Ajoutez une stratégie de compartiment qui autorise un accès en lecture public sur le compartiment que vous avez créé.
 
 ```bash
-HOST=${USER}${RANDOM}
-BUCKET_NAME="${HOST}.aws-fr.com"
-BUCKET_REGION="eu-west-3"
+export WEBHOST=${USER}${RANDOM}
+export WEBDOMAIN="aws-fr.com"
+export BUCKET_NAME="${WEBHOST}.${WEBDOMAIN}"
+export BUCKET_REGION="eu-west-3"
+```
+
+Création du Bucket correspondant domaine proposé et ajout une stratégie de compartiment qui autorise un accès en lecture public.
+
+```bash
 aws s3 mb s3://${BUCKET_NAME} --region ${BUCKET_REGION}
 echo '{
   "Version": "2012-10-17",
@@ -157,17 +162,14 @@ echo '{
     }
   ]
 }' > /tmp/policy.json
-
 aws s3api put-bucket-policy --bucket ${BUCKET_NAME} --policy file:///tmp/policy.json
-
 aws s3 website s3://${BUCKET_NAME} --index-document index.html --error-document error.html
 ```
 
-Création et téléchargement d'une page Web `index.html`.
+Création et téléchargement d'une page Web `index.html` dans le bucket.
 
 ```bash
 mkdir website
-
 cat << EOF > website/index.html
 <html xmlns="http://www.w3.org/1999/xhtml">
 <meta charset="UTF-8">
@@ -181,11 +183,11 @@ cat << EOF > website/index.html
 </html>
 EOF
 aws s3 sync --acl public-read --delete website/ s3://${BUCKET_NAME}
-curl http://${BUCKET_NAME}.s3-website.eu-west-3.amazonaws.com/
-
+echo "Test on http://${BUCKET_NAME}.s3-website.${BUCKET_REGION}.amazonaws.com/"
+curl http://${BUCKET_NAME}.s3-website.${BUCKET_REGION}.amazonaws.com/
 ```
 
-Suppression du contenu et effacement :
+Si nécessaire, suppression du contenu et effacement du bucket :
 
 ```bash
 aws s3 rm s3://${BUCKET_NAME} --recursive
@@ -199,27 +201,112 @@ Créez une distribution web CloudFront. Assurez-vous de configurer les paramètr
 * Pour "Nom du domaine d'origine", indiquez le point de terminaison.
 * Pour "Méthodes HTTP autorisées", sélectionnez `GET`, `HEAD`, `OPTIONS`.
 * Pour "Autres noms de domaine (CNAME)", entrez le `CNAME` que vous souhaitez utiliser pour votre site web.
+* Pour Cloudfront on utilise un certificat de la région "us-east-1".
 
 Par exemple :
 
 ```bash
-aws acm request-certificate --domain-name aws-fr.com --subject-alternative-names ${BUCKET_NAME}
+aws acm request-certificate \
+--domain-name zozo.fr \
+--subject-alternative-names www.zozo.fr \
+--validation-method DNS \
+--query CertificateArn \
+--region eu-west-3 \
+--output text
+
+arn:aws:acm:eu-west-3:733718180495:certificate/1c0967e1-f2b7-4988-a626-eeebd1939ada
 ```
 
-```json
+Quoi qu'il en soit l'ARN du certificat sera nécessaire.
+
+On le place dans une variable `CERTIFICATE_ARN` :
+
+```bash
+CERTIFICATE_ARN=`aws acm request-certificate \
+--domain-name ${BUCKET_NAME} \
+--validation-method DNS \
+--query CertificateArn \
+--region us-east-1 \
+--output text`
+```
+
+Vérification de la validation DNS :
+
+```bash
+aws acm describe-certificate \
+--certificate-arn ${CERTIFICATE_ARN} \
+--query Certificate.DomainValidationOptions \
+--region us-east-1
+```
+
+Variables :
+
+```bash
+TLS_CERT_NAME=`aws acm describe-certificate \
+--certificate-arn ${CERTIFICATE_ARN} \
+--query Certificate.DomainValidationOptions \
+--region us-east-1 \
+| jq -r ".[] | select(.DomainName == \"${BUCKET_NAME}\").ResourceRecord.Name"`
+TLS_CERT_VALUE=`aws acm describe-certificate \
+--certificate-arn ${CERTIFICATE_ARN} \
+--query Certificate.DomainValidationOptions \
+--region us-east-1 \
+| jq -r ".[] | select(.DomainName == \"${BUCKET_NAME}\").ResourceRecord.Value"`
+R53_HOSTED_ZONE=`aws route53 list-hosted-zones-by-name \
+--dns-name ${WEBDOMAIN} \
+--query HostedZones \
+| jq -r ".[] | select(.Name == \"${WEBDOMAIN}.\").Id" \
+| sed 's/\/hostedzone\///'`
+```
+
+```bash
+cat << EOF > /tmp/dns-validation.json
 {
-    "CertificateArn": "arn:aws:acm:eu-west-3:733718180495:certificate/fa55d90a-b52a-4d29-82af-c401521b68ea"
+  "Comment": "DNS Validation CNAME record",
+  "Changes": [
+    {
+      "Action": "CREATE",
+      "ResourceRecordSet": {
+        "Name": "$TLS_CERT_NAME",
+        "Type": "CNAME",
+        "TTL": 300,
+        "ResourceRecords": [
+          {
+            "Value": "$TLS_CERT_VALUE"
+          }
+        ]
+      }
+    }
+  ]
 }
+EOF
 ```
 
-Quoi qu'il en soit l'"arn" du certificat sera nécessaire. On le place dans une variable `CERTIFICATE_ARN`
+```bash
+aws route53 change-resource-record-sets \
+--hosted-zone-id ${R53_HOSTED_ZONE} \
+--change-batch file:///tmp/dns-validation.json \
+--query ChangeInfo.Id \
+--output text
+```
+
+```bash
+aws acm wait certificate-validated \
+--certificate-arn ${CERTIFICATE_ARN} \
+--region us-east-1
+```
+
+```bash
+aws acm describe-certificate \
+--certificate-arn ${CERTIFICATE_ARN} \
+--query Certificate.Status \
+--region us-east-1
+```
+
+### Création de la distribution.
 
 ```bash
 aws configure set preview.cloudfront true
-```
-
-```bash
-CERTIFICATE_ARN="arn:aws:acm:eu-west-3:733718180495:certificate/fa55d90a-b52a-4d29-82af-c401521b68ea"
 ```
 
 ```json
@@ -358,12 +445,34 @@ EOF
 aws cloudfront create-distribution --distribution-config file:///tmp/distconfig.json > /tmp/distconfig_result.json
 
 cat /tmp/distconfig_result.json | jq .Distribution.DomainName
-
 ```
 
-### Étape 3
+Mise en variable du nom de la distribution Cloudfront.
 
-Mettez à jour les enregistrements DNS pour que votre domaine pointe le CNAME de votre site web vers votre nom de domaine de distribution CloudFront. Le nom de domaine de votre distribution est disponible dans la console CloudFront dans un format similaire à celui-ci : d1234abcd.cloudfront.net.
+```bash
+CFNAME=`cat /tmp/distconfig_result.json | jq -r '.Distribution.DomainName'`
+```
+
+Il sera nécessaire d'attendre 10 à 30 minutes le temps du déploiement de la distribution.
+
+Pour le diagnostic, à améliorer en automatisation :
+
+```bash
+aws cloudfront list-distributions | grep -B 8 "$BUCKET_NAME" | head
+```
+
+```bash
+aws cloudfront wait distribution-deployed --id ...
+```
+
+### Mise à jour du bucket pour une redirection vers la distribution
+
+
+
+
+### Étape 3 : Mise à jour de l'entrée DNS
+
+Mettez à jour les enregistrements DNS pour que votre domaine pointe le CNAME de votre site web vers votre nom de domaine de distribution CloudFront. Le nom de domaine de votre distribution est disponible dans la console CloudFront dans un format similaire à celui-ci : d16imb1u6cuxhd.cloudfront.net.
 
 Attendez que vos modifications de DNS soient propagées et que les entrées précédentes du DNS expirent.
 
@@ -372,6 +481,7 @@ Attendez que vos modifications de DNS soient propagées et que les entrées pré
 [Jeu d'enregistrement de ressources d'alias pour une distribution CloudFront](https://docs.aws.amazon.com/fr_fr/AWSCloudFormation/latest/UserGuide/quickref-route53.html#w2ab1c17c23c81c11)
 
 ```json
+cat << EOF > /tmp/route53-entry.json
 {
   "Comment": "Creating Alias resource record sets in Route 53",
   "Changes": [
@@ -382,17 +492,15 @@ Attendez que vos modifications de DNS soient propagées et que les entrées pré
         "Type": "A",
         "AliasTarget": {
           "HostedZoneId": "Z2FDTNDATAQYW2",
-          "DNSName": "CLOUDFRONT",
+          "DNSName": "${CFNAME}",
           "EvaluateTargetHealth": false
         }
       }
     }
   ]
 }
-```
-
-```
-aws route53 change-resource-record-sets --hosted-zone-id Z2FDTNDATAQYW2 --change-batch file:///tmp/route53-.json
+EOF
+aws route53 change-resource-record-sets --hosted-zone-id ${R53_HOSTED_ZONE} --change-batch file:///tmp/route53-entry.json
 ```
 
 Note : Pour les points de terminaison optimisés pour les périphériques, l'ID de la zone hébergée Route 53 est Z2FDTNDATAQYW2 pour toutes les régions.
@@ -404,13 +512,13 @@ Utilisateur S3 pour les mise à jour
 Create the user
 
 ```bash
-aws iam create-user --user-name S3-user
+aws iam create-user --user-name ${WEBHOST}
 ```
 
 Create the policy
 
 ```bash
-aws iam create-policy --policy-name S3-user-write --policy-document file://iam.json
+aws iam create-policy --policy-name ${WEBHOST}-write --policy-document file://iam.json
 
 ```
 
@@ -431,7 +539,7 @@ aws iam create-access-key --user-name S3-user
 ### Étape 5
 
 ```bash
-CDN_DISTRIBUTION_ID="E2E3MF8G25BWVL"
+CDN_DISTRIBUTION_ID="..."
 aws s3 sync --acl public-read --delete website/ s3://${BUCKET_NAME}
 aws cloudfront create-invalidation --distribution-id ${CDN_DISTRIBUTION_ID} --paths "/*"
 # The next time a viewer requests the file, CloudFront returns to the origin to fetch the latest version of the file.
@@ -460,7 +568,7 @@ aws cloudfront create-invalidation --distribution-id ${CDN_DISTRIBUTION_ID} --pa
 
 ## 5. Expérimentation Ansible
 
-Voici un exemple de livre de jeu en un seul fichier déploie un site web en HTTP sur un Bucket S3 et qui le détruit ensuite (fichier [demo-s3-http.yml]({{ book.repo }}ansible-aws/demo-s3-http.yml)).
+Voici un exemple de livre de jeu en un seul fichier qui déploie un site web en HTTP sur un Bucket S3 et qui le détruit ensuite (fichier [demo-s3-http.yml]({{ book.repo }}ansible-aws/demo-s3-http.yml)).
 
 ```yaml
 #demo-s3-http.yml

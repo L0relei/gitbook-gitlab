@@ -647,7 +647,7 @@ Exercice à réaliser
 
 ## 4. AWS EC2 avec Ansible
 
-Voir le dossier [ansible-aws](https://gitlab.com/goffinet/gitbook-gitlab/tree/master/ansible-aws) du projet.
+À Compléter.
 
 * roles ec2 aws
 * envoi de crédits
