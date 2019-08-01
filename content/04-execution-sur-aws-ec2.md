@@ -525,9 +525,9 @@ ssh -i ~/.ssh/$LABID-demo-lab-key.pem ubuntu@$INSTANCE
 
 ```bash
 sudo yum -y install epel-release
-sudo yum -y install python36
+sudo yum -y install python2
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-sudo python3 get-pip.py
+sudo python get-pip.py
 pip install ansible --user
 ```
 
