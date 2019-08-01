@@ -508,9 +508,18 @@ INSTANCE=$(aws ec2 describe-instances --instance-ids $AWS_INSTANCE --query "Rese
 
 ### 2.5. Connexion à l'instance
 
+Pour une AMI Linux Amazon :
+
 ```bash
 ssh -i ~/.ssh/$LABID-demo-lab-key.pem ec2-user@$INSTANCE
 ```
+
+Pour une AMI Ubuntu :
+
+```bash
+ssh -i ~/.ssh/$LABID-demo-lab-key.pem ubuntu@$INSTANCE
+```
+
 
 ### 2.6. Opérations sur l'instance (Ansible)
 
