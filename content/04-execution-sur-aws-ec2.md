@@ -570,7 +570,7 @@ ansible-playbook apache.yml -v
 sudo yum install --enablerepo=epel -y nodejs
 ```
 
-Fichier `hellworld.js`
+Fichier `helloworld.js`
 
 ```node
 var http = require("http")
