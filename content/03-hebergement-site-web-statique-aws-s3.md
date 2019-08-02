@@ -305,9 +305,13 @@ aws acm describe-certificate \
 
 ### Étape 3 : Création de la distribution Cloudfront
 
+Activation du service cloudfront preview :
+
 ```bash
 aws configure set preview.cloudfront true
 ```
+
+Exemple de distribution :
 
 ```json
 {
@@ -358,6 +362,7 @@ aws configure set preview.cloudfront true
 }
 ```
 
+Création de la distribution : fichier `/tmp/distconfig.json`.
 
 ```json
 cat << EOF > /tmp/distconfig.json
