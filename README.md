@@ -174,7 +174,11 @@ Build Node | AWS EC2 Gitlab-runner hosted | OVH, Scaleway, Azure, GCP, ...
 
 [Les applications 12 facteurs](https://12factor.net/fr/)
 
-## 8. DevOps Roadmap
+## 8. Certifications et formations
+
+* [A Cloud Guru](https://acloud.guru/?_ga=2.22735803.1861198514.1564726247-1958361062.1564726247)
+
+## 9. DevOps Roadmap
 
 ![DevOps Roadmap](https://github.com/kamranahmedse/developer-roadmap/raw/master/images/devops.png)
 
