@@ -717,7 +717,7 @@ On a ajouté une tâche de synchronisation d'un site de test.
 - import_tasks: sync-s3.yml
 ```
 
-On ajouté des entrées `ignore_errors` pour être en mesure de jouer le rôle.
+On a ajouté des entrées `ignore_errors` pour être en mesure de jouer le rôle.
 
 ```yaml
 #grep 'name:' roles/s3-website-hosting/tasks/s3-cloudfront-route53.yml
