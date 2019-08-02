@@ -145,7 +145,7 @@ Container Repository | **Gitlab Hub** | Docker Hub,
 Test | versions, **markdown-lint**, **npm** (gitbook), **pip** (aws-cli) | ...
 Deploy  | **aws-cli s3**  | Python API, aws-cli, openstack-cli, Ansible, ...
 
-## 8. Ops vers Dev en IaC sur AWS
+## 6. Ops vers Dev en IaC sur AWS
 
 Ops = Infrastructure
 
@@ -158,10 +158,10 @@ Name Registry  | AWS Registrar  |  OVH, Gandi
 DNS | AWS Route53 | Cloudflare, OVH
 TLS / HTTPS | AWS Certificate Manager | Let's Encrypt
 CDN | Cloudfront | Cloudflare, OVH
-Hosting / Storage | AWS S3 | ...
+Hosting / Storage | AWS S3 | Wasabi, GCP, Azure, ...
 Build Node | AWS EC2 Gitlab-runner hosted | OVH, Scaleway, Azure, GCP, ...
 
-## 6. Méthodes de configuration de l'infrastructure
+## 7. Méthodes de configuration de l'infrastructure
 
 * Manuelle dans la console
 * Manuelle ou scriptée avec aws-cli
@@ -170,15 +170,15 @@ Build Node | AWS EC2 Gitlab-runner hosted | OVH, Scaleway, Azure, GCP, ...
 * Cloudformation
 * Terraform
 
-## 7. Les applications 12 facteurs
+## 8. Les applications 12 facteurs
 
 [Les applications 12 facteurs](https://12factor.net/fr/)
 
-## 8. Certifications et formations
+## 9. Certifications et formations
 
 * [A Cloud Guru](https://acloud.guru/?_ga=2.22735803.1861198514.1564726247-1958361062.1564726247)
 
-## 9. DevOps Roadmap
+## 10. DevOps Roadmap
 
 ![DevOps Roadmap](https://github.com/kamranahmedse/developer-roadmap/raw/master/images/devops.png)
 
