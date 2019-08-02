@@ -1,7 +1,7 @@
 #!/bin/bash
 # To Launch one Ubuntu Xenial EC2 instance
 # Define several variables
-DATE_ID=$(date +%s)
+DATE_ID="aurelie$(date +%s)"
 SG_NAME="ec2-sg-$DATE_ID"
 KEY_NAME="ec2-key-$DATE_ID"
 INSTANCE_TYPE="t2.micro"

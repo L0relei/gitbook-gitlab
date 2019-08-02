@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Gitlab runner installation
-PROJECT_REGISTRATION_TOKEN="$PROJECT_REGISTRATION_TOKEN" # to define outside the script
+PROJECT_REGISTRATION_TOKEN="6PAvvQjnEWHUW4y-tJ-G" # to define outside the script
 apt-get update && apt-get -y upgrade
 apt-get -y install curl
 curl -L https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh | sudo bash
