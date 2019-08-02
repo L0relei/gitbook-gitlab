@@ -169,3 +169,13 @@ Build Node | AWS EC2 Gitlab-runner hosted | OVH, Scaleway, Azure, GCP, ...
 * Ansible
 * Cloudformation
 * Terraform
+
+## 7. Les applications 12 facteurs
+
+[Les applications 12 facteurs](https://12factor.net/fr/)
+
+## 8. DevOps Roadmap
+
+![DevOps Roadmap](https://github.com/kamranahmedse/developer-roadmap/raw/master/images/devops.png)
+
+Source : [https://github.com/kamranahmedse/developer-roadmap](https://github.com/kamranahmedse/developer-roadmap)
