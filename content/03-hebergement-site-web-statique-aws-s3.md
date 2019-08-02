@@ -910,7 +910,7 @@ Comment créer un stack en AWS Console --> lien
 Déploiement bash
 
 ```bash
-CERTIFICATE_ARN="arn:aws:acm:us-east-1:733....:certificate/..."
+CERTIFICATE_ARN="arn:aws:acm:us-east-1:733718180495:certificate/2654fcfe-fd75-4ddd-918a-d0dc0f07c8db"
 STACK_NAME="s3website$(date +%s)"
 STACK_ID=$(aws cloudformation create-stack --stack-name $STACK_NAME \
 --template-body file://s3-static-website-with-cloudfront-and-route-53.yaml \
