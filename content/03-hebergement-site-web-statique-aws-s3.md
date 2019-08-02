@@ -779,7 +779,7 @@ AWS CloudFormation fournit un langage commun pour décrire et provisionner toute
 
 Source originale : [Cloudformation template for creating static website](https://github.com/sjevs/cloudformation-s3-static-website-with-cloudfront-and-route-53)
 
-Source du support: ...
+Source du support: [Cloudformation](https://gitlab.com/goffinet/gitbook-gitlab/tree/master/cloudformation)
 
 ![Cloudformation template for creating static website](/images/WebsiteBucket-designer-2.png)
 
