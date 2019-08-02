@@ -741,7 +741,7 @@ On a ajouté des entrées `ignore_errors` pour être en mesure de jouer le rôle
 - name: Create DNS alias for CloudFront distribution on Route53
 ```
 
-Cette liste de tâche on été ajoutée.
+Cette liste de tâche a été ajoutée.
 
 ```yaml
 #roles/s3-website-hosting/tasks/sync-s3.yml
